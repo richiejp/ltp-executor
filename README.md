@@ -21,7 +21,10 @@ writer thread.
 Required dependencies:
 - C11 compatible compiler
 - CMake (and GNU Make or Ninja etc)
+- pthreads
 - liburcu
+- [libactors](https://gitlab.com/Palethorpe/libactors)(you will need to
+  install this from source)
 
 Optional:
 - Ragel (used to regenerate parser.c)
@@ -35,7 +38,6 @@ is only a debug tool and will be eventually disabled during production.
 To build:
 
 ```sh
-$ cd runltp-ng/executor
 $ mkdir build
 $ cd build
 $ cmake ..
