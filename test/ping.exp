@@ -1,0 +1,7 @@
+source [file join [file dirname $argv0] common.exp]
+
+send "ping\r"
+expect -exact "PONG\r"
+close
+
+

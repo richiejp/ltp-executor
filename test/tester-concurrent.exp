@@ -1,0 +1,34 @@
+source [file join [file dirname $argv0] common.exp]
+
+set N 8
+
+for {set id 1} {$id <= $N} {incr id} {
+    send "allc $id\n"
+}
+
+for {set i 0} {$i < $N} {incr i} {
+    expect -re {\+ALLC [0-9]+\r}
+}
+
+for {set id 1} {$id <= $N} {incr id} {
+    send "cmds $id echo$id echo from $id\n"
+}
+
+for {set i 0} {$i < $N} {incr i} {
+    expect -re {\+CMDS [0-9]+ echo[0-9]+ echo from [0-9]+\r}
+}
+
+for {set id 1} {$id <= $N} {incr id} {
+    send "exec $id\n"
+}
+
+for {set i 0} {$i < $N} {incr i} {
+    expect {
+	-re {LOGD [0-9]+ echo[0-9]+ [0-9]+ from [0-9]+\r} exp_continue
+	-re {\+EXEC [0-9]+\r} exp_continue
+	-re {TRES [0-9]+ echo[0-9]+ 0\r}
+    }
+}
+
+
+close

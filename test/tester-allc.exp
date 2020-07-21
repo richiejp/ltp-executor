@@ -1,0 +1,5 @@
+source [file join [file dirname $argv0] common.exp]
+
+send "allc 1\n"
+expect -exact "+ALLC 1\r"
+close

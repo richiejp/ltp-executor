@@ -1,0 +1,7 @@
+source [file join [file dirname $argv0] common.exp]
+
+send "ping\n"
+expect -exact "PONG\r"
+send "exit\n"
+expect -exact "+EXIT\r"
+

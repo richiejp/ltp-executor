@@ -1,0 +1,10 @@
+set timeout 5
+expect_before timeout {
+    send_error "Timeout!\n"
+    send "ping\n"
+    expect "PONG\r"
+    exit 123
+}
+
+spawn -noecho -nottyinit ../build/executor
+
