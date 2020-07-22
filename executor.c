@@ -59,14 +59,13 @@
  * + `PING\n` -> PONG\n
  * + `ALLC <ID:id>\n` -> `+ALLC <ID:id>\n`
  * + `CMDS <ID:id> <sym:tid> <str:cmds>` -> `+CMDS <ID:id> <sym:tid> ...`
- * + `ENVE <ID:id> <sym:name> <str:value>` -> `+ENVE <ID:id> <sym:name> ...`
+ * + (TODO) `ENVE <ID:id> <sym:name> <str:value>` -> `+ENVE <ID:id> <sym:name> ...`
  * + `EXEC <ID:id>\n` -> `+EXEC <ID:id>\n`
- * + `FREE <ID:id>\n` -> `+FREE <ID:id>\n`
+ * + (TODO) `FREE <ID:id>\n` -> `+FREE <ID:id>\n`
  * + `EXIT\n` -> `+EXIT\n` then `eof` ofcourse.
  *
  * # SUT Notifications
  *
- * + `FRKD <ID:id>\n`
  * + `LOGD <ID:id> <strn:log>\n`
  * + `TRET <ID:id> <int:returned>\n`
  * + `ERRD <ID:id> <str:message>`
