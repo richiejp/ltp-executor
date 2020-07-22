@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.17)
 
-project(ltp-executor VERSION 0.1 LANGUAGES C)
+project(executor VERSION 0.1 LANGUAGES C)
 
 set(CMAKE_THREAD_PREFER_PTHREAD TRUE)
 set(THREADS_PREFER_PTHREAD_FLAG TRUE)
@@ -28,6 +28,9 @@ add_custom_command(
 add_executable(
   executor executor.c ${CMAKE_CURRENT_SOURCE_DIR}/parser.c)
 target_link_libraries(executor actors)
+target_compile_definitions(executor
+  PRIVATE executor_VERSION_MAJOR=${executor_VERSION_MAJOR}
+  PRIVATE executor_VERSION_MINOR=${executor_VERSION_MINOR})
 
 enable_testing()
 

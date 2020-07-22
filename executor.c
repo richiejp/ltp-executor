@@ -435,6 +435,9 @@ int main(void/* int argc, char **argv */)
 	struct actor *reader, *writer;
 	pthread_t reader_t, writer_t;
 
+	fprintf(stderr, "Executor v%d.%d\n",
+		executor_VERSION_MAJOR, executor_VERSION_MINOR);
+
 	actors_init();
 
 	reader = actor_alloc();
