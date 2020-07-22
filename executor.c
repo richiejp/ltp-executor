@@ -312,11 +312,10 @@ static void tester_listen(struct actor *self)
 	for (;;) {
 		msg = actor_inbox_pop(self);
 
-		if (!(msg || my->child || my->cout))
-			pthread_yield();
-
 		if (msg)
 			self->hear(self, msg);
+		else
+			pthread_yield();
 
 		if (my->child)
 			tester_check_child(self);
@@ -340,31 +339,36 @@ static void tester_exec(struct actor *self)
 	assert(my->test->tid[0]);
 	assert(my->test->cmds[0]);
 
-	r0 = pipe(cin);
-	r1 = pipe(cout);
+	r0 = pipe2(cin, O_CLOEXEC);
+	assert_perror(errno);
+	r1 = pipe2(cout, O_CLOEXEC);
 	assert_perror(errno);
 	assert(!r0);
-	fcntl(cout[0], F_SETFL, O_NONBLOCK);
 	assert(!r1);
-	assert_perror(errno);
 
 	pid = fork();
 	assert_perror(errno);
+	assert(pid > -1);
 
 	if (!pid) {
 		close(cin[1]);
 		close(cout[0]);
-		dup2(cin[0], STDIN_FILENO);
+		dup3(cin[0], STDIN_FILENO, 0);
 		assert_perror(errno);
-		dup2(cout[1], STDOUT_FILENO);
+		dup3(cout[1], STDOUT_FILENO, 0);
 		assert_perror(errno);
 
-		execlp("sh", "sh", (char *)NULL);
+		r0 = execlp("/usr/bin/sh", "sh", (char *)NULL);
 		assert_perror(errno);
+		assert(!r0);
 	}
 
 	close(cin[0]);
 	close(cout[1]);
+
+	r0 = fcntl(cout[0], F_SETFL, O_NONBLOCK);
+	assert_perror(errno);
+	assert(!r0);
 
 	r0 = strlen(my->test->cmds);
 	do {
