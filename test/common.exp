@@ -1,4 +1,4 @@
-set timeout 1
+set timeout 5
 
 expect_before timeout {
     send_error "Timeout!\n"
