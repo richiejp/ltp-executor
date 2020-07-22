@@ -11,24 +11,19 @@ for {set i 0} {$i < $N} {incr i} {
 }
 
 for {set id 1} {$id <= $N} {incr id} {
-    send "cmds $id echo$id echo from $id\n"
+    send "cmds $id echo$id echo -n from $id\n"
 }
 
 for {set i 0} {$i < $N} {incr i} {
-    expect -re {\+CMDS [0-9]+ echo[0-9]+ echo from [0-9]+\r}
+    expect -re {\+CMDS [0-9]+ echo[0-9]+ echo -n from [0-9]+\r}
 }
 
 for {set id 1} {$id <= $N} {incr id} {
     send "exec $id\n"
 }
 
-for {set i 0} {$i < $N} {incr i} {
-    expect {
-	-re {LOGD [0-9]+ echo[0-9]+ [0-9]+ from [0-9]+\r} exp_continue
-	-re {\+EXEC [0-9]+\r} exp_continue
-	-re {TRES [0-9]+ echo[0-9]+ 0\r}
-    }
+for {set i 0} {$i < $N*3} {incr i} {
+    expect -re {(LOGD [0-9]+ echo[0-9]+ [0-9]+ from [0-9]+\r)|(\+EXEC [0-9]+\r)|(TRES [0-9]+ echo[0-9]+ 0\r)}
 }
-
 
 close
