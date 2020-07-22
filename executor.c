@@ -262,6 +262,9 @@ static void tester_check_cout(struct actor *self)
 	 * recreating them. */
 	/* TDOD: We don't want to malloc log buffers or messages in the tester
 	 * listen loop atall */
+	/* TODO: Instead of reading into a buffer we could inform the writer
+	 * that data is ready on our cout fd and it could splice() this into
+	 * the output fd */
 
 	r0 = read(my->cout, log->buf, LEN_1024);
 
