@@ -14,7 +14,7 @@ dracut \
     --no-kernel \
     --force --tmpdir initrds \
     --kver $kver \
-    --install "$test_cases" \
+    --install "$test_cases sh" \
     --include ../executor /usr/bin/executor \
     --include ../../test/run-executor-on-vsport.sh /.profile \
     --modules "bash base" \
