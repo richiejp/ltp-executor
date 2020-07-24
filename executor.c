@@ -160,6 +160,7 @@ static void reader_listen(struct actor *self)
 
 static void writer_hear(struct actor *self, struct msg *msg)
 {
+	ssize_t r0;
 	struct log *log;
 	struct tres *tres;
 	struct cmds *cmds;
@@ -170,46 +171,48 @@ static void writer_hear(struct actor *self, struct msg *msg)
 
 	switch (msg->type) {
 	case MSG_PONG:
-		printf("PONG\n");
+		dprintf(STDOUT_FILENO, "PONG\n");
 		break;
 
 	case MSG_LOGD:
 		log = msg->ptr;
-		printf("LOGD %ld %s %ld ", addr_to_id(msg->from),
-		       log->tid, log->len);
-		fwrite(log->buf, sizeof(char), log->len, stdout);
-		printf("\n");
+		dprintf(STDOUT_FILENO, "LOGD %ld %s %ld ",
+			addr_to_id(msg->from), log->tid, log->len);
+		r0 = write(STDOUT_FILENO, log->buf, log->len);
+		assert_perror(errno);
+		assert(r0 > 0);
+		dprintf(STDOUT_FILENO,"\n");
 		free(log);
 		break;
 
 	case MSG_TRES:
 		tres = msg->ptr;
-		printf("TRES %ld %s %d\n", addr_to_id(msg->from),
-		       tres->tid, tres->result);
+		dprintf(STDOUT_FILENO,"TRES %ld %s %d\n",
+			addr_to_id(msg->from), tres->tid, tres->result);
 		free(tres);
 		break;
 
 	case MSG_EXIT:
 		free(msg);
-		printf("+EXIT\n");
+		dprintf(STDOUT_FILENO,"+EXIT\n");
 		actor_exit(self);
 		break;
 
 	case MSG_CMDS:
 		cmds = msg->ptr;
-		printf("+CMDS %ld %s %s\n", addr_to_id(msg->from),
-		       cmds->tid, cmds->cmds);
+		dprintf(STDOUT_FILENO,"+CMDS %ld %s %s\n",
+			addr_to_id(msg->from), cmds->tid, cmds->cmds);
 		break;
 
 	case MSG_ERRO:
-		printf("ERRO 0 %s\n", (char *)msg->ptr);
+		dprintf(STDOUT_FILENO,"ERRO 0 %s\n", (char *)msg->ptr);
 		break;
 
 	case MSG_EXEC:
-		printf("+EXEC %ld\n", addr_to_id(msg->from));
+		dprintf(STDOUT_FILENO,"+EXEC %ld\n", addr_to_id(msg->from));
 		break;
 	case MSG_ALLC:
-		printf("+ALLC %ld\n", addr_to_id(msg->from));
+		dprintf(STDOUT_FILENO,"+ALLC %ld\n", addr_to_id(msg->from));
 		break;
 	default:
 		assert(0);
