@@ -1,4 +1,4 @@
-# Ultra fancy remote test executor
+# Ultra fancy concurrent test executor
 
 Small executable which runs on the SUT, starts test executables and
 multiplexes the test results/output.
@@ -29,6 +29,7 @@ Required dependencies:
 Optional:
 - Ragel (used to regenerate parser.c)
 - expect (Only used for the tests)
+- socat, QEMU, dracut (Only used in the full-stack tests)
 - libasan (disable `-fsanitize=address` if you don't want it)
 
 Ragel is more rare (although it is in most distros), but the generated parser
@@ -62,23 +63,42 @@ $ ctest -V
   SUTS and even pipe the LTP tests onto the SUT removing the need to install
   LTP on the SUT.
 - Configure development and production targets in CMake
+- A "test planner" to create a test plan from a runtest file and provide an
+  easy CLI for the test harness (the harness being whatever sets up the SUT).
+- A "test driver" to efficiently communicate with the executor on the SUT,
+  translate the test plan into executor commands and update the plan as tests
+  are completed.
 
 ## Usage
 
-Realistically this is not usable yet, but you can just run the executor and
-type stuff in manually.
+*This is WIP so you may trip over some assertion errors and such.*
+
+The executor takes no arguments, reads from stdin and writes to stdout. You
+can redirect its IO using `sh` or `ssh`, `socat` etc.
+
+### Basics
+
+You can just run the executor and type stuff in manually.
 
 ```sh
 $ ./executor
+Executor v0.1
 ping
 PONG
+allc 1
++ALLC 1
+cmds 1 echo01 echo "An echo"
++CMDS 1 echo01 echo "An echo"
+exec 1
++EXEC 1
+LOGD 1 echo01 8 An echo
+
+TRES 1 echo01 0
 exit
 +EXIT
 ```
 
-See `executor.c` for the available commands and protocol description. Note
-that there is no error checking yet, so if you enter some bad input the parser
-state machine will enter an *absorbing barrier*.
+See `executor.c` for the available commands and protocol description.
 
 The Expect test scripts are informative:
 
@@ -103,3 +123,32 @@ exec 1
 +EXEC 1
 TRES 1 1
 ```
+
+### Running in a VM
+
+It's possible to use a virtio serial port as the host-SUT transport. For
+example on SUT startup the following script can be executed (assumes the first
+`vport` is used by the console).
+
+```sh
+exec 3<>/dev/vport1p1
+executor >&3 <&3
+```
+
+QEMU can direct this through a socket
+
+```sh
+...
+-device virtio-serial \
+-chardev socket,server,id=transport,path=transport \
+-device virtserialport,chardev=transport \
+...
+```
+
+You can then pipe commands through the socket
+
+```sh
+$ socat STDIO UNIX-CONNECT:transport
+```
+
+See `test/qemu-integration.sh` for a complete example of how to do this.
