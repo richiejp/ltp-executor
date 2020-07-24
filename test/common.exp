@@ -1,11 +1,38 @@
+set transport [lindex $argv 0]
 set timeout 5
 
-expect_before timeout {
-    send_error "Timeout!\n"
+if {$transport == ""} {
+    spawn -noecho -nottyinit ../build/executor
+} {
+    spawn -nottyinit socat STDIO UNIX-CONNECT:$transport,retry=3
+
+    set retries 4
     send "ping\n"
-    expect "PONG\r"
-    exit 123
+    expect {
+	timeout {
+	    if {$retries > 0} {
+		incr retries -1
+		send "ping\n"
+		exp_continue
+	    } {
+		exit 123
+	    }
+	}
+	"PONG\r"
+    }
 }
 
-spawn -noecho -nottyinit ../build/executor
+expect_before timeout {
+    set timeout 1
+    expect_before timeout {
+	send_error "Executor Nonresponsive!\n"
+	exit 123
+    }
 
+    send_error "Timeout!\n"
+
+    send "ping\n"
+    expect "PONG\r"
+
+    exit 123
+}
