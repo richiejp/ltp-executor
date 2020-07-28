@@ -1,4 +1,5 @@
 enum buf_len {
+	LEN_8 = 8,
 	LEN_64 = 64,
 	LEN_1024 = 1024
 };
@@ -9,9 +10,16 @@ struct cmds {
 	char cmds[LEN_1024];
 };
 
+struct log {
+	size_t len;
+	char *tid;
+	char buf[LEN_1024];
+};
+
 enum static_actor_addresses {
 	ADDR_READER = 1,
 	ADDR_WRITER = 2,
+	ADDR_LOGGER = 3,
 };
 
 enum msg_type {

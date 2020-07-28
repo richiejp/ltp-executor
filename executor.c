@@ -74,7 +74,6 @@
 #include <assert.h>
 #include <errno.h>
 #include <fcntl.h>
-#include <getopt.h>
 #include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -98,12 +97,6 @@ struct tester {
 	int cout;
 	int result;
 	struct cmds *test;
-};
-
-struct log {
-	size_t len;
-	char *tid;
-	char buf[LEN_1024];
 };
 
 struct tres {
