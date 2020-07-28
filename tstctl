@@ -1,0 +1,77 @@
+#!/usr/bin/sh -eu
+
+subcmd=${1:-help}
+
+tstctl_init() {
+    if [ -e test-plan ]; then
+	cp test-plan test-plan.old
+    fi
+
+    echo NPROC 1 > test-plan
+}
+
+tstctl_add_tests() {
+    local runtest=$1
+
+    cp test-plan test-plan.old
+
+    awk '! /^#/ { print "TODO", $0 }' $runtest >> test-plan
+}
+
+set_kv() {
+    local key=$1
+    local val=$2
+
+    cp test-plan test-plan.old
+    awk "/^$key/ {print \"$key\", \"$val\"} !/^$key/ {print}" \
+	test-plan.old > test-plan
+}
+
+tstctl_set() {
+    local key=$1
+    local val=$2
+
+    case $key in
+	NPROC) set_kv $key $val;;
+	*) echo Unrecognised Property: $key! >&2
+	   exit 123
+    esac
+}
+
+tstctl_status() {
+    awk 'BEGIN { ret = "DONE" } \
+    	 /^TODO/ { ret = "TODO"; exit } \
+    	 END { print ret }' \
+	test-plan
+}
+
+tstctl_help() {
+cat <<EOF
+LTP Executor Test Control
+
+	tstctl (init | status | set | get | help)
+
+Inspect and manipulate test plans.
+
+	tstctl init <runtest>
+
+Use <runtest> file to create a test plan in the present working directory.
+
+	tstctl status
+
+Check whether all the tests have been executed by inspecting the test plan in
+the present working directory. Prints DONE or TODO to stdout.
+
+EOF
+}
+
+case $subcmd in
+    init) tstctl_init;;
+    status) tstctl_status;;
+    add-tests) tstctl_add_tests $2;;
+    set) tstctl_set $2 $3;;
+    help) tstctl_help;;
+    *) echo Unrecognised Sub-Command \"$subcmd\"! >&2
+       tstctl_help
+       exit 123
+esac
