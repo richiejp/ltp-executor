@@ -23,14 +23,24 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 add_custom_command(
   OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/parser.c
   COMMAND ragel -G2 -o ${CMAKE_CURRENT_SOURCE_DIR}/parser.c ${CMAKE_CURRENT_SOURCE_DIR}/parser.rl
-  DEPENDS parser.rl)
+  DEPENDS parser.rl parser-common.rl)
 
-add_executable(
-  executor executor.c ${CMAKE_CURRENT_SOURCE_DIR}/parser.c)
+add_custom_command(
+  OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/driver-parser.c
+  COMMAND ragel -G2 -o ${CMAKE_CURRENT_SOURCE_DIR}/driver-parser.c ${CMAKE_CURRENT_SOURCE_DIR}/driver-parser.rl
+  DEPENDS driver-parser.rl parser-common.rl)
+
+add_executable(executor executor.c parser.c)
 target_link_libraries(executor actors)
 target_compile_definitions(executor
   PRIVATE executor_VERSION_MAJOR=${executor_VERSION_MAJOR}
   PRIVATE executor_VERSION_MINOR=${executor_VERSION_MINOR})
+
+add_executable(driver driver.c driver-parser.c)
+target_link_libraries(driver actors)
+target_compile_definitions(driver
+  PRIVATE driver_VERSION_MAJOR=${executor_VERSION_MAJOR}
+  PRIVATE driver_VERSION_MINOR=${executor_VERSION_MINOR})
 
 enable_testing()
 

@@ -18,23 +18,13 @@ static void error_msg(struct actor *self, char *text)
 /* Ragel finite state machine (FSM) definition for parsing commands
  *
  * It is much easier to understand this by looking at the state transition
- * graph e.g `ragel -V -p parser.rl | dot -Tsvg | display` */
+ * graph e.g `ragel -V -p parser.rl | dot -Tsvg | display`
+ *
+ * */
 %%{
 	machine parse;
 
-	action first_digit { n = fc - '0'; }
-	action add_digit { n = n * 10 + (fc - '0'); }
-
-	action add_char {
-		n++;
-		assert(n < buf_len - 1);
-		*(buf++) = fc;
-	}
-
-	action set_id {
-		/* TODO: Validate ID */
-		id = id_to_addr(n);
-	}
+	include "parser-common.rl";
 
 	action say_pong {
 		msg = msg_alloc();
@@ -79,44 +69,10 @@ static void error_msg(struct actor *self, char *text)
 
 	action exit { shutdown(self); }
 
-	action exp_nl {
-		error_msg(self, "Expected new line");
-		fgoto main;
-	}
-
-	action exp_ws {
-		error_msg(self, "Expected white space");
-		fgoto main;
-	}
-
-	action exp_digit {
-		error_msg(self, "Expected digit");
-		fgoto main;
-	}
-
-	action exp_sym {
-		error_msg(self, "Expected symbol character");
-		fgoto main;
-	}
-
-	action exp_str {
-		error_msg(self, "Expected string character");
-		fgoto main;
-	}
-
 	action exp_cmd {
 		error_msg(self, "Epected ping, allc, exit, cmds, or exec");
 		fgoto main;
 	}
-
-	nl = '\n' %err(exp_nl);
-	ws = (space - [\n\r]);
-
-	uint = (digit @first_digit digit* @add_digit) $err(exp_digit);
-	id = uint %set_id;
-
-	sym = (any - space)+ $err(exp_sym);
-        str = (any - nl)+ $err(exp_str);
 
 	ping = "ping"i $err(exp_cmd) ws* nl @say_pong;
 
@@ -142,8 +98,6 @@ static void error_msg(struct actor *self, char *text)
 }%%
 
 /* Holds the current state of the finite state machine
- *
- * TODO: Could put this in actor.priv
  */
 static int cs;
 static size_t n, id, buf_len;
