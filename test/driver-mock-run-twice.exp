@@ -1,0 +1,65 @@
+set timeout 3
+
+expect_before {
+    timeout {
+	send_error "Timeout!\n"
+	exit 123
+    }
+}
+
+spawn -noecho -nottyinit ../driver
+
+expect "PING\r"
+send "PONG\n"
+
+expect -re {ALLC [0-9]+\r}
+send "+$expect_out(0,string)"
+
+expect {
+    eof { exit 0 }
+    -re {CMDS [0-9]+ [a-z0-9-]+ [a-z0-9 ]+\r}
+}
+send "+$expect_out(0,string)"
+
+expect	-re {EXEC [0-9]+\r}
+send "+$expect_out(0,string)"
+send "LOGD 0 9 Some text\n"
+send "TRES 0 0\n"
+send "LOGD 0 0 \n"
+
+expect -re {CMDS [0-9]+ [a-z0-9-]+ [a-z0-9 ]+\r}
+send "+$expect_out(0,string)"
+
+expect	-re {EXEC [0-9]+\r}
+send "+$expect_out(0,string)"
+send "LOGD 0 9 Some text\n"
+send "LOGD 0 0 \n"
+send "TRES 0 0\n"
+
+expect -re {CMDS [0-9]+ [a-z0-9-]+ [a-z0-9 ]+\r}
+send "+$expect_out(0,string)"
+
+expect	-re {EXEC [0-9]+\r}
+send "+$expect_out(0,string)"
+send "LOGD 0 0 \n"
+send "TRES 0 1\n"
+
+expect eof
+
+spawn -noecho -nottyinit ../driver
+
+expect "PING\r"
+send "PONG\n"
+
+expect -re {ALLC [0-9]+\r}
+send "+$expect_out(0,string)"
+
+expect -re {CMDS [0-9]+ [a-z0-9-]+ [a-z0-9 ]+\r}
+send "+$expect_out(0,string)"
+
+expect	-re {EXEC [0-9]+\r}
+send "+$expect_out(0,string)"
+send "LOGD 0 0 \n"
+send "TRES 0 0\n"
+
+expect eof

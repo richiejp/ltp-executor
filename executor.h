@@ -1,3 +1,11 @@
+#define DBG(fmt, ...)							\
+{									\
+	fprintf(stderr, "%s:%s:%i ", __FILE__ + SOURCE_PATH_SIZE,	\
+		__func__, __LINE__);					\
+	fprintf(stderr, fmt, ##__VA_ARGS__);				\
+	fprintf(stderr, "\n");						\
+}
+
 enum buf_len {
 	LEN_8 = 8,
 	LEN_64 = 64,
@@ -12,7 +20,6 @@ struct cmds {
 
 struct log {
 	size_t len;
-	char *tid;
 	char buf[LEN_1024];
 };
 
@@ -20,6 +27,8 @@ enum static_actor_addresses {
 	ADDR_READER = 1,
 	ADDR_WRITER = 2,
 	ADDR_LOGGER = 3,
+	ADDR_DRIVER = 4,
+	ADDR_PLANNER = 5,
 };
 
 enum msg_type {
@@ -31,19 +40,21 @@ enum msg_type {
 	MSG_LOGD,
 	MSG_EXIT,
 	MSG_TRES,
-	MSG_ERRO
+	MSG_DONE,
+	MSG_ERRO,
 };
 
-void tester_start(addr_t id);
-void shutdown(struct actor *self);
+void tester_start(struct actor *self, addr_t id);
+void shutdown(struct actor *self)
+	__attribute__((nonnull));
 
 /* Convert between tester ID and actor addresses */
-inline addr_t addr_to_id(addr_t addr)
+static inline addr_t addr_to_id(addr_t addr)
 {
 	return addr - 100;
 }
 
-inline addr_t id_to_addr(addr_t id)
+static inline addr_t id_to_addr(addr_t id)
 {
 	return id + 100;
 }

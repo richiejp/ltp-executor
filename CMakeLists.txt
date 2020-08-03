@@ -15,6 +15,8 @@ add_compile_options(
   -O1 -Wall -Wextra -pedantic -Werror
   -g -fno-omit-frame-pointer -fsanitize=address
   -Wno-unused-const-variable)
+string(LENGTH "${CMAKE_SOURCE_DIR}/" SOURCE_PATH_SIZE)
+add_definitions("-DSOURCE_PATH_SIZE=${SOURCE_PATH_SIZE}")
 
 add_link_options(-lurcu -lurcu-cds -lurcu-common)
 add_link_options(-fsanitize=address)
@@ -55,3 +57,13 @@ exp_test(tester-allc)
 exp_test(tester-cmds)
 exp_test(tester-exec)
 exp_test(tester-concurrent)
+
+function(sh_test name)
+	add_test(${name} ${CMAKE_CURRENT_SOURCE_DIR}/test/${name}.sh)
+endfunction(sh_test)
+
+sh_test(driver-nop)
+sh_test(driver-all-pass)
+sh_test(driver-some-fail)
+sh_test(driver-continuation)
+sh_test(local-integration)

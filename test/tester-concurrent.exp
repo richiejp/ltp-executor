@@ -22,8 +22,8 @@ for {set id 1} {$id <= $N} {incr id} {
     send "exec $id\n"
 }
 
-for {set i 0} {$i < $N*3} {incr i} {
-    expect -re {(LOGD [0-9]+ echo[0-9]+ [0-9]+ from [0-9]+\r)|(\+EXEC [0-9]+\r)|(TRES [0-9]+ echo[0-9]+ 0\r)}
+for {set i 0} {$i < $N*4} {incr i} {
+    expect -re {(LOGD [0-9]+ [0-9]+ (from [0-9]+)?\r)|(\+EXEC [0-9]+\r)|(TRES [0-9]+ 0\r)}
 }
 
 close

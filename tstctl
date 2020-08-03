@@ -53,14 +53,28 @@ LTP Executor Test Control
 
 Inspect and manipulate test plans.
 
-	tstctl init <runtest>
 
-Use <runtest> file to create a test plan in the present working directory.
+	tstctl init
+
+Create an empty test plan in the current working directory.
+
+
+	tstctl add-tests <runtest>
+
+Import tests from <runtest> file into the current test plan
+
 
 	tstctl status
 
 Check whether all the tests have been executed by inspecting the test plan in
 the present working directory. Prints DONE or TODO to stdout.
+
+
+	tstctl set <key> <value>
+
+Set an option in the test plan. You should atleast set NPROC to the
+number of tests you would like to run concurrently e.g. tstctl set
+NPROC 8.
 
 EOF
 }

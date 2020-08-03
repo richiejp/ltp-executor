@@ -67,7 +67,7 @@
  * # SUT Notifications
  *
  * + `LOGD <ID:id> <strn:log>\n`
- * + `TRET <ID:id> <int:returned>\n`
+ * + `TRES <ID:id> <int:returned>\n`
  * + `ERRD <ID:id> <str:message>`
  */
 
@@ -80,6 +80,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <pthread.h>
+#include <poll.h>
 
 #include <sys/types.h>
 #include <sys/wait.h>
@@ -95,12 +96,12 @@
 struct tester {
 	pid_t child;
 	int cout;
+	int eout;
 	int result;
 	struct cmds *test;
 };
 
 struct tres {
-	char *tid;
 	int result;
 };
 
@@ -118,22 +119,29 @@ void shutdown(struct actor *self)
  * (assuming it works on non-sockets) and then use fallbacks. */
 static void reader_listen(struct actor *self)
 {
-	int fd, r0;
+	int r0;
 	char buf[LEN_1024];
 
-	/* I assume that setting the stdin FD itself to NONBLOCK will cause
-	 * some unexpected behaviour somewhere. */
-	fd = dup(STDIN_FILENO);
-	fcntl(fd, F_SETFL, O_NONBLOCK);
 	assert_perror(errno);
 
 	parser_init();
 
 	for (;;) {
-		r0 = read(fd, buf, sizeof(buf));
+		r0 = read(STDIN_FILENO, buf, sizeof(buf));
 
-		if (!r0)
-			shutdown(self);
+		/* If we are reading from a char device it can
+		 * repeatedly return EOF, but may read successfully in
+		 * the future */
+		if (!r0) {
+			usleep(1000);
+
+			r0 = read(STDIN_FILENO, buf, sizeof(buf));
+			if (r0 < 0 && errno == EBADF)
+				shutdown(self);
+
+			if (!r0)
+				continue;
+		}
 
 		switch(errno) {
 		case EAGAIN:
@@ -151,9 +159,25 @@ static void reader_listen(struct actor *self)
 	}
 }
 
+/* As we may be writing to a dodgy special file or character device
+ * that may behave any way it wants...
+ *
+ * TODO: Also retry after EIO?
+ * */
+#define WRITER_PRINTF(fmt, ...) do {		       \
+	r0 = dprintf(STDOUT_FILENO, fmt, ##__VA_ARGS__); \
+	if (errno == EAGAIN || errno == EINTR) {       \
+		usleep(100);			       \
+		dprintf(STDOUT_FILENO, "\n");	       \
+		errno = 0;			       \
+	}					       \
+	assert_perror(errno);			       \
+} while (r0 < 0)
+
 static void writer_hear(struct actor *self, struct msg *msg)
 {
 	ssize_t r0;
+	size_t written;
 	struct log *log;
 	struct tres *tres;
 	struct cmds *cmds;
@@ -164,48 +188,58 @@ static void writer_hear(struct actor *self, struct msg *msg)
 
 	switch (msg->type) {
 	case MSG_PONG:
-		dprintf(STDOUT_FILENO, "PONG\n");
+		WRITER_PRINTF("PONG\n");
 		break;
 
 	case MSG_LOGD:
 		log = msg->ptr;
-		dprintf(STDOUT_FILENO, "LOGD %ld %s %ld ",
-			addr_to_id(msg->from), log->tid, log->len);
-		r0 = write(STDOUT_FILENO, log->buf, log->len);
+		WRITER_PRINTF("LOGD %ld %ld ", addr_to_id(msg->from), log->len);
+
+		written = 0;
+		do {
+			r0 = write(STDOUT_FILENO, log->buf, log->len);
+
+			if (r0 > 0)
+				written += (size_t)r0;
+			else if (errno == EAGAIN || errno == EINTR)
+				usleep(100);
+			else
+				assert_perror(errno);
+		} while (written < log->len);
+
 		assert_perror(errno);
-		assert(r0 > 0);
-		dprintf(STDOUT_FILENO,"\n");
-		free(log);
+		assert((ssize_t)log->len == r0);
+		WRITER_PRINTF("\n");
 		break;
 
 	case MSG_TRES:
 		tres = msg->ptr;
-		dprintf(STDOUT_FILENO,"TRES %ld %s %d\n",
-			addr_to_id(msg->from), tres->tid, tres->result);
+		WRITER_PRINTF("TRES %ld %d\n",
+			addr_to_id(msg->from), tres->result);
 		free(tres);
 		break;
 
 	case MSG_EXIT:
 		free(msg);
-		dprintf(STDOUT_FILENO,"+EXIT\n");
+		WRITER_PRINTF("+EXIT\n");
 		actor_exit(self);
 		break;
 
 	case MSG_CMDS:
 		cmds = msg->ptr;
-		dprintf(STDOUT_FILENO,"+CMDS %ld %s %s\n",
+		WRITER_PRINTF("+CMDS %ld %s %s\n",
 			addr_to_id(msg->from), cmds->tid, cmds->cmds);
 		break;
 
 	case MSG_ERRO:
-		dprintf(STDOUT_FILENO,"ERRO 0 %s\n", (char *)msg->ptr);
+		WRITER_PRINTF("ERRO 0 %s\n", (char *)msg->ptr);
 		break;
 
 	case MSG_EXEC:
-		dprintf(STDOUT_FILENO,"+EXEC %ld\n", addr_to_id(msg->from));
+		WRITER_PRINTF("+EXEC %ld\n", addr_to_id(msg->from));
 		break;
 	case MSG_ALLC:
-		dprintf(STDOUT_FILENO,"+ALLC %ld\n", addr_to_id(msg->from));
+		WRITER_PRINTF("+ALLC %ld\n", addr_to_id(msg->from));
 		break;
 	default:
 		assert(0);
@@ -230,7 +264,6 @@ static void tester_check_child(struct actor *self)
 
 	tres = malloc(sizeof(*tres));
 	assert_perror(errno);
-	tres->tid = my->test->tid;
 	tres->result = -1;
 
 	if (WIFEXITED(wstatus))
@@ -247,12 +280,17 @@ static void tester_check_child(struct actor *self)
 	actor_say(self, ADDR_WRITER, msg);
 }
 
-static void tester_check_cout(struct actor *self)
+static void tester_check_output(struct actor *self)
 {
 	ssize_t r0;
-	struct log *log = malloc(sizeof(*log));
+	struct log *log;
 	struct tester *my = self->priv;
 	struct msg *msg;
+	struct pollfd fds[2] = {
+		{ 0, POLLIN | POLLPRI, 0 },
+		{ 0, POLLIN | POLLPRI, 0 }
+	};
+	nfds_t i, nfds = 0;
 
 	/* TODO: the writer could pass back spent log messages instead of
 	 * recreating them. */
@@ -262,36 +300,54 @@ static void tester_check_cout(struct actor *self)
 	 * that data is ready on our cout fd and it could splice() this into
 	 * the output fd */
 
-	r0 = read(my->cout, log->buf, LEN_1024);
+	if (my->cout)
+		fds[nfds++].fd = my->cout;
 
-	switch(errno) {
-	case EAGAIN:
-	case EINTR:
-		errno = 0;
-		break;
-	}
+	if (my->eout)
+		fds[nfds++].fd = my->eout;
 
-	assert_perror(errno);
-
+	r0 = poll(fds, nfds, 100);
 	if (r0 < 0) {
-		free(log);
-		return;
+		if (errno == EINTR) {
+			errno = 0;
+			return;
+		}
+		assert_perror(errno);
 	}
 
-	if (!r0) {
-		free(log);
-		close(my->cout);
-		my->cout = 0;
+	if (!r0)
 		return;
+
+	for (i = 0; i < nfds; i++) {
+		if (!fds[i].revents)
+			continue;
+
+		msg = msg_alloc_extra(sizeof(*log));
+		msg->type = MSG_LOGD;
+		log = msg->ptr;
+
+		while ((r0 = read(fds[i].fd, log->buf, LEN_1024 - 1)) < 0) {
+			if (errno != EINTR)
+				assert_perror(errno);
+
+			errno = 0;
+		}
+
+		if (!r0) {
+			close(fds[i].fd);
+
+			if (fds[i].fd == my->cout) {
+				my->cout = 0;
+			} else {
+				my->eout = 0;
+				free(msg);
+				continue;
+			}
+		}
+
+		log->len = r0;
+		actor_say(self, ADDR_WRITER, msg);
 	}
-
-	log->len = r0;
-	log->tid = my->test->tid;
-
-	msg = msg_alloc();
-	msg->type = MSG_LOGD;
-	msg->ptr = log;
-	actor_say(self, ADDR_WRITER, msg);
 }
 
 static void tester_listen(struct actor *self)
@@ -312,14 +368,14 @@ static void tester_listen(struct actor *self)
 
 		if (msg)
 			self->hear(self, msg);
-		else
-			pthread_yield();
+		else if (!(my->child || my->cout || my->eout))
+			actor_wait(self);
 
 		if (my->child)
 			tester_check_child(self);
 
-		if (my->cout)
-			tester_check_cout(self);
+		if (my->cout || my->eout)
+			tester_check_output(self);
 	}
 }
 
@@ -329,19 +385,22 @@ static void tester_exec(struct actor *self)
 {
 	int r0, r1;
 	pid_t pid;
-	int cin[2], cout[2];
+	int cin[2], cout[2], eout[2];
 	struct tester *my = self->priv;
 
 	assert(!my->child);
 	assert(my->test);
-	assert(my->test->tid[0]);
 	assert(my->test->cmds[0]);
 
 	r0 = pipe2(cin, O_CLOEXEC);
 	assert_perror(errno);
+	assert(!r0);
+
 	r1 = pipe2(cout, O_CLOEXEC);
 	assert_perror(errno);
-	assert(!r0);
+	assert(!r1);
+	r1 = pipe2(eout, O_CLOEXEC);
+	assert_perror(errno);
 	assert(!r1);
 
 	pid = fork();
@@ -351,9 +410,13 @@ static void tester_exec(struct actor *self)
 	if (!pid) {
 		close(cin[1]);
 		close(cout[0]);
+		close(eout[0]);
+
 		dup3(cin[0], STDIN_FILENO, 0);
 		assert_perror(errno);
 		dup3(cout[1], STDOUT_FILENO, 0);
+		assert_perror(errno);
+		dup3(eout[1], STDERR_FILENO, 0);
 		assert_perror(errno);
 
 		r0 = execlp("/usr/bin/sh", "sh", (char *)NULL);
@@ -363,10 +426,7 @@ static void tester_exec(struct actor *self)
 
 	close(cin[0]);
 	close(cout[1]);
-
-	r0 = fcntl(cout[0], F_SETFL, O_NONBLOCK);
-	assert_perror(errno);
-	assert(!r0);
+	close(eout[1]);
 
 	r0 = strlen(my->test->cmds);
 	do {
@@ -385,6 +445,7 @@ static void tester_exec(struct actor *self)
 	close(cin[1]);
 
 	my->cout = cout[0];
+	my->eout = eout[0];
 	my->child = pid;
 }
 
@@ -397,30 +458,54 @@ static void tester_hear(struct actor *self, struct msg *msg)
 	switch (msg->type) {
 	case MSG_CMDS:
 		assert(msg->ptr);
-		/* TODO: Leaks the previous struct cmds, but we can't just
-		 * free it because there may be log/res messages with a
-		 * pointer to the tid. Could use urcu_ref or hash the tid to a
-		 * uint_64 */
+		assert(!my->child);
+		assert(!my->cout);
+		assert(!my->eout);
+
+		if (my->test)
+			free(my->test);
 		my->test = msg->ptr;
 		actor_say(self, ADDR_WRITER, msg);
 		break;
+
 	case MSG_EXEC:
 		tester_exec(self);
 		actor_say(self, ADDR_WRITER, msg);
 		break;
+
 	case MSG_EXIT:
 		free(msg);
 		actor_exit(self);
 		break;
+
+	case MSG_ALLC:
+		assert(!my->child);
+		assert(!my->cout);
+		assert(!my->eout);
+		free(my->test);
+		my->test = NULL;
+
+		actor_say(self, ADDR_WRITER, msg);
+		break;
+
 	default:
 		assert(0);
 	}
 }
 
-void tester_start(addr_t id)
+void tester_start(struct actor *self, addr_t id)
 {
-	struct actor *tester = actor_alloc();
+	struct msg *msg;
+	struct actor *tester;
 
+	if (actor_exists(id)) {
+		msg = msg_alloc();
+		msg->type = MSG_ALLC;
+		actor_say(self, id, msg);
+		return;
+	}
+
+	tester = actor_alloc();
 	tester->addr = id;
 	tester->listen = tester_listen;
 	tester->hear = tester_hear;
@@ -428,7 +513,7 @@ void tester_start(addr_t id)
 	actor_start(tester);
 }
 
-int main(void/* int argc, char **argv */)
+int main(void)
 {
 	int r0, r1;
 	struct actor *reader, *writer;

@@ -7,21 +7,24 @@ send "cmds 1 true true\n"
 expect -exact "+CMDS 1 true true\r"
 send "exec 1\n"
 expect -exact "+EXEC 1\r"
-expect -exact "TRES 1 true 0\r"
+expect -exact "TRES 1 0\r"
 
 send "cmds 1 echo echo -n foobar\n"
 expect -exact "+CMDS 1 echo echo -n foobar\r"
 send "exec 1\n"
-expect {
-    -exact "+EXEC 1\r" exp_continue
-    -exact "LOGD 1 echo 6 foobar\r"
+
+for {set i 0} {$i < 2} {incr i} {
+    expect -re {(\+EXEC 1\r)|(LOGD 1 6 foobar\r)}
 }
-expect -exact "TRES 1 echo 0\r"
+
+for {set i 0} {$i < 2} {incr i} {
+    expect -re {(LOGD 1 0 \r)|(TRES 1 0\r)}
+}
 
 send "cmds 1 false false\n"
 expect -exact "+CMDS 1 false false\r"
 send "exec 1\n"
 expect -exact "+EXEC 1\r"
-expect -exact "TRES 1 false 1\r"
+expect -exact "TRES 1 1\r"
 
 close

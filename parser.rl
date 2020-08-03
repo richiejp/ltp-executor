@@ -20,7 +20,11 @@ static void error_msg(struct actor *self, char *text)
  * It is much easier to understand this by looking at the state transition
  * graph e.g `ragel -V -p parser.rl | dot -Tsvg | display`
  *
- * */
+ * You may be able to guess how Ragel expressions work if you are familiar
+ * with regular expressions or lex, BNF etc., however note that side-effects
+ * (actions) can be embedded within the Ragel expressions (see
+ * http://www.colm.net/files/ragel/ragel-guide-6.10.pdf Chapter 3).
+ */
 %%{
 	machine parse;
 
@@ -32,65 +36,23 @@ static void error_msg(struct actor *self, char *text)
 		actor_say(self, ADDR_WRITER, msg);
 	}
 
-	action say_allc { tester_start(id); }
-
-	action alloc_cmds {
-		cmds = malloc(sizeof(*cmds));
-
-		assert_perror(errno);
-		assert(cmds);
-
-		buf_len = sizeof(cmds->tid);
-		buf = cmds->tid;
-	}
-
-	action set_cmds_tid {
-		*buf = '\0';
-		buf = cmds->cmds;
-	}
-
-	action say_cmds {
-		*buf = '\0';
-		buf = NULL;
-
-		msg = msg_alloc();
-		msg->type = MSG_CMDS;
-		msg->ptr = cmds;
-
-		actor_say(self, id, msg);
-	}
-
-	action say_exec {
-		msg = msg_alloc();
-		msg->type = MSG_EXEC;
-
-		actor_say(self, id, msg);
-	}
+	action say_allc { tester_start(self, id); }
 
 	action exit { shutdown(self); }
 
 	action exp_cmd {
 		error_msg(self, "Epected ping, allc, exit, cmds, or exec");
+		/* TODO: Errors are probably most common when a user is typing
+		 * stuff in manually. So we can reduce some noise by clearing
+		 * the read buffer up to the first newline char (if any) */
 		fgoto main;
 	}
 
 	ping = "ping"i $err(exp_cmd) ws* nl @say_pong;
-
-	allc = "allc"i $err(exp_cmd) ws+ >err(exp_ws)
-		id ws* nl @say_allc;
-
+	allc = "allc"i $err(exp_cmd) allc_body @say_allc;
 	exit = "exit"i $err(exp_cmd) ws* nl @exit;
-
-	cmds = "cmds"i $err(exp_cmd)
-		ws+ >err(exp_ws)
-		id %alloc_cmds
-		ws+ >err(exp_ws)
-		sym @add_char %set_cmds_tid
-		ws+ >err(exp_ws)
-		str @add_char
-		nl @say_cmds;
-
-	exec = "exec"i $err(exp_cmd) ws+ id ws* nl @say_exec;
+	cmds = "cmds"i $err(exp_cmd) cmds_body;
+	exec = "exec"i $err(exp_cmd) exec_body;
 
 	main := (ping | allc | exit | cmds | exec)*;
 
