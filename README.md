@@ -11,10 +11,9 @@ It is multithreaded and uses a message-passing actors system based on
 liburcu. Output from the tests is weaved onto the output pipe by a single
 writer thread.
 
-### TODO
-
-- for some transports it might make more sense to open a socket for each test
-  case and let the kernel handle interleaving the data.
+A simple, human readable, protocol is used between SUT and host. You
+can use this directly or use the provided host side 'driver'
+executable to feed the executor and record the results.
 
 ## Building
 
@@ -31,6 +30,7 @@ Optional:
 - expect (Only used for the tests)
 - socat, QEMU, dracut (Only used in the full-stack tests)
 - libasan (disable `-fsanitize=address` if you don't want it)
+- QEMU, dracut and the kernel (For the integration tests)
 
 Ragel is more rare (although it is in most distros), but the generated parser
 is distributed with the code so it is only necessary for development. The ASAN
@@ -45,7 +45,7 @@ $ cmake ..
 $ make
 ```
 
-To run the tests:
+To run the tests (except QEMU):
 
 ```sh
 $ make test
@@ -57,17 +57,25 @@ or
 $ ctest -V
 ```
 
+To run full-stack integration test:
+
+```sh
+$ export KERNEL_SRC=/path/to/linux
+$ export LTP_DIR=/opt/ltp
+$ ../test/qemu-integration.sh
+```
+
+See `test/qemu-dracut.sh` for the defaults. This works similar to
+[Rapido](https://github.com/rapido-linux/rapido).
+
 ### TODO
 
 - We probably want the option build statically, then we can copy&paste onto
   SUTS and even pipe the LTP tests onto the SUT removing the need to install
   LTP on the SUT.
 - Configure development and production targets in CMake
-- A "test planner" to create a test plan from a runtest file and provide an
-  easy CLI for the test harness (the harness being whatever sets up the SUT).
-- A "test driver" to efficiently communicate with the executor on the SUT,
-  translate the test plan into executor commands and update the plan as tests
-  are completed.
+
+Also see source comments.
 
 ## Usage
 
@@ -91,8 +99,9 @@ cmds 1 echo01 echo "An echo"
 +CMDS 1 echo01 echo "An echo"
 exec 1
 +EXEC 1
-LOGD 1 echo01 8 An echo
+LOGD 1 8 An echo
 
+LOGD 1 0 
 TRES 1 echo01 0
 exit
 +EXIT
@@ -123,6 +132,26 @@ exec 1
 +EXEC 1
 TRES 1 1
 ```
+
+### With the driver and tstctl
+
+The `tstctl` command can create and query a test plan which the
+`driver` executes.
+
+```sh
+$ ./tstctl init
+$ ./tstctl set NRPOC 4
+$ ./tstctl add-tests /opt/ltp/runtest/syscalls
+$ while [ $(./tstctl status) = TODO ]; do
+>    ./script-to-restart-qemu.sh
+>    socat EXEC:../driver UNIX-CONNECT:transport,retry=3
+> done
+```
+
+When the `driver` receives `TBROK` from a test, or similar, it updates
+the test plan and exits. You may then use `tstctl` to query the plan
+and decide what to do next e.g. continue with or without reseting the
+SUT.
 
 ### Running in a VM
 
