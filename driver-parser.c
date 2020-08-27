@@ -1,4 +1,8 @@
 #line 1 "/home/rich/qa/ltp-executor/driver-parser.rl"
+// SPDX-License-Identifier: GPL-3.0-or-later
+/*
+* Copyright (c) 2020 SUSE LLC
+*/
 #include <errno.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -22,13 +26,13 @@ char *text)
 * the length prefixed string.
 * */
 
-#line 26 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 30 "/home/rich/qa/ltp-executor/driver-parser.c"
 static const int parse_start = 47;
 
 static const int parse_en_main = 47;
 
 
-#line 94 "/home/rich/qa/ltp-executor/driver-parser.rl"
+#line 98 "/home/rich/qa/ltp-executor/driver-parser.rl"
 
 
 static int cs;
@@ -42,12 +46,12 @@ struct msg *msg;
 void parser_init(void)
 {
 	
-#line 46 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 50 "/home/rich/qa/ltp-executor/driver-parser.c"
 	{
 		cs = (int)parse_start;
 	}
 	
-#line 108 "/home/rich/qa/ltp-executor/driver-parser.rl"
+#line 112 "/home/rich/qa/ltp-executor/driver-parser.rl"
 	
 }
 
@@ -57,7 +61,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 	char *eof = NULL;
 	
 	
-#line 61 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 65 "/home/rich/qa/ltp-executor/driver-parser.c"
 	{
 		int _ck;
 		if ( p == pe )
@@ -163,7 +167,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 		goto st_out;
 		_ctr91:
 		{
-#line 63 "/home/rich/qa/ltp-executor/driver-parser.rl"
+#line 67 "/home/rich/qa/ltp-executor/driver-parser.rl"
 			
 			*buf = '\0';
 			assert(msg);
@@ -171,7 +175,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			msg = NULL;
 		}
 		
-#line 175 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 179 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		goto _st47;
 		_ctr21:
@@ -182,10 +186,10 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			id = id_to_addr(n);
 		}
 		
-#line 186 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 190 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		{
-#line 40 "/home/rich/qa/ltp-executor/driver-parser.rl"
+#line 44 "/home/rich/qa/ltp-executor/driver-parser.rl"
 			
 			msg = msg_alloc();
 			msg->type = MSG_ALLC;
@@ -193,12 +197,12 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			msg = NULL;
 		}
 		
-#line 197 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 201 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		goto _st47;
 		_ctr26:
 		{
-#line 40 "/home/rich/qa/ltp-executor/driver-parser.rl"
+#line 44 "/home/rich/qa/ltp-executor/driver-parser.rl"
 			
 			msg = msg_alloc();
 			msg->type = MSG_ALLC;
@@ -206,7 +210,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			msg = NULL;
 		}
 		
-#line 210 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 214 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		goto _st47;
 		_ctr52:
@@ -223,7 +227,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			actor_say(self, id, msg);
 		}
 		
-#line 227 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 231 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		goto _st47;
 		_ctr65:
@@ -234,7 +238,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			id = id_to_addr(n);
 		}
 		
-#line 238 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 242 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		{
 #line 44 "/home/rich/qa/ltp-executor/parser-common.rl"
@@ -245,7 +249,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			actor_say(self, id, msg);
 		}
 		
-#line 249 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 253 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		goto _st47;
 		_ctr69:
@@ -258,12 +262,12 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			actor_say(self, id, msg);
 		}
 		
-#line 262 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 266 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		goto _st47;
 		_ctr100:
 		{
-#line 33 "/home/rich/qa/ltp-executor/driver-parser.rl"
+#line 37 "/home/rich/qa/ltp-executor/driver-parser.rl"
 			
 			msg = msg_alloc();
 			msg->type = MSG_PONG;
@@ -271,12 +275,12 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			msg = NULL;
 		}
 		
-#line 275 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 279 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		goto _st47;
 		_ctr117:
 		{
-#line 70 "/home/rich/qa/ltp-executor/driver-parser.rl"
+#line 74 "/home/rich/qa/ltp-executor/driver-parser.rl"
 			
 			msg = msg_alloc();
 			msg->type = MSG_TRES;
@@ -285,7 +289,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			msg = NULL;
 		}
 		
-#line 289 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 293 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		goto _st47;
 		_st47:
@@ -323,29 +327,29 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			error_msg(self, "Expected new line");
 			{goto _st47;}}
 		
-#line 327 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 331 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		goto _st0;
 		_ctr2:
 		{
-#line 28 "/home/rich/qa/ltp-executor/driver-parser.rl"
+#line 32 "/home/rich/qa/ltp-executor/driver-parser.rl"
 			
 			DBG("Epected pong, +allc, +cmds, +exec, logd or tres.\nBuffer Dump: ");
 			fwrite(str, 1, len, stderr);
 		}
 		
-#line 338 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 342 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		goto _st0;
 		_ctr13:
 		{
-#line 28 "/home/rich/qa/ltp-executor/driver-parser.rl"
+#line 32 "/home/rich/qa/ltp-executor/driver-parser.rl"
 			
 			DBG("Epected pong, +allc, +cmds, +exec, logd or tres.\nBuffer Dump: ");
 			fwrite(str, 1, len, stderr);
 		}
 		
-#line 349 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 353 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		{
 #line 56 "/home/rich/qa/ltp-executor/parser-common.rl"
@@ -353,7 +357,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			error_msg(self, "Expected white space");
 			{goto _st47;}}
 		
-#line 357 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 361 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		goto _st0;
 		_ctr16:
@@ -363,7 +367,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			error_msg(self, "Expected digit");
 			{goto _st47;}}
 		
-#line 367 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 371 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		goto _st0;
 		_ctr19:
@@ -373,7 +377,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			error_msg(self, "Expected digit");
 			{goto _st47;}}
 		
-#line 377 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 381 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		{
 #line 51 "/home/rich/qa/ltp-executor/parser-common.rl"
@@ -381,7 +385,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			error_msg(self, "Expected new line");
 			{goto _st47;}}
 		
-#line 385 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 389 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		goto _st0;
 		_ctr24:
@@ -391,7 +395,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			error_msg(self, "Expected new line");
 			{goto _st47;}}
 		
-#line 395 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 399 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		goto _st0;
 		_ctr38:
@@ -401,7 +405,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			error_msg(self, "Expected digit");
 			{goto _st47;}}
 		
-#line 405 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 409 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		{
 #line 56 "/home/rich/qa/ltp-executor/parser-common.rl"
@@ -409,7 +413,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			error_msg(self, "Expected white space");
 			{goto _st47;}}
 		
-#line 413 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 417 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		goto _st0;
 		_ctr44:
@@ -419,7 +423,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			error_msg(self, "Expected symbol character");
 			{goto _st47;}}
 		
-#line 423 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 427 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		goto _st0;
 		_ctr47:
@@ -429,7 +433,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			error_msg(self, "Expected symbol character");
 			{goto _st47;}}
 		
-#line 433 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 437 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		{
 #line 56 "/home/rich/qa/ltp-executor/parser-common.rl"
@@ -437,7 +441,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			error_msg(self, "Expected white space");
 			{goto _st47;}}
 		
-#line 441 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 445 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		goto _st0;
 		_ctr50:
@@ -447,7 +451,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			error_msg(self, "Expected new line");
 			{goto _st47;}}
 		
-#line 451 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 455 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		{
 #line 71 "/home/rich/qa/ltp-executor/parser-common.rl"
@@ -455,18 +459,18 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			error_msg(self, "Expected string character");
 			{goto _st47;}}
 		
-#line 459 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 463 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		goto _st0;
 		_ctr99:
 		{
-#line 28 "/home/rich/qa/ltp-executor/driver-parser.rl"
+#line 32 "/home/rich/qa/ltp-executor/driver-parser.rl"
 			
 			DBG("Epected pong, +allc, +cmds, +exec, logd or tres.\nBuffer Dump: ");
 			fwrite(str, 1, len, stderr);
 		}
 		
-#line 470 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 474 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		{
 #line 51 "/home/rich/qa/ltp-executor/parser-common.rl"
@@ -474,7 +478,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			error_msg(self, "Expected new line");
 			{goto _st47;}}
 		
-#line 478 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 482 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		goto _st0;
 		st_case_0:
@@ -483,13 +487,13 @@ void parser_feed(struct actor *self, char *str, size_t len)
 		goto _pop;
 		_ctr1:
 		{
-#line 28 "/home/rich/qa/ltp-executor/driver-parser.rl"
+#line 32 "/home/rich/qa/ltp-executor/driver-parser.rl"
 			
 			DBG("Epected pong, +allc, +cmds, +exec, logd or tres.\nBuffer Dump: ");
 			fwrite(str, 1, len, stderr);
 		}
 		
-#line 493 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 497 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		goto _st1;
 		_st1:
@@ -519,13 +523,13 @@ void parser_feed(struct actor *self, char *str, size_t len)
 		}
 		_ctr6:
 		{
-#line 28 "/home/rich/qa/ltp-executor/driver-parser.rl"
+#line 32 "/home/rich/qa/ltp-executor/driver-parser.rl"
 			
 			DBG("Epected pong, +allc, +cmds, +exec, logd or tres.\nBuffer Dump: ");
 			fwrite(str, 1, len, stderr);
 		}
 		
-#line 529 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 533 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		goto _st2;
 		_st2:
@@ -547,13 +551,13 @@ void parser_feed(struct actor *self, char *str, size_t len)
 		}
 		_ctr8:
 		{
-#line 28 "/home/rich/qa/ltp-executor/driver-parser.rl"
+#line 32 "/home/rich/qa/ltp-executor/driver-parser.rl"
 			
 			DBG("Epected pong, +allc, +cmds, +exec, logd or tres.\nBuffer Dump: ");
 			fwrite(str, 1, len, stderr);
 		}
 		
-#line 557 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 561 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		goto _st3;
 		_st3:
@@ -575,13 +579,13 @@ void parser_feed(struct actor *self, char *str, size_t len)
 		}
 		_ctr10:
 		{
-#line 28 "/home/rich/qa/ltp-executor/driver-parser.rl"
+#line 32 "/home/rich/qa/ltp-executor/driver-parser.rl"
 			
 			DBG("Epected pong, +allc, +cmds, +exec, logd or tres.\nBuffer Dump: ");
 			fwrite(str, 1, len, stderr);
 		}
 		
-#line 585 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 589 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		goto _st4;
 		_st4:
@@ -603,13 +607,13 @@ void parser_feed(struct actor *self, char *str, size_t len)
 		}
 		_ctr12:
 		{
-#line 28 "/home/rich/qa/ltp-executor/driver-parser.rl"
+#line 32 "/home/rich/qa/ltp-executor/driver-parser.rl"
 			
 			DBG("Epected pong, +allc, +cmds, +exec, logd or tres.\nBuffer Dump: ");
 			fwrite(str, 1, len, stderr);
 		}
 		
-#line 613 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 617 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		{
 #line 56 "/home/rich/qa/ltp-executor/parser-common.rl"
@@ -617,7 +621,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			error_msg(self, "Expected white space");
 			{goto _st47;}}
 		
-#line 621 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 625 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		goto _st5;
 		_st5:
@@ -652,7 +656,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			error_msg(self, "Expected digit");
 			{goto _st47;}}
 		
-#line 656 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 660 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		goto _st6;
 		_st6:
@@ -689,7 +693,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 #line 4 "/home/rich/qa/ltp-executor/parser-common.rl"
 			n = (( (*( p)))) - '0'; }
 		
-#line 693 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 697 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		goto _st7;
 		_ctr18:
@@ -699,7 +703,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			error_msg(self, "Expected digit");
 			{goto _st47;}}
 		
-#line 703 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 707 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		{
 #line 51 "/home/rich/qa/ltp-executor/parser-common.rl"
@@ -707,7 +711,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			error_msg(self, "Expected new line");
 			{goto _st47;}}
 		
-#line 711 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 715 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		goto _st7;
 		_ctr22:
@@ -715,7 +719,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 #line 5 "/home/rich/qa/ltp-executor/parser-common.rl"
 			n = n * 10 + ((( (*( p)))) - '0'); }
 		
-#line 719 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 723 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		goto _st7;
 		_st7:
@@ -755,7 +759,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			id = id_to_addr(n);
 		}
 		
-#line 759 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 763 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		goto _st8;
 		_ctr23:
@@ -765,7 +769,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			error_msg(self, "Expected new line");
 			{goto _st47;}}
 		
-#line 769 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 773 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		goto _st8;
 		_st8:
@@ -795,13 +799,13 @@ void parser_feed(struct actor *self, char *str, size_t len)
 		}
 		_ctr27:
 		{
-#line 28 "/home/rich/qa/ltp-executor/driver-parser.rl"
+#line 32 "/home/rich/qa/ltp-executor/driver-parser.rl"
 			
 			DBG("Epected pong, +allc, +cmds, +exec, logd or tres.\nBuffer Dump: ");
 			fwrite(str, 1, len, stderr);
 		}
 		
-#line 805 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 809 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		goto _st9;
 		_st9:
@@ -823,13 +827,13 @@ void parser_feed(struct actor *self, char *str, size_t len)
 		}
 		_ctr29:
 		{
-#line 28 "/home/rich/qa/ltp-executor/driver-parser.rl"
+#line 32 "/home/rich/qa/ltp-executor/driver-parser.rl"
 			
 			DBG("Epected pong, +allc, +cmds, +exec, logd or tres.\nBuffer Dump: ");
 			fwrite(str, 1, len, stderr);
 		}
 		
-#line 833 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 837 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		goto _st10;
 		_st10:
@@ -851,13 +855,13 @@ void parser_feed(struct actor *self, char *str, size_t len)
 		}
 		_ctr31:
 		{
-#line 28 "/home/rich/qa/ltp-executor/driver-parser.rl"
+#line 32 "/home/rich/qa/ltp-executor/driver-parser.rl"
 			
 			DBG("Epected pong, +allc, +cmds, +exec, logd or tres.\nBuffer Dump: ");
 			fwrite(str, 1, len, stderr);
 		}
 		
-#line 861 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 865 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		goto _st11;
 		_st11:
@@ -879,13 +883,13 @@ void parser_feed(struct actor *self, char *str, size_t len)
 		}
 		_ctr33:
 		{
-#line 28 "/home/rich/qa/ltp-executor/driver-parser.rl"
+#line 32 "/home/rich/qa/ltp-executor/driver-parser.rl"
 			
 			DBG("Epected pong, +allc, +cmds, +exec, logd or tres.\nBuffer Dump: ");
 			fwrite(str, 1, len, stderr);
 		}
 		
-#line 889 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 893 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		{
 #line 56 "/home/rich/qa/ltp-executor/parser-common.rl"
@@ -893,7 +897,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			error_msg(self, "Expected white space");
 			{goto _st47;}}
 		
-#line 897 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 901 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		goto _st12;
 		_st12:
@@ -928,7 +932,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			error_msg(self, "Expected digit");
 			{goto _st47;}}
 		
-#line 932 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 936 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		goto _st13;
 		_st13:
@@ -965,7 +969,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 #line 4 "/home/rich/qa/ltp-executor/parser-common.rl"
 			n = (( (*( p)))) - '0'; }
 		
-#line 969 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 973 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		goto _st14;
 		_ctr40:
@@ -973,7 +977,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 #line 5 "/home/rich/qa/ltp-executor/parser-common.rl"
 			n = n * 10 + ((( (*( p)))) - '0'); }
 		
-#line 977 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 981 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		goto _st14;
 		_ctr37:
@@ -983,7 +987,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			error_msg(self, "Expected digit");
 			{goto _st47;}}
 		
-#line 987 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 991 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		{
 #line 56 "/home/rich/qa/ltp-executor/parser-common.rl"
@@ -991,7 +995,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			error_msg(self, "Expected white space");
 			{goto _st47;}}
 		
-#line 995 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 999 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		goto _st14;
 		_st14:
@@ -1031,7 +1035,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			id = id_to_addr(n);
 		}
 		
-#line 1035 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 1039 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		{
 #line 18 "/home/rich/qa/ltp-executor/parser-common.rl"
@@ -1045,7 +1049,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			buf = cmds->tid;
 		}
 		
-#line 1049 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 1053 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		goto _st15;
 		_ctr41:
@@ -1055,7 +1059,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			error_msg(self, "Expected symbol character");
 			{goto _st47;}}
 		
-#line 1059 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 1063 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		goto _st15;
 		_st15:
@@ -1095,7 +1099,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			*(buf++) = (( (*( p))));
 		}
 		
-#line 1099 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 1103 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		goto _st16;
 		_ctr45:
@@ -1105,7 +1109,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			error_msg(self, "Expected symbol character");
 			{goto _st47;}}
 		
-#line 1109 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 1113 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		{
 #line 56 "/home/rich/qa/ltp-executor/parser-common.rl"
@@ -1113,7 +1117,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			error_msg(self, "Expected white space");
 			{goto _st47;}}
 		
-#line 1117 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 1121 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		goto _st16;
 		_st16:
@@ -1152,7 +1156,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			buf = cmds->cmds;
 		}
 		
-#line 1156 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 1160 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		goto _st17;
 		_ctr48:
@@ -1162,7 +1166,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			error_msg(self, "Expected new line");
 			{goto _st47;}}
 		
-#line 1166 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 1170 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		{
 #line 71 "/home/rich/qa/ltp-executor/parser-common.rl"
@@ -1170,7 +1174,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			error_msg(self, "Expected string character");
 			{goto _st47;}}
 		
-#line 1174 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 1178 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		goto _st17;
 		_st17:
@@ -1199,7 +1203,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			*(buf++) = (( (*( p))));
 		}
 		
-#line 1203 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 1207 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		goto _st18;
 		_ctr51:
@@ -1209,7 +1213,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			error_msg(self, "Expected new line");
 			{goto _st47;}}
 		
-#line 1213 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 1217 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		{
 #line 71 "/home/rich/qa/ltp-executor/parser-common.rl"
@@ -1217,7 +1221,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			error_msg(self, "Expected string character");
 			{goto _st47;}}
 		
-#line 1221 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 1225 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		goto _st18;
 		_st18:
@@ -1239,13 +1243,13 @@ void parser_feed(struct actor *self, char *str, size_t len)
 		}
 		_ctr53:
 		{
-#line 28 "/home/rich/qa/ltp-executor/driver-parser.rl"
+#line 32 "/home/rich/qa/ltp-executor/driver-parser.rl"
 			
 			DBG("Epected pong, +allc, +cmds, +exec, logd or tres.\nBuffer Dump: ");
 			fwrite(str, 1, len, stderr);
 		}
 		
-#line 1249 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 1253 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		goto _st19;
 		_st19:
@@ -1267,13 +1271,13 @@ void parser_feed(struct actor *self, char *str, size_t len)
 		}
 		_ctr55:
 		{
-#line 28 "/home/rich/qa/ltp-executor/driver-parser.rl"
+#line 32 "/home/rich/qa/ltp-executor/driver-parser.rl"
 			
 			DBG("Epected pong, +allc, +cmds, +exec, logd or tres.\nBuffer Dump: ");
 			fwrite(str, 1, len, stderr);
 		}
 		
-#line 1277 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 1281 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		goto _st20;
 		_st20:
@@ -1295,13 +1299,13 @@ void parser_feed(struct actor *self, char *str, size_t len)
 		}
 		_ctr57:
 		{
-#line 28 "/home/rich/qa/ltp-executor/driver-parser.rl"
+#line 32 "/home/rich/qa/ltp-executor/driver-parser.rl"
 			
 			DBG("Epected pong, +allc, +cmds, +exec, logd or tres.\nBuffer Dump: ");
 			fwrite(str, 1, len, stderr);
 		}
 		
-#line 1305 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 1309 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		goto _st21;
 		_st21:
@@ -1323,13 +1327,13 @@ void parser_feed(struct actor *self, char *str, size_t len)
 		}
 		_ctr59:
 		{
-#line 28 "/home/rich/qa/ltp-executor/driver-parser.rl"
+#line 32 "/home/rich/qa/ltp-executor/driver-parser.rl"
 			
 			DBG("Epected pong, +allc, +cmds, +exec, logd or tres.\nBuffer Dump: ");
 			fwrite(str, 1, len, stderr);
 		}
 		
-#line 1333 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 1337 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		goto _st22;
 		_st22:
@@ -1364,7 +1368,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			error_msg(self, "Expected digit");
 			{goto _st47;}}
 		
-#line 1368 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 1372 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		goto _st23;
 		_st23:
@@ -1401,7 +1405,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 #line 4 "/home/rich/qa/ltp-executor/parser-common.rl"
 			n = (( (*( p)))) - '0'; }
 		
-#line 1405 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 1409 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		goto _st24;
 		_ctr63:
@@ -1411,7 +1415,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			error_msg(self, "Expected digit");
 			{goto _st47;}}
 		
-#line 1415 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 1419 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		{
 #line 51 "/home/rich/qa/ltp-executor/parser-common.rl"
@@ -1419,7 +1423,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			error_msg(self, "Expected new line");
 			{goto _st47;}}
 		
-#line 1423 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 1427 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		goto _st24;
 		_ctr66:
@@ -1427,7 +1431,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 #line 5 "/home/rich/qa/ltp-executor/parser-common.rl"
 			n = n * 10 + ((( (*( p)))) - '0'); }
 		
-#line 1431 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 1435 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		goto _st24;
 		_st24:
@@ -1467,7 +1471,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			id = id_to_addr(n);
 		}
 		
-#line 1471 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 1475 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		goto _st25;
 		_ctr67:
@@ -1477,7 +1481,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			error_msg(self, "Expected new line");
 			{goto _st47;}}
 		
-#line 1481 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 1485 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		goto _st25;
 		_st25:
@@ -1507,13 +1511,13 @@ void parser_feed(struct actor *self, char *str, size_t len)
 		}
 		_ctr70:
 		{
-#line 28 "/home/rich/qa/ltp-executor/driver-parser.rl"
+#line 32 "/home/rich/qa/ltp-executor/driver-parser.rl"
 			
 			DBG("Epected pong, +allc, +cmds, +exec, logd or tres.\nBuffer Dump: ");
 			fwrite(str, 1, len, stderr);
 		}
 		
-#line 1517 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 1521 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		goto _st26;
 		_st26:
@@ -1535,13 +1539,13 @@ void parser_feed(struct actor *self, char *str, size_t len)
 		}
 		_ctr72:
 		{
-#line 28 "/home/rich/qa/ltp-executor/driver-parser.rl"
+#line 32 "/home/rich/qa/ltp-executor/driver-parser.rl"
 			
 			DBG("Epected pong, +allc, +cmds, +exec, logd or tres.\nBuffer Dump: ");
 			fwrite(str, 1, len, stderr);
 		}
 		
-#line 1545 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 1549 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		goto _st27;
 		_st27:
@@ -1563,13 +1567,13 @@ void parser_feed(struct actor *self, char *str, size_t len)
 		}
 		_ctr74:
 		{
-#line 28 "/home/rich/qa/ltp-executor/driver-parser.rl"
+#line 32 "/home/rich/qa/ltp-executor/driver-parser.rl"
 			
 			DBG("Epected pong, +allc, +cmds, +exec, logd or tres.\nBuffer Dump: ");
 			fwrite(str, 1, len, stderr);
 		}
 		
-#line 1573 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 1577 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		goto _st28;
 		_st28:
@@ -1591,13 +1595,13 @@ void parser_feed(struct actor *self, char *str, size_t len)
 		}
 		_ctr76:
 		{
-#line 28 "/home/rich/qa/ltp-executor/driver-parser.rl"
+#line 32 "/home/rich/qa/ltp-executor/driver-parser.rl"
 			
 			DBG("Epected pong, +allc, +cmds, +exec, logd or tres.\nBuffer Dump: ");
 			fwrite(str, 1, len, stderr);
 		}
 		
-#line 1601 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 1605 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		{
 #line 56 "/home/rich/qa/ltp-executor/parser-common.rl"
@@ -1605,7 +1609,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			error_msg(self, "Expected white space");
 			{goto _st47;}}
 		
-#line 1609 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 1613 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		goto _st29;
 		_st29:
@@ -1640,19 +1644,19 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			error_msg(self, "Expected digit");
 			{goto _st47;}}
 		
-#line 1644 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 1648 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		goto _st30;
 		_ctr77:
 		{
-#line 47 "/home/rich/qa/ltp-executor/driver-parser.rl"
+#line 51 "/home/rich/qa/ltp-executor/driver-parser.rl"
 			
 			msg = msg_alloc_extra(sizeof(*log));
 			msg->type = MSG_LOGD;
 			log = msg->ptr;
 		}
 		
-#line 1656 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 1660 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		goto _st30;
 		_st30:
@@ -1677,7 +1681,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 #line 4 "/home/rich/qa/ltp-executor/parser-common.rl"
 			n = (( (*( p)))) - '0'; }
 		
-#line 1681 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 1685 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		goto _st31;
 		_ctr82:
@@ -1685,7 +1689,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 #line 5 "/home/rich/qa/ltp-executor/parser-common.rl"
 			n = n * 10 + ((( (*( p)))) - '0'); }
 		
-#line 1689 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 1693 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		goto _st31;
 		_ctr80:
@@ -1695,7 +1699,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			error_msg(self, "Expected digit");
 			{goto _st47;}}
 		
-#line 1699 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 1703 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		{
 #line 56 "/home/rich/qa/ltp-executor/parser-common.rl"
@@ -1703,7 +1707,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			error_msg(self, "Expected white space");
 			{goto _st47;}}
 		
-#line 1707 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 1711 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		goto _st31;
 		_st31:
@@ -1742,7 +1746,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			error_msg(self, "Expected digit");
 			{goto _st47;}}
 		
-#line 1746 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 1750 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		goto _st32;
 		_ctr81:
@@ -1753,7 +1757,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			id = id_to_addr(n);
 		}
 		
-#line 1757 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 1761 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		goto _st32;
 		_st32:
@@ -1778,7 +1782,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 #line 5 "/home/rich/qa/ltp-executor/parser-common.rl"
 			n = n * 10 + ((( (*( p)))) - '0'); }
 		
-#line 1782 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 1786 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		goto _st33;
 		_ctr85:
@@ -1788,7 +1792,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			error_msg(self, "Expected digit");
 			{goto _st47;}}
 		
-#line 1792 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 1796 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		{
 #line 56 "/home/rich/qa/ltp-executor/parser-common.rl"
@@ -1796,24 +1800,24 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			error_msg(self, "Expected white space");
 			{goto _st47;}}
 		
-#line 1800 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 1804 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		goto _st33;
 		_ctr84:
 		{
-#line 53 "/home/rich/qa/ltp-executor/driver-parser.rl"
+#line 57 "/home/rich/qa/ltp-executor/driver-parser.rl"
 			
 			buf = log->buf;
 			buf_len = LEN_1024;
 		}
 		
-#line 1811 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 1815 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		{
 #line 4 "/home/rich/qa/ltp-executor/parser-common.rl"
 			n = (( (*( p)))) - '0'; }
 		
-#line 1817 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 1821 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		goto _st33;
 		_st33:
@@ -1854,7 +1858,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			*(buf++) = (( (*( p))));
 		}
 		
-#line 1858 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 1862 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		goto _st34;
 		_ctr88:
@@ -1864,18 +1868,18 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			error_msg(self, "Expected new line");
 			{goto _st47;}}
 		
-#line 1868 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 1872 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		goto _st34;
 		_ctr86:
 		{
-#line 58 "/home/rich/qa/ltp-executor/driver-parser.rl"
+#line 62 "/home/rich/qa/ltp-executor/driver-parser.rl"
 			
 			log->len = n;
 			n = 0;
 		}
 		
-#line 1879 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 1883 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		goto _st34;
 		_st34:
@@ -1892,7 +1896,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 		if ( ( (*( p))) == 10 ) {
 			_ck = 0;
 			if ( ( n < log->len )
-#line 1896 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 1900 "/home/rich/qa/ltp-executor/driver-parser.c"
 			)
 			_ck += 1;
 			if ( _ck > 0 ) {
@@ -1905,7 +1909,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 		{
 			_ck = 0;
 			if ( ( n < log->len )
-#line 1909 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 1913 "/home/rich/qa/ltp-executor/driver-parser.c"
 			)
 			_ck += 1;
 			if ( _ck > 0 ) {
@@ -1917,13 +1921,13 @@ void parser_feed(struct actor *self, char *str, size_t len)
 		}
 		_ctr92:
 		{
-#line 28 "/home/rich/qa/ltp-executor/driver-parser.rl"
+#line 32 "/home/rich/qa/ltp-executor/driver-parser.rl"
 			
 			DBG("Epected pong, +allc, +cmds, +exec, logd or tres.\nBuffer Dump: ");
 			fwrite(str, 1, len, stderr);
 		}
 		
-#line 1927 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 1931 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		goto _st35;
 		_st35:
@@ -1945,13 +1949,13 @@ void parser_feed(struct actor *self, char *str, size_t len)
 		}
 		_ctr94:
 		{
-#line 28 "/home/rich/qa/ltp-executor/driver-parser.rl"
+#line 32 "/home/rich/qa/ltp-executor/driver-parser.rl"
 			
 			DBG("Epected pong, +allc, +cmds, +exec, logd or tres.\nBuffer Dump: ");
 			fwrite(str, 1, len, stderr);
 		}
 		
-#line 1955 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 1959 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		goto _st36;
 		_st36:
@@ -1973,13 +1977,13 @@ void parser_feed(struct actor *self, char *str, size_t len)
 		}
 		_ctr96:
 		{
-#line 28 "/home/rich/qa/ltp-executor/driver-parser.rl"
+#line 32 "/home/rich/qa/ltp-executor/driver-parser.rl"
 			
 			DBG("Epected pong, +allc, +cmds, +exec, logd or tres.\nBuffer Dump: ");
 			fwrite(str, 1, len, stderr);
 		}
 		
-#line 1983 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 1987 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		goto _st37;
 		_st37:
@@ -2001,13 +2005,13 @@ void parser_feed(struct actor *self, char *str, size_t len)
 		}
 		_ctr98:
 		{
-#line 28 "/home/rich/qa/ltp-executor/driver-parser.rl"
+#line 32 "/home/rich/qa/ltp-executor/driver-parser.rl"
 			
 			DBG("Epected pong, +allc, +cmds, +exec, logd or tres.\nBuffer Dump: ");
 			fwrite(str, 1, len, stderr);
 		}
 		
-#line 2011 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 2015 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		{
 #line 51 "/home/rich/qa/ltp-executor/parser-common.rl"
@@ -2015,7 +2019,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			error_msg(self, "Expected new line");
 			{goto _st47;}}
 		
-#line 2019 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 2023 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		goto _st38;
 		_st38:
@@ -2037,13 +2041,13 @@ void parser_feed(struct actor *self, char *str, size_t len)
 		}
 		_ctr101:
 		{
-#line 28 "/home/rich/qa/ltp-executor/driver-parser.rl"
+#line 32 "/home/rich/qa/ltp-executor/driver-parser.rl"
 			
 			DBG("Epected pong, +allc, +cmds, +exec, logd or tres.\nBuffer Dump: ");
 			fwrite(str, 1, len, stderr);
 		}
 		
-#line 2047 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 2051 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		goto _st39;
 		_st39:
@@ -2065,13 +2069,13 @@ void parser_feed(struct actor *self, char *str, size_t len)
 		}
 		_ctr103:
 		{
-#line 28 "/home/rich/qa/ltp-executor/driver-parser.rl"
+#line 32 "/home/rich/qa/ltp-executor/driver-parser.rl"
 			
 			DBG("Epected pong, +allc, +cmds, +exec, logd or tres.\nBuffer Dump: ");
 			fwrite(str, 1, len, stderr);
 		}
 		
-#line 2075 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 2079 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		goto _st40;
 		_st40:
@@ -2093,13 +2097,13 @@ void parser_feed(struct actor *self, char *str, size_t len)
 		}
 		_ctr105:
 		{
-#line 28 "/home/rich/qa/ltp-executor/driver-parser.rl"
+#line 32 "/home/rich/qa/ltp-executor/driver-parser.rl"
 			
 			DBG("Epected pong, +allc, +cmds, +exec, logd or tres.\nBuffer Dump: ");
 			fwrite(str, 1, len, stderr);
 		}
 		
-#line 2103 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 2107 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		goto _st41;
 		_st41:
@@ -2121,13 +2125,13 @@ void parser_feed(struct actor *self, char *str, size_t len)
 		}
 		_ctr107:
 		{
-#line 28 "/home/rich/qa/ltp-executor/driver-parser.rl"
+#line 32 "/home/rich/qa/ltp-executor/driver-parser.rl"
 			
 			DBG("Epected pong, +allc, +cmds, +exec, logd or tres.\nBuffer Dump: ");
 			fwrite(str, 1, len, stderr);
 		}
 		
-#line 2131 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 2135 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		{
 #line 56 "/home/rich/qa/ltp-executor/parser-common.rl"
@@ -2135,7 +2139,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			error_msg(self, "Expected white space");
 			{goto _st47;}}
 		
-#line 2139 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 2143 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		goto _st42;
 		_st42:
@@ -2170,7 +2174,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			error_msg(self, "Expected digit");
 			{goto _st47;}}
 		
-#line 2174 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 2178 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		goto _st43;
 		_st43:
@@ -2195,7 +2199,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 #line 4 "/home/rich/qa/ltp-executor/parser-common.rl"
 			n = (( (*( p)))) - '0'; }
 		
-#line 2199 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 2203 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		goto _st44;
 		_ctr113:
@@ -2203,7 +2207,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 #line 5 "/home/rich/qa/ltp-executor/parser-common.rl"
 			n = n * 10 + ((( (*( p)))) - '0'); }
 		
-#line 2207 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 2211 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		goto _st44;
 		_ctr111:
@@ -2213,7 +2217,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			error_msg(self, "Expected digit");
 			{goto _st47;}}
 		
-#line 2217 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 2221 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		{
 #line 56 "/home/rich/qa/ltp-executor/parser-common.rl"
@@ -2221,7 +2225,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			error_msg(self, "Expected white space");
 			{goto _st47;}}
 		
-#line 2225 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 2229 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		goto _st44;
 		_st44:
@@ -2260,7 +2264,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			error_msg(self, "Expected digit");
 			{goto _st47;}}
 		
-#line 2264 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 2268 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		goto _st45;
 		_ctr112:
@@ -2271,7 +2275,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			id = id_to_addr(n);
 		}
 		
-#line 2275 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 2279 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		goto _st45;
 		_st45:
@@ -2296,7 +2300,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 #line 4 "/home/rich/qa/ltp-executor/parser-common.rl"
 			n = (( (*( p)))) - '0'; }
 		
-#line 2300 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 2304 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		goto _st46;
 		_ctr116:
@@ -2306,7 +2310,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			error_msg(self, "Expected digit");
 			{goto _st47;}}
 		
-#line 2310 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 2314 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		{
 #line 51 "/home/rich/qa/ltp-executor/parser-common.rl"
@@ -2314,7 +2318,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			error_msg(self, "Expected new line");
 			{goto _st47;}}
 		
-#line 2318 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 2322 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		goto _st46;
 		_ctr118:
@@ -2322,7 +2326,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 #line 5 "/home/rich/qa/ltp-executor/parser-common.rl"
 			n = n * 10 + ((( (*( p)))) - '0'); }
 		
-#line 2326 "/home/rich/qa/ltp-executor/driver-parser.c"
+#line 2330 "/home/rich/qa/ltp-executor/driver-parser.c"
 		
 		goto _st46;
 		_st46:
@@ -2601,6 +2605,6 @@ void parser_feed(struct actor *self, char *str, size_t len)
 		_out: {}
 	}
 	
-#line 118 "/home/rich/qa/ltp-executor/driver-parser.rl"
+#line 122 "/home/rich/qa/ltp-executor/driver-parser.rl"
 	
 }

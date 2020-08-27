@@ -1,27 +1,12 @@
-/* # driver - drive the executor
+// SPDX-License-Identifier: GPL-3.0-or-later
+/*
+ * Copyright (c) 2020 SUSE LLC
  *
  * Reads a test plan, sends test commands to the executor and writes the
  * results back into the plan. Also writes the test log output into seperate
  * files.
  *
- * The idea is the test runner can do something like the following:
- *
- * $ mkdir test
- * $ cd test
- * $ tstctl init $LTP_DIR/runtest/syscalls
- * $ drive <$SUT_OUT >$SUT_IN
- * $ tstctl status
- *
- * Then if the test plan completed
- *
- * $ tstctl export > $RESULTS/syscalls.json
- * $ cd .. && rm -r test
- *
- * Or if the driver lost contact with the executor before completing then the
- * test harness can restart the SUT or whatever. Then just continue with:
- *
- * $ drive <$SUT_OUT >$SUT_IN
- **/
+ */
 
 #include <assert.h>
 #include <errno.h>

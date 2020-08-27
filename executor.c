@@ -1,3 +1,7 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
+/*
+ * Copyright (c) 2020 SUSE LLC
+ */
 
 #include <assert.h>
 #include <errno.h>

@@ -1,3 +1,8 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
+/*
+ * Copyright (c) 2020 SUSE LLC
+ */
+
 #define DBG(fmt, ...)							\
 {									\
 	fprintf(stderr, "%s:%s:%i ", __FILE__ + SOURCE_PATH_SIZE,	\

@@ -1,4 +1,8 @@
 #line 1 "/home/rich/qa/ltp-executor/parser.rl"
+// SPDX-License-Identifier: GPL-3.0-or-later
+/*
+* Copyright (c) 2020 SUSE LLC
+*/
 #include <errno.h>
 #include <stdlib.h>
 #include <stddef.h>
@@ -27,13 +31,13 @@ static void error_msg(struct actor *self, char *text)
 * http://www.colm.net/files/ragel/ragel-guide-6.10.pdf Chapter 3).
 */
 
-#line 31 "/home/rich/qa/ltp-executor/parser.c"
+#line 35 "/home/rich/qa/ltp-executor/parser.c"
 static const int parse_start = 33;
 
 static const int parse_en_main = 33;
 
 
-#line 60 "/home/rich/qa/ltp-executor/parser.rl"
+#line 64 "/home/rich/qa/ltp-executor/parser.rl"
 
 
 /* Holds the current state of the finite state machine
@@ -46,12 +50,12 @@ struct cmds *cmds;
 void parser_init(void)
 {
 	
-#line 50 "/home/rich/qa/ltp-executor/parser.c"
+#line 54 "/home/rich/qa/ltp-executor/parser.c"
 	{
 		cs = (int)parse_start;
 	}
 	
-#line 73 "/home/rich/qa/ltp-executor/parser.rl"
+#line 77 "/home/rich/qa/ltp-executor/parser.rl"
 	
 }
 
@@ -65,7 +69,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 	struct msg *msg;
 	
 	
-#line 69 "/home/rich/qa/ltp-executor/parser.c"
+#line 73 "/home/rich/qa/ltp-executor/parser.c"
 	{
 		if ( p == pe )
 			goto _test_eof;
@@ -148,21 +152,21 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			id = id_to_addr(n);
 		}
 		
-#line 152 "/home/rich/qa/ltp-executor/parser.c"
+#line 156 "/home/rich/qa/ltp-executor/parser.c"
 		
 		{
-#line 39 "/home/rich/qa/ltp-executor/parser.rl"
+#line 43 "/home/rich/qa/ltp-executor/parser.rl"
 			tester_start(self, id); }
 		
-#line 158 "/home/rich/qa/ltp-executor/parser.c"
+#line 162 "/home/rich/qa/ltp-executor/parser.c"
 		
 		goto _st33;
 		_ctr22:
 		{
-#line 39 "/home/rich/qa/ltp-executor/parser.rl"
+#line 43 "/home/rich/qa/ltp-executor/parser.rl"
 			tester_start(self, id); }
 		
-#line 166 "/home/rich/qa/ltp-executor/parser.c"
+#line 170 "/home/rich/qa/ltp-executor/parser.c"
 		
 		goto _st33;
 		_ctr48:
@@ -179,7 +183,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			actor_say(self, id, msg);
 		}
 		
-#line 183 "/home/rich/qa/ltp-executor/parser.c"
+#line 187 "/home/rich/qa/ltp-executor/parser.c"
 		
 		goto _st33;
 		_ctr62:
@@ -190,7 +194,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			id = id_to_addr(n);
 		}
 		
-#line 194 "/home/rich/qa/ltp-executor/parser.c"
+#line 198 "/home/rich/qa/ltp-executor/parser.c"
 		
 		{
 #line 44 "/home/rich/qa/ltp-executor/parser-common.rl"
@@ -201,7 +205,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			actor_say(self, id, msg);
 		}
 		
-#line 205 "/home/rich/qa/ltp-executor/parser.c"
+#line 209 "/home/rich/qa/ltp-executor/parser.c"
 		
 		goto _st33;
 		_ctr66:
@@ -214,27 +218,27 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			actor_say(self, id, msg);
 		}
 		
-#line 218 "/home/rich/qa/ltp-executor/parser.c"
+#line 222 "/home/rich/qa/ltp-executor/parser.c"
 		
 		goto _st33;
 		_ctr72:
 		{
-#line 41 "/home/rich/qa/ltp-executor/parser.rl"
+#line 45 "/home/rich/qa/ltp-executor/parser.rl"
 			shutdown(self); }
 		
-#line 226 "/home/rich/qa/ltp-executor/parser.c"
+#line 230 "/home/rich/qa/ltp-executor/parser.c"
 		
 		goto _st33;
 		_ctr82:
 		{
-#line 33 "/home/rich/qa/ltp-executor/parser.rl"
+#line 37 "/home/rich/qa/ltp-executor/parser.rl"
 			
 			msg = msg_alloc();
 			msg->type = MSG_PONG;
 			actor_say(self, ADDR_WRITER, msg);
 		}
 		
-#line 238 "/home/rich/qa/ltp-executor/parser.c"
+#line 242 "/home/rich/qa/ltp-executor/parser.c"
 		
 		goto _st33;
 		_st33:
@@ -279,7 +283,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 		}
 		_ctr2:
 		{
-#line 43 "/home/rich/qa/ltp-executor/parser.rl"
+#line 47 "/home/rich/qa/ltp-executor/parser.rl"
 			
 			error_msg(self, "Epected ping, allc, exit, cmds, or exec");
 			/* TODO: Errors are probably most common when a user is typing
@@ -287,12 +291,12 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			* the read buffer up to the first newline char (if any) */
 			{goto _st33;}}
 		
-#line 291 "/home/rich/qa/ltp-executor/parser.c"
+#line 295 "/home/rich/qa/ltp-executor/parser.c"
 		
 		goto _st0;
 		_ctr9:
 		{
-#line 43 "/home/rich/qa/ltp-executor/parser.rl"
+#line 47 "/home/rich/qa/ltp-executor/parser.rl"
 			
 			error_msg(self, "Epected ping, allc, exit, cmds, or exec");
 			/* TODO: Errors are probably most common when a user is typing
@@ -300,7 +304,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			* the read buffer up to the first newline char (if any) */
 			{goto _st33;}}
 		
-#line 304 "/home/rich/qa/ltp-executor/parser.c"
+#line 308 "/home/rich/qa/ltp-executor/parser.c"
 		
 		{
 #line 56 "/home/rich/qa/ltp-executor/parser-common.rl"
@@ -308,7 +312,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			error_msg(self, "Expected white space");
 			{goto _st33;}}
 		
-#line 312 "/home/rich/qa/ltp-executor/parser.c"
+#line 316 "/home/rich/qa/ltp-executor/parser.c"
 		
 		goto _st0;
 		_ctr12:
@@ -318,7 +322,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			error_msg(self, "Expected digit");
 			{goto _st33;}}
 		
-#line 322 "/home/rich/qa/ltp-executor/parser.c"
+#line 326 "/home/rich/qa/ltp-executor/parser.c"
 		
 		goto _st0;
 		_ctr15:
@@ -328,7 +332,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			error_msg(self, "Expected digit");
 			{goto _st33;}}
 		
-#line 332 "/home/rich/qa/ltp-executor/parser.c"
+#line 336 "/home/rich/qa/ltp-executor/parser.c"
 		
 		{
 #line 51 "/home/rich/qa/ltp-executor/parser-common.rl"
@@ -336,7 +340,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			error_msg(self, "Expected new line");
 			{goto _st33;}}
 		
-#line 340 "/home/rich/qa/ltp-executor/parser.c"
+#line 344 "/home/rich/qa/ltp-executor/parser.c"
 		
 		goto _st0;
 		_ctr20:
@@ -346,7 +350,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			error_msg(self, "Expected new line");
 			{goto _st33;}}
 		
-#line 350 "/home/rich/qa/ltp-executor/parser.c"
+#line 354 "/home/rich/qa/ltp-executor/parser.c"
 		
 		goto _st0;
 		_ctr34:
@@ -356,7 +360,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			error_msg(self, "Expected digit");
 			{goto _st33;}}
 		
-#line 360 "/home/rich/qa/ltp-executor/parser.c"
+#line 364 "/home/rich/qa/ltp-executor/parser.c"
 		
 		{
 #line 56 "/home/rich/qa/ltp-executor/parser-common.rl"
@@ -364,7 +368,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			error_msg(self, "Expected white space");
 			{goto _st33;}}
 		
-#line 368 "/home/rich/qa/ltp-executor/parser.c"
+#line 372 "/home/rich/qa/ltp-executor/parser.c"
 		
 		goto _st0;
 		_ctr40:
@@ -374,7 +378,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			error_msg(self, "Expected symbol character");
 			{goto _st33;}}
 		
-#line 378 "/home/rich/qa/ltp-executor/parser.c"
+#line 382 "/home/rich/qa/ltp-executor/parser.c"
 		
 		goto _st0;
 		_ctr43:
@@ -384,7 +388,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			error_msg(self, "Expected symbol character");
 			{goto _st33;}}
 		
-#line 388 "/home/rich/qa/ltp-executor/parser.c"
+#line 392 "/home/rich/qa/ltp-executor/parser.c"
 		
 		{
 #line 56 "/home/rich/qa/ltp-executor/parser-common.rl"
@@ -392,7 +396,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			error_msg(self, "Expected white space");
 			{goto _st33;}}
 		
-#line 396 "/home/rich/qa/ltp-executor/parser.c"
+#line 400 "/home/rich/qa/ltp-executor/parser.c"
 		
 		goto _st0;
 		_ctr46:
@@ -402,7 +406,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			error_msg(self, "Expected new line");
 			{goto _st33;}}
 		
-#line 406 "/home/rich/qa/ltp-executor/parser.c"
+#line 410 "/home/rich/qa/ltp-executor/parser.c"
 		
 		{
 #line 71 "/home/rich/qa/ltp-executor/parser-common.rl"
@@ -410,12 +414,12 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			error_msg(self, "Expected string character");
 			{goto _st33;}}
 		
-#line 414 "/home/rich/qa/ltp-executor/parser.c"
+#line 418 "/home/rich/qa/ltp-executor/parser.c"
 		
 		goto _st0;
 		_ctr70:
 		{
-#line 43 "/home/rich/qa/ltp-executor/parser.rl"
+#line 47 "/home/rich/qa/ltp-executor/parser.rl"
 			
 			error_msg(self, "Epected ping, allc, exit, cmds, or exec");
 			/* TODO: Errors are probably most common when a user is typing
@@ -423,7 +427,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			* the read buffer up to the first newline char (if any) */
 			{goto _st33;}}
 		
-#line 427 "/home/rich/qa/ltp-executor/parser.c"
+#line 431 "/home/rich/qa/ltp-executor/parser.c"
 		
 		{
 #line 51 "/home/rich/qa/ltp-executor/parser-common.rl"
@@ -431,7 +435,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			error_msg(self, "Expected new line");
 			{goto _st33;}}
 		
-#line 435 "/home/rich/qa/ltp-executor/parser.c"
+#line 439 "/home/rich/qa/ltp-executor/parser.c"
 		
 		goto _st0;
 		st_case_0:
@@ -440,7 +444,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 		goto _pop;
 		_ctr1:
 		{
-#line 43 "/home/rich/qa/ltp-executor/parser.rl"
+#line 47 "/home/rich/qa/ltp-executor/parser.rl"
 			
 			error_msg(self, "Epected ping, allc, exit, cmds, or exec");
 			/* TODO: Errors are probably most common when a user is typing
@@ -448,7 +452,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			* the read buffer up to the first newline char (if any) */
 			{goto _st33;}}
 		
-#line 452 "/home/rich/qa/ltp-executor/parser.c"
+#line 456 "/home/rich/qa/ltp-executor/parser.c"
 		
 		goto _st1;
 		_st1:
@@ -475,7 +479,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 		}
 		_ctr4:
 		{
-#line 43 "/home/rich/qa/ltp-executor/parser.rl"
+#line 47 "/home/rich/qa/ltp-executor/parser.rl"
 			
 			error_msg(self, "Epected ping, allc, exit, cmds, or exec");
 			/* TODO: Errors are probably most common when a user is typing
@@ -483,7 +487,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			* the read buffer up to the first newline char (if any) */
 			{goto _st33;}}
 		
-#line 487 "/home/rich/qa/ltp-executor/parser.c"
+#line 491 "/home/rich/qa/ltp-executor/parser.c"
 		
 		goto _st2;
 		_st2:
@@ -510,7 +514,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 		}
 		_ctr6:
 		{
-#line 43 "/home/rich/qa/ltp-executor/parser.rl"
+#line 47 "/home/rich/qa/ltp-executor/parser.rl"
 			
 			error_msg(self, "Epected ping, allc, exit, cmds, or exec");
 			/* TODO: Errors are probably most common when a user is typing
@@ -518,7 +522,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			* the read buffer up to the first newline char (if any) */
 			{goto _st33;}}
 		
-#line 522 "/home/rich/qa/ltp-executor/parser.c"
+#line 526 "/home/rich/qa/ltp-executor/parser.c"
 		
 		goto _st3;
 		_st3:
@@ -545,7 +549,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 		}
 		_ctr8:
 		{
-#line 43 "/home/rich/qa/ltp-executor/parser.rl"
+#line 47 "/home/rich/qa/ltp-executor/parser.rl"
 			
 			error_msg(self, "Epected ping, allc, exit, cmds, or exec");
 			/* TODO: Errors are probably most common when a user is typing
@@ -553,7 +557,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			* the read buffer up to the first newline char (if any) */
 			{goto _st33;}}
 		
-#line 557 "/home/rich/qa/ltp-executor/parser.c"
+#line 561 "/home/rich/qa/ltp-executor/parser.c"
 		
 		{
 #line 56 "/home/rich/qa/ltp-executor/parser-common.rl"
@@ -561,7 +565,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			error_msg(self, "Expected white space");
 			{goto _st33;}}
 		
-#line 565 "/home/rich/qa/ltp-executor/parser.c"
+#line 569 "/home/rich/qa/ltp-executor/parser.c"
 		
 		goto _st4;
 		_st4:
@@ -596,7 +600,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			error_msg(self, "Expected digit");
 			{goto _st33;}}
 		
-#line 600 "/home/rich/qa/ltp-executor/parser.c"
+#line 604 "/home/rich/qa/ltp-executor/parser.c"
 		
 		goto _st5;
 		_st5:
@@ -633,7 +637,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 #line 4 "/home/rich/qa/ltp-executor/parser-common.rl"
 			n = (( (*( p)))) - '0'; }
 		
-#line 637 "/home/rich/qa/ltp-executor/parser.c"
+#line 641 "/home/rich/qa/ltp-executor/parser.c"
 		
 		goto _st6;
 		_ctr14:
@@ -643,7 +647,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			error_msg(self, "Expected digit");
 			{goto _st33;}}
 		
-#line 647 "/home/rich/qa/ltp-executor/parser.c"
+#line 651 "/home/rich/qa/ltp-executor/parser.c"
 		
 		{
 #line 51 "/home/rich/qa/ltp-executor/parser-common.rl"
@@ -651,7 +655,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			error_msg(self, "Expected new line");
 			{goto _st33;}}
 		
-#line 655 "/home/rich/qa/ltp-executor/parser.c"
+#line 659 "/home/rich/qa/ltp-executor/parser.c"
 		
 		goto _st6;
 		_ctr18:
@@ -659,7 +663,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 #line 5 "/home/rich/qa/ltp-executor/parser-common.rl"
 			n = n * 10 + ((( (*( p)))) - '0'); }
 		
-#line 663 "/home/rich/qa/ltp-executor/parser.c"
+#line 667 "/home/rich/qa/ltp-executor/parser.c"
 		
 		goto _st6;
 		_st6:
@@ -699,7 +703,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			id = id_to_addr(n);
 		}
 		
-#line 703 "/home/rich/qa/ltp-executor/parser.c"
+#line 707 "/home/rich/qa/ltp-executor/parser.c"
 		
 		goto _st7;
 		_ctr19:
@@ -709,7 +713,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			error_msg(self, "Expected new line");
 			{goto _st33;}}
 		
-#line 713 "/home/rich/qa/ltp-executor/parser.c"
+#line 717 "/home/rich/qa/ltp-executor/parser.c"
 		
 		goto _st7;
 		_st7:
@@ -739,7 +743,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 		}
 		_ctr23:
 		{
-#line 43 "/home/rich/qa/ltp-executor/parser.rl"
+#line 47 "/home/rich/qa/ltp-executor/parser.rl"
 			
 			error_msg(self, "Epected ping, allc, exit, cmds, or exec");
 			/* TODO: Errors are probably most common when a user is typing
@@ -747,7 +751,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			* the read buffer up to the first newline char (if any) */
 			{goto _st33;}}
 		
-#line 751 "/home/rich/qa/ltp-executor/parser.c"
+#line 755 "/home/rich/qa/ltp-executor/parser.c"
 		
 		goto _st8;
 		_st8:
@@ -774,7 +778,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 		}
 		_ctr25:
 		{
-#line 43 "/home/rich/qa/ltp-executor/parser.rl"
+#line 47 "/home/rich/qa/ltp-executor/parser.rl"
 			
 			error_msg(self, "Epected ping, allc, exit, cmds, or exec");
 			/* TODO: Errors are probably most common when a user is typing
@@ -782,7 +786,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			* the read buffer up to the first newline char (if any) */
 			{goto _st33;}}
 		
-#line 786 "/home/rich/qa/ltp-executor/parser.c"
+#line 790 "/home/rich/qa/ltp-executor/parser.c"
 		
 		goto _st9;
 		_st9:
@@ -809,7 +813,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 		}
 		_ctr27:
 		{
-#line 43 "/home/rich/qa/ltp-executor/parser.rl"
+#line 47 "/home/rich/qa/ltp-executor/parser.rl"
 			
 			error_msg(self, "Epected ping, allc, exit, cmds, or exec");
 			/* TODO: Errors are probably most common when a user is typing
@@ -817,7 +821,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			* the read buffer up to the first newline char (if any) */
 			{goto _st33;}}
 		
-#line 821 "/home/rich/qa/ltp-executor/parser.c"
+#line 825 "/home/rich/qa/ltp-executor/parser.c"
 		
 		goto _st10;
 		_st10:
@@ -844,7 +848,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 		}
 		_ctr29:
 		{
-#line 43 "/home/rich/qa/ltp-executor/parser.rl"
+#line 47 "/home/rich/qa/ltp-executor/parser.rl"
 			
 			error_msg(self, "Epected ping, allc, exit, cmds, or exec");
 			/* TODO: Errors are probably most common when a user is typing
@@ -852,7 +856,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			* the read buffer up to the first newline char (if any) */
 			{goto _st33;}}
 		
-#line 856 "/home/rich/qa/ltp-executor/parser.c"
+#line 860 "/home/rich/qa/ltp-executor/parser.c"
 		
 		{
 #line 56 "/home/rich/qa/ltp-executor/parser-common.rl"
@@ -860,7 +864,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			error_msg(self, "Expected white space");
 			{goto _st33;}}
 		
-#line 864 "/home/rich/qa/ltp-executor/parser.c"
+#line 868 "/home/rich/qa/ltp-executor/parser.c"
 		
 		goto _st11;
 		_st11:
@@ -895,7 +899,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			error_msg(self, "Expected digit");
 			{goto _st33;}}
 		
-#line 899 "/home/rich/qa/ltp-executor/parser.c"
+#line 903 "/home/rich/qa/ltp-executor/parser.c"
 		
 		goto _st12;
 		_st12:
@@ -932,7 +936,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 #line 4 "/home/rich/qa/ltp-executor/parser-common.rl"
 			n = (( (*( p)))) - '0'; }
 		
-#line 936 "/home/rich/qa/ltp-executor/parser.c"
+#line 940 "/home/rich/qa/ltp-executor/parser.c"
 		
 		goto _st13;
 		_ctr36:
@@ -940,7 +944,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 #line 5 "/home/rich/qa/ltp-executor/parser-common.rl"
 			n = n * 10 + ((( (*( p)))) - '0'); }
 		
-#line 944 "/home/rich/qa/ltp-executor/parser.c"
+#line 948 "/home/rich/qa/ltp-executor/parser.c"
 		
 		goto _st13;
 		_ctr33:
@@ -950,7 +954,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			error_msg(self, "Expected digit");
 			{goto _st33;}}
 		
-#line 954 "/home/rich/qa/ltp-executor/parser.c"
+#line 958 "/home/rich/qa/ltp-executor/parser.c"
 		
 		{
 #line 56 "/home/rich/qa/ltp-executor/parser-common.rl"
@@ -958,7 +962,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			error_msg(self, "Expected white space");
 			{goto _st33;}}
 		
-#line 962 "/home/rich/qa/ltp-executor/parser.c"
+#line 966 "/home/rich/qa/ltp-executor/parser.c"
 		
 		goto _st13;
 		_st13:
@@ -998,7 +1002,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			id = id_to_addr(n);
 		}
 		
-#line 1002 "/home/rich/qa/ltp-executor/parser.c"
+#line 1006 "/home/rich/qa/ltp-executor/parser.c"
 		
 		{
 #line 18 "/home/rich/qa/ltp-executor/parser-common.rl"
@@ -1012,7 +1016,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			buf = cmds->tid;
 		}
 		
-#line 1016 "/home/rich/qa/ltp-executor/parser.c"
+#line 1020 "/home/rich/qa/ltp-executor/parser.c"
 		
 		goto _st14;
 		_ctr37:
@@ -1022,7 +1026,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			error_msg(self, "Expected symbol character");
 			{goto _st33;}}
 		
-#line 1026 "/home/rich/qa/ltp-executor/parser.c"
+#line 1030 "/home/rich/qa/ltp-executor/parser.c"
 		
 		goto _st14;
 		_st14:
@@ -1062,7 +1066,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			*(buf++) = (( (*( p))));
 		}
 		
-#line 1066 "/home/rich/qa/ltp-executor/parser.c"
+#line 1070 "/home/rich/qa/ltp-executor/parser.c"
 		
 		goto _st15;
 		_ctr41:
@@ -1072,7 +1076,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			error_msg(self, "Expected symbol character");
 			{goto _st33;}}
 		
-#line 1076 "/home/rich/qa/ltp-executor/parser.c"
+#line 1080 "/home/rich/qa/ltp-executor/parser.c"
 		
 		{
 #line 56 "/home/rich/qa/ltp-executor/parser-common.rl"
@@ -1080,7 +1084,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			error_msg(self, "Expected white space");
 			{goto _st33;}}
 		
-#line 1084 "/home/rich/qa/ltp-executor/parser.c"
+#line 1088 "/home/rich/qa/ltp-executor/parser.c"
 		
 		goto _st15;
 		_st15:
@@ -1119,7 +1123,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			buf = cmds->cmds;
 		}
 		
-#line 1123 "/home/rich/qa/ltp-executor/parser.c"
+#line 1127 "/home/rich/qa/ltp-executor/parser.c"
 		
 		goto _st16;
 		_ctr44:
@@ -1129,7 +1133,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			error_msg(self, "Expected new line");
 			{goto _st33;}}
 		
-#line 1133 "/home/rich/qa/ltp-executor/parser.c"
+#line 1137 "/home/rich/qa/ltp-executor/parser.c"
 		
 		{
 #line 71 "/home/rich/qa/ltp-executor/parser-common.rl"
@@ -1137,7 +1141,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			error_msg(self, "Expected string character");
 			{goto _st33;}}
 		
-#line 1141 "/home/rich/qa/ltp-executor/parser.c"
+#line 1145 "/home/rich/qa/ltp-executor/parser.c"
 		
 		goto _st16;
 		_st16:
@@ -1166,7 +1170,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			*(buf++) = (( (*( p))));
 		}
 		
-#line 1170 "/home/rich/qa/ltp-executor/parser.c"
+#line 1174 "/home/rich/qa/ltp-executor/parser.c"
 		
 		goto _st17;
 		_ctr47:
@@ -1176,7 +1180,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			error_msg(self, "Expected new line");
 			{goto _st33;}}
 		
-#line 1180 "/home/rich/qa/ltp-executor/parser.c"
+#line 1184 "/home/rich/qa/ltp-executor/parser.c"
 		
 		{
 #line 71 "/home/rich/qa/ltp-executor/parser-common.rl"
@@ -1184,7 +1188,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			error_msg(self, "Expected string character");
 			{goto _st33;}}
 		
-#line 1188 "/home/rich/qa/ltp-executor/parser.c"
+#line 1192 "/home/rich/qa/ltp-executor/parser.c"
 		
 		goto _st17;
 		_st17:
@@ -1206,7 +1210,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 		}
 		_ctr49:
 		{
-#line 43 "/home/rich/qa/ltp-executor/parser.rl"
+#line 47 "/home/rich/qa/ltp-executor/parser.rl"
 			
 			error_msg(self, "Epected ping, allc, exit, cmds, or exec");
 			/* TODO: Errors are probably most common when a user is typing
@@ -1214,7 +1218,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			* the read buffer up to the first newline char (if any) */
 			{goto _st33;}}
 		
-#line 1218 "/home/rich/qa/ltp-executor/parser.c"
+#line 1222 "/home/rich/qa/ltp-executor/parser.c"
 		
 		goto _st18;
 		_st18:
@@ -1241,7 +1245,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 		}
 		_ctr51:
 		{
-#line 43 "/home/rich/qa/ltp-executor/parser.rl"
+#line 47 "/home/rich/qa/ltp-executor/parser.rl"
 			
 			error_msg(self, "Epected ping, allc, exit, cmds, or exec");
 			/* TODO: Errors are probably most common when a user is typing
@@ -1249,7 +1253,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			* the read buffer up to the first newline char (if any) */
 			{goto _st33;}}
 		
-#line 1253 "/home/rich/qa/ltp-executor/parser.c"
+#line 1257 "/home/rich/qa/ltp-executor/parser.c"
 		
 		goto _st19;
 		_st19:
@@ -1282,7 +1286,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 		}
 		_ctr54:
 		{
-#line 43 "/home/rich/qa/ltp-executor/parser.rl"
+#line 47 "/home/rich/qa/ltp-executor/parser.rl"
 			
 			error_msg(self, "Epected ping, allc, exit, cmds, or exec");
 			/* TODO: Errors are probably most common when a user is typing
@@ -1290,7 +1294,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			* the read buffer up to the first newline char (if any) */
 			{goto _st33;}}
 		
-#line 1294 "/home/rich/qa/ltp-executor/parser.c"
+#line 1298 "/home/rich/qa/ltp-executor/parser.c"
 		
 		goto _st20;
 		_st20:
@@ -1317,7 +1321,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 		}
 		_ctr56:
 		{
-#line 43 "/home/rich/qa/ltp-executor/parser.rl"
+#line 47 "/home/rich/qa/ltp-executor/parser.rl"
 			
 			error_msg(self, "Epected ping, allc, exit, cmds, or exec");
 			/* TODO: Errors are probably most common when a user is typing
@@ -1325,7 +1329,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			* the read buffer up to the first newline char (if any) */
 			{goto _st33;}}
 		
-#line 1329 "/home/rich/qa/ltp-executor/parser.c"
+#line 1333 "/home/rich/qa/ltp-executor/parser.c"
 		
 		goto _st21;
 		_st21:
@@ -1360,7 +1364,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			error_msg(self, "Expected digit");
 			{goto _st33;}}
 		
-#line 1364 "/home/rich/qa/ltp-executor/parser.c"
+#line 1368 "/home/rich/qa/ltp-executor/parser.c"
 		
 		goto _st22;
 		_st22:
@@ -1397,7 +1401,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 #line 4 "/home/rich/qa/ltp-executor/parser-common.rl"
 			n = (( (*( p)))) - '0'; }
 		
-#line 1401 "/home/rich/qa/ltp-executor/parser.c"
+#line 1405 "/home/rich/qa/ltp-executor/parser.c"
 		
 		goto _st23;
 		_ctr60:
@@ -1407,7 +1411,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			error_msg(self, "Expected digit");
 			{goto _st33;}}
 		
-#line 1411 "/home/rich/qa/ltp-executor/parser.c"
+#line 1415 "/home/rich/qa/ltp-executor/parser.c"
 		
 		{
 #line 51 "/home/rich/qa/ltp-executor/parser-common.rl"
@@ -1415,7 +1419,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			error_msg(self, "Expected new line");
 			{goto _st33;}}
 		
-#line 1419 "/home/rich/qa/ltp-executor/parser.c"
+#line 1423 "/home/rich/qa/ltp-executor/parser.c"
 		
 		goto _st23;
 		_ctr63:
@@ -1423,7 +1427,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 #line 5 "/home/rich/qa/ltp-executor/parser-common.rl"
 			n = n * 10 + ((( (*( p)))) - '0'); }
 		
-#line 1427 "/home/rich/qa/ltp-executor/parser.c"
+#line 1431 "/home/rich/qa/ltp-executor/parser.c"
 		
 		goto _st23;
 		_st23:
@@ -1463,7 +1467,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			id = id_to_addr(n);
 		}
 		
-#line 1467 "/home/rich/qa/ltp-executor/parser.c"
+#line 1471 "/home/rich/qa/ltp-executor/parser.c"
 		
 		goto _st24;
 		_ctr64:
@@ -1473,7 +1477,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			error_msg(self, "Expected new line");
 			{goto _st33;}}
 		
-#line 1477 "/home/rich/qa/ltp-executor/parser.c"
+#line 1481 "/home/rich/qa/ltp-executor/parser.c"
 		
 		goto _st24;
 		_st24:
@@ -1503,7 +1507,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 		}
 		_ctr67:
 		{
-#line 43 "/home/rich/qa/ltp-executor/parser.rl"
+#line 47 "/home/rich/qa/ltp-executor/parser.rl"
 			
 			error_msg(self, "Epected ping, allc, exit, cmds, or exec");
 			/* TODO: Errors are probably most common when a user is typing
@@ -1511,7 +1515,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			* the read buffer up to the first newline char (if any) */
 			{goto _st33;}}
 		
-#line 1515 "/home/rich/qa/ltp-executor/parser.c"
+#line 1519 "/home/rich/qa/ltp-executor/parser.c"
 		
 		goto _st25;
 		_st25:
@@ -1538,7 +1542,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 		}
 		_ctr69:
 		{
-#line 43 "/home/rich/qa/ltp-executor/parser.rl"
+#line 47 "/home/rich/qa/ltp-executor/parser.rl"
 			
 			error_msg(self, "Epected ping, allc, exit, cmds, or exec");
 			/* TODO: Errors are probably most common when a user is typing
@@ -1546,7 +1550,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			* the read buffer up to the first newline char (if any) */
 			{goto _st33;}}
 		
-#line 1550 "/home/rich/qa/ltp-executor/parser.c"
+#line 1554 "/home/rich/qa/ltp-executor/parser.c"
 		
 		{
 #line 51 "/home/rich/qa/ltp-executor/parser-common.rl"
@@ -1554,7 +1558,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			error_msg(self, "Expected new line");
 			{goto _st33;}}
 		
-#line 1558 "/home/rich/qa/ltp-executor/parser.c"
+#line 1562 "/home/rich/qa/ltp-executor/parser.c"
 		
 		goto _st26;
 		_st26:
@@ -1589,7 +1593,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			error_msg(self, "Expected new line");
 			{goto _st33;}}
 		
-#line 1593 "/home/rich/qa/ltp-executor/parser.c"
+#line 1597 "/home/rich/qa/ltp-executor/parser.c"
 		
 		goto _st27;
 		_st27:
@@ -1619,7 +1623,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 		}
 		_ctr74:
 		{
-#line 43 "/home/rich/qa/ltp-executor/parser.rl"
+#line 47 "/home/rich/qa/ltp-executor/parser.rl"
 			
 			error_msg(self, "Epected ping, allc, exit, cmds, or exec");
 			/* TODO: Errors are probably most common when a user is typing
@@ -1627,7 +1631,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			* the read buffer up to the first newline char (if any) */
 			{goto _st33;}}
 		
-#line 1631 "/home/rich/qa/ltp-executor/parser.c"
+#line 1635 "/home/rich/qa/ltp-executor/parser.c"
 		
 		goto _st28;
 		_st28:
@@ -1654,7 +1658,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 		}
 		_ctr76:
 		{
-#line 43 "/home/rich/qa/ltp-executor/parser.rl"
+#line 47 "/home/rich/qa/ltp-executor/parser.rl"
 			
 			error_msg(self, "Epected ping, allc, exit, cmds, or exec");
 			/* TODO: Errors are probably most common when a user is typing
@@ -1662,7 +1666,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			* the read buffer up to the first newline char (if any) */
 			{goto _st33;}}
 		
-#line 1666 "/home/rich/qa/ltp-executor/parser.c"
+#line 1670 "/home/rich/qa/ltp-executor/parser.c"
 		
 		goto _st29;
 		_st29:
@@ -1689,7 +1693,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 		}
 		_ctr78:
 		{
-#line 43 "/home/rich/qa/ltp-executor/parser.rl"
+#line 47 "/home/rich/qa/ltp-executor/parser.rl"
 			
 			error_msg(self, "Epected ping, allc, exit, cmds, or exec");
 			/* TODO: Errors are probably most common when a user is typing
@@ -1697,7 +1701,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			* the read buffer up to the first newline char (if any) */
 			{goto _st33;}}
 		
-#line 1701 "/home/rich/qa/ltp-executor/parser.c"
+#line 1705 "/home/rich/qa/ltp-executor/parser.c"
 		
 		goto _st30;
 		_st30:
@@ -1724,7 +1728,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 		}
 		_ctr80:
 		{
-#line 43 "/home/rich/qa/ltp-executor/parser.rl"
+#line 47 "/home/rich/qa/ltp-executor/parser.rl"
 			
 			error_msg(self, "Epected ping, allc, exit, cmds, or exec");
 			/* TODO: Errors are probably most common when a user is typing
@@ -1732,7 +1736,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			* the read buffer up to the first newline char (if any) */
 			{goto _st33;}}
 		
-#line 1736 "/home/rich/qa/ltp-executor/parser.c"
+#line 1740 "/home/rich/qa/ltp-executor/parser.c"
 		
 		{
 #line 51 "/home/rich/qa/ltp-executor/parser-common.rl"
@@ -1740,7 +1744,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			error_msg(self, "Expected new line");
 			{goto _st33;}}
 		
-#line 1744 "/home/rich/qa/ltp-executor/parser.c"
+#line 1748 "/home/rich/qa/ltp-executor/parser.c"
 		
 		goto _st31;
 		_st31:
@@ -1775,7 +1779,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			error_msg(self, "Expected new line");
 			{goto _st33;}}
 		
-#line 1779 "/home/rich/qa/ltp-executor/parser.c"
+#line 1783 "/home/rich/qa/ltp-executor/parser.c"
 		
 		goto _st32;
 		_st32:
@@ -1989,6 +1993,6 @@ void parser_feed(struct actor *self, char *str, size_t len)
 		_out: {}
 	}
 	
-#line 87 "/home/rich/qa/ltp-executor/parser.rl"
+#line 91 "/home/rich/qa/ltp-executor/parser.rl"
 	
 }
