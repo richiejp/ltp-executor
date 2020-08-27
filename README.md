@@ -186,4 +186,4 @@ See `test/qemu-integration.sh` for a complete example of how to do this.
 
 Documentation is located in `./docs` and in some source comments.
 
-[protocol](tree/master/docs/protocol.md)
+[protocol](tree/master/doc/protocol.md)
