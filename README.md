@@ -11,9 +11,9 @@ can use this directly or use the provided host/controller side
 `driver` executable to feed the `executor` and record the results.
 
 The executor and driver are transport agnostic, meaning they use stdin
-and stdout. Just hook up stdio and stdout to whatever SUT/host
-transport you are using e.g. IPMI-SOL, SSH, ttyS0, FireWire, CAN,
-Bluetooth, cups-and-string etc. (see Usage for how to do this).
+and stdout. Just hook up stdio to whatever SUT/host transport you are
+using e.g. IPMI-SOL, SSH, ttyS0, FireWire, CAN, Bluetooth,
+cups-and-string etc. (see Usage for how to do this).
 
 It is multithreaded and uses a message-passing actors system based on
 liburcu. Output from the tests is weaved onto the transport by a
@@ -33,7 +33,7 @@ Required dependencies:
 - CMake (and GNU Make or Ninja etc)
 - pthreads
 - liburcu
-- [libactors](https://gitlab.com/Palethorpe/libactors)(you will need to
+- [libactors](https://gitlab.com/Palethorpe/libactors) (you will need to
   install this from source)
 
 Optional:
@@ -115,7 +115,7 @@ exec 1
 LOGD 1 8 An echo
 
 LOGD 1 0 
-TRES 1 echo01 0
+TRES 1 0
 exit
 +EXIT
 ```
