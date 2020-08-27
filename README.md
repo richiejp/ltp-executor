@@ -181,3 +181,9 @@ $ socat STDIO UNIX-CONNECT:transport
 ```
 
 See `test/qemu-integration.sh` for a complete example of how to do this.
+
+## Further Documentation
+
+Documentation is located in `./docs` and in some source comments.
+
+[protocol](tree/master/docs/protocol.md)
