@@ -6,7 +6,7 @@
 
 	action add_char {
 		n++;
-		actor_assert(n < buf_len - 1, "%zu >= %zu", n, buf_len);
+		actor_assert(n < buf_len, "%zu >= %zu", n, buf_len);
 		*(buf++) = fc;
 	}
 

@@ -1095,7 +1095,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 #line 7 "/home/rich/qa/ltp-executor/parser-common.rl"
 			
 			n++;
-			actor_assert(n < buf_len - 1, "%zu >= %zu", n, buf_len);
+			actor_assert(n < buf_len, "%zu >= %zu", n, buf_len);
 			*(buf++) = (( (*( p))));
 		}
 		
@@ -1199,7 +1199,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 #line 7 "/home/rich/qa/ltp-executor/parser-common.rl"
 			
 			n++;
-			actor_assert(n < buf_len - 1, "%zu >= %zu", n, buf_len);
+			actor_assert(n < buf_len, "%zu >= %zu", n, buf_len);
 			*(buf++) = (( (*( p))));
 		}
 		
@@ -1854,7 +1854,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 #line 7 "/home/rich/qa/ltp-executor/parser-common.rl"
 			
 			n++;
-			actor_assert(n < buf_len - 1, "%zu >= %zu", n, buf_len);
+			actor_assert(n < buf_len, "%zu >= %zu", n, buf_len);
 			*(buf++) = (( (*( p))));
 		}
 		
