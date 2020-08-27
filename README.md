@@ -1,19 +1,30 @@
 # Ultra fancy concurrent test executor
 
-Small executable which runs on the SUT, starts test executables and
-multiplexes the test results/output.
+Allows remote concurrent test execution with or without SSH and easier
+integration of the LTP with any test automation framework.
 
-It is transport agnostic, meaning it uses stdin and stdout. Just hook up stdio
-and stdout to whatever SUT/host transport you are using e.g. SSH, ttyS0,
-FireWire, CAN, Bluetooth, cups-and-string etc.
-
-It is multithreaded and uses a message-passing actors system based on
-liburcu. Output from the tests is weaved onto the output pipe by a single
-writer thread.
+Primarily includes a small executable which runs on the SUT, starts test
+executables in parallel and multiplexes the test results/output.
 
 A simple, human readable, protocol is used between SUT and host. You
-can use this directly or use the provided host side 'driver'
-executable to feed the executor and record the results.
+can use this directly or use the provided host/controller side
+`driver` executable to feed the `executor` and record the results.
+
+The executor and driver are transport agnostic, meaning they use stdin
+and stdout. Just hook up stdio and stdout to whatever SUT/host
+transport you are using e.g. IPMI-SOL, SSH, ttyS0, FireWire, CAN,
+Bluetooth, cups-and-string etc. (see Usage for how to do this).
+
+It is multithreaded and uses a message-passing actors system based on
+liburcu. Output from the tests is weaved onto the transport by a
+single writer thread.
+
+This is designed to be used with an existing test automation framework
+or whatever you use to provision and control the SUT
+(e.g. [runltp-ng](https://github.com/metan-ucw/runltp-ng)). However
+there is a complete, [QEMU based test
+runner](test/qemu-integration.sh) similar to
+[Rapido](https://github.com/rapido-linux/rapido) included.
 
 ## Building
 
@@ -73,7 +84,9 @@ See `test/qemu-dracut.sh` for the defaults. This works similar to
 - We probably want the option build statically, then we can copy&paste onto
   SUTS and even pipe the LTP tests onto the SUT removing the need to install
   LTP on the SUT.
-- Configure development and production targets in CMake
+- Configure development and production targets in CMake so we are not
+  always running with libasan and debugging turned on.
+- Fix various bugs
 
 Also see source comments.
 
@@ -186,4 +199,4 @@ See `test/qemu-integration.sh` for a complete example of how to do this.
 
 Documentation is located in `./docs` and in some source comments.
 
-[protocol](doc/protocol.md)
++ [protocol](doc/protocol.md)
