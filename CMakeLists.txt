@@ -22,15 +22,15 @@ add_link_options(-lurcu -lurcu-cds -lurcu-common)
 add_link_options(-fsanitize=address)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 
-add_custom_command(
-  OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/parser.c
-  COMMAND ragel -G2 -o ${CMAKE_CURRENT_SOURCE_DIR}/parser.c ${CMAKE_CURRENT_SOURCE_DIR}/parser.rl
-  DEPENDS parser.rl parser-common.rl)
+function(ragelc name)
+  add_custom_command(
+    OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/${name}.c
+    COMMAND ragel -G1 -o ${CMAKE_CURRENT_SOURCE_DIR}/${name}.c ${CMAKE_CURRENT_SOURCE_DIR}/${name}.rl
+    DEPENDS ${name}.rl parser-common.rl)
+endfunction(ragelc)
 
-add_custom_command(
-  OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/driver-parser.c
-  COMMAND ragel -G2 -o ${CMAKE_CURRENT_SOURCE_DIR}/driver-parser.c ${CMAKE_CURRENT_SOURCE_DIR}/driver-parser.rl
-  DEPENDS driver-parser.rl parser-common.rl)
+ragelc(parser)
+ragelc(driver-parser)
 
 add_executable(executor executor.c parser.c)
 target_link_libraries(executor actors)
