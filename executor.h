@@ -3,11 +3,11 @@
  * Copyright (c) 2020 SUSE LLC
  */
 
-#define DBG(fmt, ...)							\
+#define DBG(...)							\
 {									\
 	fprintf(stderr, "%s:%s:%i ", __FILE__ + SOURCE_PATH_SIZE,	\
 		__func__, __LINE__);					\
-	fprintf(stderr, fmt, ##__VA_ARGS__);				\
+	fprintf(stderr, ##__VA_ARGS__);					\
 	fprintf(stderr, "\n");						\
 }
 
