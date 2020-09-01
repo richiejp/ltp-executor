@@ -96,8 +96,8 @@ static void reader_listen(struct actor *self)
  *
  * TODO: Also retry after EIO?
  * */
-#define WRITER_PRINTF(fmt, ...) do {		       \
-	r0 = dprintf(STDOUT_FILENO, fmt, ##__VA_ARGS__); \
+#define WRITER_PRINTF(...) do {			       \
+	r0 = dprintf(STDOUT_FILENO, ##__VA_ARGS__);    \
 	if (errno == EAGAIN || errno == EINTR) {       \
 		usleep(100);			       \
 		dprintf(STDOUT_FILENO, "\n");	       \
