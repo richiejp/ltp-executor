@@ -13,7 +13,7 @@ echo "Running tests with one worker"
 time {
 while [ $(../../tstctl status) = TODO ]; do
     echo "More tests; (re)starting driver"
-    socat EXEC:../driver UNIX-CONNECT:transport,retry=3
+    ../driver >transport.in <transport.out
 done
 }
 
@@ -25,7 +25,7 @@ echo "Running test with 4 workers"
 time {
 while [ $(../../tstctl status) = TODO ]; do
     echo "More tests; (re)starting driver"
-    socat EXEC:../driver UNIX-CONNECT:transport,retry=3
+    ../driver >transport.in <transport.out
 done
 }
 
