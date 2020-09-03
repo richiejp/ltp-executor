@@ -1,0 +1,11 @@
+# Start the executor on a character device
+
+[Unit]
+Description=LTP Executor on %I
+ConditionPathExists=/dev/%I
+
+[Service]
+ExecStart=/usr/bin/sh -c "exec 3<>/dev/%I; /opt/ltp/bin/executor >&3 <&3"
+
+[Install]
+WantedBy=default.target
