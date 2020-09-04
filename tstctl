@@ -1,6 +1,7 @@
 #!/usr/bin/sh -eu
 
 subcmd=${1:-help}
+shift
 
 tstctl_init() {
     if [ -e test-plan ]; then
@@ -16,6 +17,15 @@ tstctl_add_tests() {
     cp test-plan test-plan.old
 
     awk '! /^#/ { print "TODO", $0 }' $runtest >> test-plan
+}
+
+tstctl_add_test() {
+    local tid=$1
+    shift
+
+    cp test-plan test-plan.old
+
+    echo TODO $tid $@ >> test-plan
 }
 
 set_kv() {
@@ -63,6 +73,10 @@ Create an empty test plan in the current working directory.
 
 Import tests from <runtest> file into the current test plan
 
+	tstctl add-test <tid> <command-line>
+
+Add a single test or arbitrary command. Requires the Test ID (tid)
+followed by a command line.
 
 	tstctl status
 
@@ -82,8 +96,9 @@ EOF
 case $subcmd in
     init) tstctl_init;;
     status) tstctl_status;;
-    add-tests) tstctl_add_tests $2;;
-    set) tstctl_set $2 $3;;
+    add-tests) tstctl_add_tests $@;;
+    add-test) tstctl_add_test $@;;
+    set) tstctl_set $@;;
     help) tstctl_help;;
     *) echo Unrecognised Sub-Command \"$subcmd\"! >&2
        tstctl_help
