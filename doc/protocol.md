@@ -42,7 +42,7 @@ except they can also include '-'. They are delimited by whitespace
 Binary safe strings, prefixed with the integer length. May contain any
 character. Written like:
 
-<Int:length> <char[length]:chars>
+`<Int:length> <char[length]:chars>`
 
 e.g. `7 foo bar` is the string "foo bar"
 
