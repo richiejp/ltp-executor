@@ -16,7 +16,7 @@ tstctl_add_tests() {
 
     cp test-plan test-plan.old
 
-    awk '! /^#/ { print "TODO", $0 }' $runtest >> test-plan
+    awk '! /(^#)|(^\s*$)/ { print "TODO", $0 }' $runtest >> test-plan
 }
 
 tstctl_add_test() {
