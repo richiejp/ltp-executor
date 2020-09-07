@@ -321,6 +321,9 @@ static void read_plan(void)
 				    test->cmds.tid,
 				    test->cmds.cmds);
 
+			assert_perror(errno);
+			actor_assert(r0 == 2, "%d != 2", r0);
+
 			test->next = todos;
 			todos = test;
 		} else {
@@ -328,6 +331,9 @@ static void read_plan(void)
 				    test->cmds.tid,
 				    &test->tres,
 				    test->cmds.cmds);
+
+			assert_perror(errno);
+			actor_assert(r0 == 3, "%d != 3", r0);
 
 			test->next = dones;
 			dones = test;
