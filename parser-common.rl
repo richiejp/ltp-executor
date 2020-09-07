@@ -73,7 +73,7 @@
 		fgoto main;
 	}
 
-	nl = '\n' >err(exp_nl);
+	nl = '\r'? '\n' >err(exp_nl);
 	ws = (space - [\n\r]);
 
 	uint = (digit @first_digit digit* @add_digit) $err(exp_digit);
