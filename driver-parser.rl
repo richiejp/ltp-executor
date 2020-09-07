@@ -15,7 +15,6 @@ static void error_msg(struct actor *self __attribute__((unused)),
 		      char *text)
 {
 	fprintf(stderr, "%s\n", text);
-	assert(0);
 }
 
 /* Also See parser.rl commetns
@@ -30,8 +29,9 @@ static void error_msg(struct actor *self __attribute__((unused)),
 	include "parser-common.rl";
 
 	action exp_cmd {
-		DBG("Epected pong, +allc, +cmds, +exec, logd or tres.\nBuffer Dump: ");
+		DBG("Expected pong, +allc, +cmds, +exec, logd or tres.\nBuffer Dump: ");
 		fwrite(str, 1, len, stderr);
+		fgoto main;
 	}
 
 	action say_pong {
