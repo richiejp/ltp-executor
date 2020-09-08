@@ -55,6 +55,8 @@ static struct test *todos;
 static struct test *dones;
 static unsigned int stopped;
 
+static int logd;
+
 __attribute__((pure))
 static int only_pong(const struct actor *self __attribute__((unused)),
 		     const struct msg *msg)
@@ -203,7 +205,7 @@ static void tester_hear(struct actor *self, struct msg *msg)
 		msg->ptr = &test->cmds;
 		actor_say(self, ADDR_WRITER, msg);
 
-		fd = open(test->cmds.tid,
+		fd = openat(logd, test->cmds.tid,
 			  O_WRONLY | O_CREAT, S_IRUSR | S_IWUSR);
 		assert_perror(errno);
 		my->fd = fd;
@@ -456,6 +458,14 @@ int main(void)
 	struct actor *reader, *writer,  *planner;
 
 	actors_init();
+
+	if (mkdir("logs", 0777)) {
+		if (errno == EEXIST)
+			errno = 0;
+		assert_perror(errno);
+	}
+	logd = open("logs", O_DIRECTORY);
+	assert_perror(errno);
 
 	writer = actor_alloc();
 	writer->addr = ADDR_WRITER;
