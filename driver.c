@@ -16,6 +16,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+#include <time.h>
 
 #include "actors.h"
 #include "executor.h"
@@ -28,6 +29,8 @@ enum tst_status {
 
 enum plan_type {
 	PLAN_NPROC,
+	PLAN_TEST_TIME,
+	PLAN_OP_TIME,
 	PLAN_TODO,
 	PLAN_SENT,
 	PLAN_EXEC,
@@ -47,10 +50,13 @@ struct test {
 struct tester {
 	struct test *test;
 	int fd;
+	struct timespec deadline;
 };
 
 /* Planner members */
 static unsigned int nproc = 1;
+static time_t test_timeout = 300;
+static time_t op_timeout = 5;
 static struct test *todos;
 static struct test *dones;
 static unsigned int stopped;
@@ -171,6 +177,90 @@ static enum plan_type upd_status(enum msg_type msg, enum plan_type cur)
 	}
 }
 
+static void tester_hear_after_timeout(struct actor *self, struct msg *msg)
+{
+	ssize_t r0;
+	int fd;
+	struct log *log = msg->ptr;
+	struct tester *my = self->priv;
+
+	/* We may get some more logs after the deadline, but before
+	 * the driver exits. There is no reason not to save them. If
+	 * we get an exit status OTOH, it is more awkward. */
+	if (msg->type == MSG_LOGD) {
+		fd = my->fd;
+
+		assert(fd);
+
+		if (!log->len) {
+			close(fd);
+			my->fd = 0;
+		} else {
+			assert(log->len <= LEN_1024);
+
+			r0 = write(fd, log->buf, log->len);
+			assert_perror(errno);
+			assert((size_t)r0 == log->len);
+		}
+	}
+
+	free(msg);
+}
+
+static void tester_listen(struct actor *self)
+{
+	struct tester *my = self->priv;
+	struct msg *msg;
+	struct timespec t;
+
+	for (;;) {
+		msg = actor_inbox_pop(self);
+
+		if (msg) {
+			self->hear(self, msg);
+			continue;
+		}
+
+		if (!my->test) {
+			actor_wait(self, NULL);
+			continue;
+		}
+
+		clock_gettime(CLOCK_MONOTONIC, &t);
+		assert_perror(errno);
+
+		if (t.tv_sec > my->deadline.tv_sec) {
+			my->test->status = PLAN_DONE;
+			my->test->tres = TBROK;
+
+			msg = msg_alloc();
+			msg->type = MSG_DONE;
+			msg->ptr = my->test;
+
+			actor_say(self, ADDR_PLANNER, msg);
+			my->test = NULL;
+
+			msg = msg_alloc();
+			msg->type = MSG_TRES;
+			msg->val = TBROK;
+
+			actor_say(self, ADDR_PLANNER, msg);
+
+			self->hear = tester_hear_after_timeout;
+		} else {
+			t.tv_sec = my->deadline.tv_sec - t.tv_sec;
+			actor_wait(self, &t);
+		}
+	}
+}
+
+static void tester_deadline(struct tester *my, time_t t)
+{
+	clock_gettime(CLOCK_MONOTONIC, &my->deadline);
+	assert_perror(errno);
+	my->deadline.tv_sec += t;
+}
+
 static void tester_hear(struct actor *self, struct msg *msg)
 {
 	ssize_t r0;
@@ -198,12 +288,15 @@ static void tester_hear(struct actor *self, struct msg *msg)
 
 			msg->type = MSG_EXEC;
 			actor_say(self, ADDR_WRITER, msg);
+			tester_deadline(my, op_timeout);
 			break;
 		}
 
+		assert(!test);
 		test = msg->ptr;
 		msg->ptr = &test->cmds;
 		actor_say(self, ADDR_WRITER, msg);
+		tester_deadline(my, op_timeout);
 
 		fd = openat(logd, test->cmds.tid,
 			  O_WRONLY | O_CREAT, S_IRUSR | S_IWUSR);
@@ -214,7 +307,8 @@ static void tester_hear(struct actor *self, struct msg *msg)
 		break;
 
 	case MSG_EXEC:
-		/* start timer? */
+		assert(test);
+		tester_deadline(my, test_timeout);
 		test->status = upd_status(msg->type, test->status);
 		free(msg);
 		break;
@@ -227,10 +321,8 @@ static void tester_hear(struct actor *self, struct msg *msg)
 		assert(fd);
 
 		if (!log->len) {
-			if (fd) {
-				close(fd);
-				my->fd = 0;
-			}
+			close(fd);
+			my->fd = 0;
 
 			test->status = upd_status(msg->type, test->status);
 		} else {
@@ -244,8 +336,9 @@ static void tester_hear(struct actor *self, struct msg *msg)
 		free(msg);
 		break;
 	case MSG_TRES:
-		test->tres = (int)msg->val;
+		assert(test);
 
+		test->tres = (int)msg->val;
 		test->status = upd_status(msg->type, test->status);
 
 		free(msg);
@@ -280,14 +373,14 @@ static void read_plan(void)
 {
 	int r0;
 	FILE *f = fopen("test-plan", "r");
-	char type_buf[LEN_8];
+	char type_buf[LEN_16];
 	enum plan_type type;
 	struct test *test;
 
 	assert_perror(errno);
 
 	for (;;) {
-		r0 = fscanf(f, "%7s ", type_buf);
+		r0 = fscanf(f, "%15s ", type_buf);
 		assert_perror(errno);
 
 		if (r0 == EOF)
@@ -297,6 +390,10 @@ static void read_plan(void)
 
 		if (!strcmp("NPROC", type_buf))
 			type = PLAN_NPROC;
+		else if (!strcmp("TEST_TIMEOUT", type_buf))
+			type = PLAN_TEST_TIME;
+		else if (!strcmp("OP_TIMEOUT", type_buf))
+			type = PLAN_OP_TIME;
 		else if (!strcmp("DONE", type_buf))
 			type = PLAN_DONE;
 		else if (!strcmp("TODO", type_buf))
@@ -308,11 +405,27 @@ static void read_plan(void)
 			assert(0);
 		}
 
-		if (type == PLAN_NPROC) {
+		switch (type) {
+		case PLAN_NPROC:
 			r0 = fscanf(f, "%u\n", &nproc);
 			assert(r0);
 			assert_perror(errno);
 			continue;
+		case PLAN_TEST_TIME:
+			r0 = fscanf(f, "%ld\n", &test_timeout);
+			assert(r0);
+			assert_perror(errno);
+			continue;
+		case PLAN_OP_TIME:
+			r0 = fscanf(f, "%ld\n", &op_timeout);
+			assert(r0);
+			assert_perror(errno);
+			continue;
+		case PLAN_TODO:
+		case PLAN_DONE:
+			break;
+		default:
+			assert(0);
 		}
 
 		test = malloc(sizeof(*test));
@@ -386,6 +499,7 @@ static void planner_listen(struct actor *self)
 		tester->addr = id_to_addr(id);
 		tester->priv = malloc(sizeof(struct tester));
 		memset(tester->priv, 0, sizeof(struct tester));
+		tester->listen = tester_listen;
 		tester->hear = tester_hear;
 		actor_start(tester);
 

@@ -9,6 +9,8 @@ tstctl_init() {
     fi
 
     echo NPROC 1 > test-plan
+    echo TEST_TIMEOUT 300 >> test-plan
+    echo OP_TIMEOUT 5 >> test-plan
 }
 
 tstctl_add_tests() {
@@ -43,6 +45,8 @@ tstctl_set() {
 
     case $key in
 	NPROC) set_kv $key $val;;
+	TEST_TIMEOUT) set_kv $key $val;;
+	OP_TIMEOUT) set_kv $key $val;;
 	*) echo Unrecognised Property: $key! >&2
 	   exit 123
     esac

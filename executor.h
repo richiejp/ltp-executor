@@ -13,6 +13,7 @@
 
 enum buf_len {
 	LEN_8 = 8,
+	LEN_16 = 16,
 	LEN_64 = 64,
 	LEN_1024 = 1024
 };

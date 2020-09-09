@@ -301,7 +301,7 @@ static void tester_listen(struct actor *self)
 		if (msg)
 			self->hear(self, msg);
 		else if (!(my->child || my->cout || my->eout))
-			actor_wait(self);
+			actor_wait(self, NULL);
 
 		if (my->child)
 			tester_check_child(self);
