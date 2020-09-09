@@ -32,9 +32,9 @@ static void error_msg(struct actor *self, char *text)
 */
 
 #line 35 "/home/rich/qa/ltp-executor/parser.c"
-static const int parse_start = 33;
+static const int parse_start = 37;
 
-static const int parse_en_main = 33;
+static const int parse_en_main = 37;
 
 
 #line 64 "/home/rich/qa/ltp-executor/parser.rl"
@@ -76,35 +76,35 @@ void parser_feed(struct actor *self, char *str, size_t len)
 		if ( p == pe && p != eof )
 			goto _out;
 		switch ( cs ) {
-			case 33:
+			case 37:
 			if ( p == eof ) {
-				goto _ctr84;	goto _again;
+				goto _ctr94;	goto _again;
 			}
 			else {
 				switch( ( (*( p))) ) {
 					case 65: {
-						goto _ctr85;
+						goto _ctr95;
 					}
 					case 67: {
-						goto _ctr86;
+						goto _ctr96;
 					}
 					case 69: {
-						goto _ctr87;
+						goto _ctr97;
 					}
 					case 80: {
-						goto _ctr88;
+						goto _ctr98;
 					}
 					case 97: {
-						goto _ctr85;
+						goto _ctr95;
 					}
 					case 99: {
-						goto _ctr86;
+						goto _ctr96;
 					}
 					case 101: {
-						goto _ctr87;
+						goto _ctr97;
 					}
 					case 112: {
-						goto _ctr88;
+						goto _ctr98;
 					}
 				}
 				goto _ctr2;
@@ -210,13 +210,16 @@ void parser_feed(struct actor *self, char *str, size_t len)
 					case 10: {
 						goto _ctr17;
 					}
+					case 13: {
+						goto _ctr18;
+					}
 					case 32: {
 						goto _ctr16;
 					}
 				}
 				if ( ( (*( p))) > 12 ) {
 					if ( 48 <= ( (*( p))) && ( (*( p))) <= 57 ) {
-						goto _ctr18;
+						goto _ctr19;
 					}
 				} else if ( ( (*( p))) >= 9 ) {
 					goto _ctr16;
@@ -225,153 +228,145 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			}
 			case 7:
 			if ( p == eof ) {
-				goto _ctr19;	goto _again;
+				goto _ctr20;	goto _again;
 			}
 			else {
 				switch( ( (*( p))) ) {
 					case 10: {
-						goto _ctr22;
+						goto _ctr23;
+					}
+					case 13: {
+						goto _ctr24;
 					}
 					case 32: {
-						goto _ctr21;
+						goto _ctr22;
 					}
 				}
 				if ( 9 <= ( (*( p))) && ( (*( p))) <= 12 ) {
-					goto _ctr21;
+					goto _ctr22;
 				}
-				goto _ctr20;
+				goto _ctr21;
 			}
 			case 8:
-			if ( p == eof ) {
-				goto _ctr23;	goto _again;
-			}
-			else {
-				switch( ( (*( p))) ) {
-					case 77: {
-						goto _ctr24;
-					}
-					case 109: {
-						goto _ctr24;
-					}
-				}
-				goto _ctr2;
-			}
-			case 9:
 			if ( p == eof ) {
 				goto _ctr25;	goto _again;
 			}
 			else {
+				if ( ( (*( p))) == 10 ) {
+					goto _ctr23;
+				}
+				goto _ctr21;
+			}
+			case 9:
+			if ( p == eof ) {
+				goto _ctr26;	goto _again;
+			}
+			else {
 				switch( ( (*( p))) ) {
-					case 68: {
-						goto _ctr26;
+					case 77: {
+						goto _ctr27;
 					}
-					case 100: {
-						goto _ctr26;
+					case 109: {
+						goto _ctr27;
 					}
 				}
 				goto _ctr2;
 			}
 			case 10:
 			if ( p == eof ) {
-				goto _ctr27;	goto _again;
+				goto _ctr28;	goto _again;
 			}
 			else {
 				switch( ( (*( p))) ) {
-					case 83: {
-						goto _ctr28;
+					case 68: {
+						goto _ctr29;
 					}
-					case 115: {
-						goto _ctr28;
+					case 100: {
+						goto _ctr29;
 					}
 				}
 				goto _ctr2;
 			}
 			case 11:
 			if ( p == eof ) {
-				goto _ctr29;	goto _again;
+				goto _ctr30;	goto _again;
 			}
 			else {
 				switch( ( (*( p))) ) {
-					case 9: {
-						goto _ctr30;
+					case 83: {
+						goto _ctr31;
 					}
-					case 32: {
-						goto _ctr30;
+					case 115: {
+						goto _ctr31;
 					}
 				}
-				if ( 11 <= ( (*( p))) && ( (*( p))) <= 12 ) {
-					goto _ctr30;
-				}
-				goto _ctr9;
+				goto _ctr2;
 			}
 			case 12:
 			if ( p == eof ) {
-				goto _ctr31;	goto _again;
+				goto _ctr32;	goto _again;
 			}
 			else {
 				switch( ( (*( p))) ) {
 					case 9: {
-						goto _ctr30;
+						goto _ctr33;
 					}
 					case 32: {
-						goto _ctr30;
+						goto _ctr33;
 					}
 				}
-				if ( ( (*( p))) > 12 ) {
-					if ( 48 <= ( (*( p))) && ( (*( p))) <= 57 ) {
-						goto _ctr32;
-					}
-				} else if ( ( (*( p))) >= 11 ) {
-					goto _ctr30;
+				if ( 11 <= ( (*( p))) && ( (*( p))) <= 12 ) {
+					goto _ctr33;
 				}
-				goto _ctr12;
+				goto _ctr9;
 			}
 			case 13:
 			if ( p == eof ) {
-				goto _ctr33;	goto _again;
+				goto _ctr34;	goto _again;
 			}
 			else {
 				switch( ( (*( p))) ) {
 					case 9: {
-						goto _ctr35;
+						goto _ctr33;
 					}
 					case 32: {
-						goto _ctr35;
+						goto _ctr33;
 					}
 				}
 				if ( ( (*( p))) > 12 ) {
 					if ( 48 <= ( (*( p))) && ( (*( p))) <= 57 ) {
-						goto _ctr36;
+						goto _ctr35;
 					}
 				} else if ( ( (*( p))) >= 11 ) {
-					goto _ctr35;
+					goto _ctr33;
 				}
-				goto _ctr34;
+				goto _ctr12;
 			}
 			case 14:
 			if ( p == eof ) {
-				goto _ctr37;	goto _again;
+				goto _ctr36;	goto _again;
 			}
 			else {
 				switch( ( (*( p))) ) {
-					case 10: {
-						goto _ctr40;
-					}
-					case 13: {
-						goto _ctr40;
+					case 9: {
+						goto _ctr38;
 					}
 					case 32: {
-						goto _ctr39;
+						goto _ctr38;
 					}
 				}
-				if ( 9 <= ( (*( p))) && ( (*( p))) <= 12 ) {
-					goto _ctr39;
+				if ( ( (*( p))) > 12 ) {
+					if ( 48 <= ( (*( p))) && ( (*( p))) <= 57 ) {
+						goto _ctr39;
+					}
+				} else if ( ( (*( p))) >= 11 ) {
+					goto _ctr38;
 				}
-				goto _ctr38;
+				goto _ctr37;
 			}
 			case 15:
 			if ( p == eof ) {
-				goto _ctr41;	goto _again;
+				goto _ctr40;	goto _again;
 			}
 			else {
 				switch( ( (*( p))) ) {
@@ -388,17 +383,28 @@ void parser_feed(struct actor *self, char *str, size_t len)
 				if ( 9 <= ( (*( p))) && ( (*( p))) <= 12 ) {
 					goto _ctr42;
 				}
-				goto _ctr38;
+				goto _ctr41;
 			}
 			case 16:
 			if ( p == eof ) {
 				goto _ctr44;	goto _again;
 			}
 			else {
-				if ( ( (*( p))) == 10 ) {
-					goto _ctr46;
+				switch( ( (*( p))) ) {
+					case 10: {
+						goto _ctr46;
+					}
+					case 13: {
+						goto _ctr46;
+					}
+					case 32: {
+						goto _ctr45;
+					}
 				}
-				goto _ctr45;
+				if ( 9 <= ( (*( p))) && ( (*( p))) <= 12 ) {
+					goto _ctr45;
+				}
+				goto _ctr41;
 			}
 			case 17:
 			if ( p == eof ) {
@@ -406,41 +412,30 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			}
 			else {
 				if ( ( (*( p))) == 10 ) {
-					goto _ctr48;
+					goto _ctr49;
 				}
-				goto _ctr45;
+				goto _ctr48;
 			}
 			case 18:
 			if ( p == eof ) {
-				goto _ctr49;	goto _again;
+				goto _ctr50;	goto _again;
+			}
+			else {
+				if ( ( (*( p))) == 10 ) {
+					goto _ctr51;
+				}
+				goto _ctr48;
+			}
+			case 19:
+			if ( p == eof ) {
+				goto _ctr52;	goto _again;
 			}
 			else {
 				switch( ( (*( p))) ) {
 					case 88: {
-						goto _ctr50;
-					}
-					case 120: {
-						goto _ctr50;
-					}
-				}
-				goto _ctr2;
-			}
-			case 19:
-			if ( p == eof ) {
-				goto _ctr51;	goto _again;
-			}
-			else {
-				switch( ( (*( p))) ) {
-					case 69: {
-						goto _ctr52;
-					}
-					case 73: {
 						goto _ctr53;
 					}
-					case 101: {
-						goto _ctr52;
-					}
-					case 105: {
+					case 120: {
 						goto _ctr53;
 					}
 				}
@@ -452,127 +447,131 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			}
 			else {
 				switch( ( (*( p))) ) {
-					case 67: {
+					case 69: {
 						goto _ctr55;
 					}
-					case 99: {
+					case 73: {
+						goto _ctr56;
+					}
+					case 101: {
 						goto _ctr55;
+					}
+					case 105: {
+						goto _ctr56;
 					}
 				}
 				goto _ctr2;
 			}
 			case 21:
 			if ( p == eof ) {
-				goto _ctr56;	goto _again;
+				goto _ctr57;	goto _again;
 			}
 			else {
 				switch( ( (*( p))) ) {
-					case 9: {
-						goto _ctr57;
+					case 67: {
+						goto _ctr58;
 					}
-					case 32: {
-						goto _ctr57;
+					case 99: {
+						goto _ctr58;
 					}
-				}
-				if ( 11 <= ( (*( p))) && ( (*( p))) <= 12 ) {
-					goto _ctr57;
 				}
 				goto _ctr2;
 			}
 			case 22:
 			if ( p == eof ) {
-				goto _ctr58;	goto _again;
+				goto _ctr59;	goto _again;
 			}
 			else {
 				switch( ( (*( p))) ) {
 					case 9: {
-						goto _ctr57;
+						goto _ctr60;
 					}
 					case 32: {
-						goto _ctr57;
+						goto _ctr60;
 					}
 				}
-				if ( ( (*( p))) > 12 ) {
-					if ( 48 <= ( (*( p))) && ( (*( p))) <= 57 ) {
-						goto _ctr59;
-					}
-				} else if ( ( (*( p))) >= 11 ) {
-					goto _ctr57;
-				}
-				goto _ctr12;
-			}
-			case 23:
-			if ( p == eof ) {
-				goto _ctr60;	goto _again;
-			}
-			else {
-				switch( ( (*( p))) ) {
-					case 10: {
-						goto _ctr62;
-					}
-					case 32: {
-						goto _ctr61;
-					}
-				}
-				if ( ( (*( p))) > 12 ) {
-					if ( 48 <= ( (*( p))) && ( (*( p))) <= 57 ) {
-						goto _ctr63;
-					}
-				} else if ( ( (*( p))) >= 9 ) {
-					goto _ctr61;
-				}
-				goto _ctr15;
-			}
-			case 24:
-			if ( p == eof ) {
-				goto _ctr64;	goto _again;
-			}
-			else {
-				switch( ( (*( p))) ) {
-					case 10: {
-						goto _ctr66;
-					}
-					case 32: {
-						goto _ctr65;
-					}
-				}
-				if ( 9 <= ( (*( p))) && ( (*( p))) <= 12 ) {
-					goto _ctr65;
-				}
-				goto _ctr20;
-			}
-			case 25:
-			if ( p == eof ) {
-				goto _ctr67;	goto _again;
-			}
-			else {
-				switch( ( (*( p))) ) {
-					case 84: {
-						goto _ctr68;
-					}
-					case 116: {
-						goto _ctr68;
-					}
+				if ( 11 <= ( (*( p))) && ( (*( p))) <= 12 ) {
+					goto _ctr60;
 				}
 				goto _ctr2;
 			}
-			case 26:
+			case 23:
 			if ( p == eof ) {
-				goto _ctr69;	goto _again;
+				goto _ctr61;	goto _again;
+			}
+			else {
+				switch( ( (*( p))) ) {
+					case 9: {
+						goto _ctr60;
+					}
+					case 32: {
+						goto _ctr60;
+					}
+				}
+				if ( ( (*( p))) > 12 ) {
+					if ( 48 <= ( (*( p))) && ( (*( p))) <= 57 ) {
+						goto _ctr62;
+					}
+				} else if ( ( (*( p))) >= 11 ) {
+					goto _ctr60;
+				}
+				goto _ctr12;
+			}
+			case 24:
+			if ( p == eof ) {
+				goto _ctr63;	goto _again;
 			}
 			else {
 				switch( ( (*( p))) ) {
 					case 10: {
-						goto _ctr72;
+						goto _ctr65;
+					}
+					case 13: {
+						goto _ctr66;
 					}
 					case 32: {
+						goto _ctr64;
+					}
+				}
+				if ( ( (*( p))) > 12 ) {
+					if ( 48 <= ( (*( p))) && ( (*( p))) <= 57 ) {
+						goto _ctr67;
+					}
+				} else if ( ( (*( p))) >= 9 ) {
+					goto _ctr64;
+				}
+				goto _ctr15;
+			}
+			case 25:
+			if ( p == eof ) {
+				goto _ctr68;	goto _again;
+			}
+			else {
+				switch( ( (*( p))) ) {
+					case 10: {
+						goto _ctr70;
+					}
+					case 13: {
 						goto _ctr71;
+					}
+					case 32: {
+						goto _ctr69;
 					}
 				}
 				if ( 9 <= ( (*( p))) && ( (*( p))) <= 12 ) {
-					goto _ctr71;
+					goto _ctr69;
 				}
-				goto _ctr70;
+				goto _ctr21;
+			}
+			case 26:
+			if ( p == eof ) {
+				goto _ctr72;	goto _again;
+			}
+			else {
+				if ( ( (*( p))) == 10 ) {
+					goto _ctr70;
+				}
+				goto _ctr21;
 			}
 			case 27:
 			if ( p == eof ) {
@@ -580,98 +579,163 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			}
 			else {
 				switch( ( (*( p))) ) {
-					case 10: {
-						goto _ctr72;
+					case 84: {
+						goto _ctr74;
 					}
-					case 32: {
-						goto _ctr71;
+					case 116: {
+						goto _ctr74;
 					}
 				}
-				if ( 9 <= ( (*( p))) && ( (*( p))) <= 12 ) {
-					goto _ctr71;
-				}
-				goto _ctr20;
+				goto _ctr2;
 			}
 			case 28:
 			if ( p == eof ) {
-				goto _ctr74;	goto _again;
+				goto _ctr75;	goto _again;
 			}
 			else {
 				switch( ( (*( p))) ) {
-					case 73: {
-						goto _ctr75;
+					case 10: {
+						goto _ctr78;
 					}
-					case 105: {
-						goto _ctr75;
+					case 13: {
+						goto _ctr79;
+					}
+					case 32: {
+						goto _ctr77;
 					}
 				}
-				goto _ctr2;
+				if ( 9 <= ( (*( p))) && ( (*( p))) <= 12 ) {
+					goto _ctr77;
+				}
+				goto _ctr76;
 			}
 			case 29:
-			if ( p == eof ) {
-				goto _ctr76;	goto _again;
-			}
-			else {
-				switch( ( (*( p))) ) {
-					case 78: {
-						goto _ctr77;
-					}
-					case 110: {
-						goto _ctr77;
-					}
-				}
-				goto _ctr2;
-			}
-			case 30:
-			if ( p == eof ) {
-				goto _ctr78;	goto _again;
-			}
-			else {
-				switch( ( (*( p))) ) {
-					case 71: {
-						goto _ctr79;
-					}
-					case 103: {
-						goto _ctr79;
-					}
-				}
-				goto _ctr2;
-			}
-			case 31:
 			if ( p == eof ) {
 				goto _ctr80;	goto _again;
 			}
 			else {
 				switch( ( (*( p))) ) {
 					case 10: {
-						goto _ctr82;
+						goto _ctr78;
+					}
+					case 13: {
+						goto _ctr79;
 					}
 					case 32: {
-						goto _ctr81;
+						goto _ctr77;
 					}
 				}
 				if ( 9 <= ( (*( p))) && ( (*( p))) <= 12 ) {
-					goto _ctr81;
+					goto _ctr77;
 				}
-				goto _ctr70;
+				goto _ctr21;
+			}
+			case 30:
+			if ( p == eof ) {
+				goto _ctr81;	goto _again;
+			}
+			else {
+				if ( ( (*( p))) == 10 ) {
+					goto _ctr78;
+				}
+				goto _ctr21;
+			}
+			case 31:
+			if ( p == eof ) {
+				goto _ctr82;	goto _again;
+			}
+			else {
+				switch( ( (*( p))) ) {
+					case 73: {
+						goto _ctr83;
+					}
+					case 105: {
+						goto _ctr83;
+					}
+				}
+				goto _ctr2;
 			}
 			case 32:
 			if ( p == eof ) {
-				goto _ctr83;	goto _again;
+				goto _ctr84;	goto _again;
+			}
+			else {
+				switch( ( (*( p))) ) {
+					case 78: {
+						goto _ctr85;
+					}
+					case 110: {
+						goto _ctr85;
+					}
+				}
+				goto _ctr2;
+			}
+			case 33:
+			if ( p == eof ) {
+				goto _ctr86;	goto _again;
+			}
+			else {
+				switch( ( (*( p))) ) {
+					case 71: {
+						goto _ctr87;
+					}
+					case 103: {
+						goto _ctr87;
+					}
+				}
+				goto _ctr2;
+			}
+			case 34:
+			if ( p == eof ) {
+				goto _ctr88;	goto _again;
 			}
 			else {
 				switch( ( (*( p))) ) {
 					case 10: {
-						goto _ctr82;
+						goto _ctr90;
+					}
+					case 13: {
+						goto _ctr91;
 					}
 					case 32: {
-						goto _ctr81;
+						goto _ctr89;
 					}
 				}
 				if ( 9 <= ( (*( p))) && ( (*( p))) <= 12 ) {
-					goto _ctr81;
+					goto _ctr89;
 				}
-				goto _ctr20;
+				goto _ctr76;
+			}
+			case 35:
+			if ( p == eof ) {
+				goto _ctr92;	goto _again;
+			}
+			else {
+				switch( ( (*( p))) ) {
+					case 10: {
+						goto _ctr90;
+					}
+					case 13: {
+						goto _ctr91;
+					}
+					case 32: {
+						goto _ctr89;
+					}
+				}
+				if ( 9 <= ( (*( p))) && ( (*( p))) <= 12 ) {
+					goto _ctr89;
+				}
+				goto _ctr21;
+			}
+			case 36:
+			if ( p == eof ) {
+				goto _ctr93;	goto _again;
+			}
+			else {
+				if ( ( (*( p))) == 10 ) {
+					goto _ctr90;
+				}
+				goto _ctr21;
 			}
 		}
 		
@@ -680,13 +744,13 @@ void parser_feed(struct actor *self, char *str, size_t len)
 		_ctr9: cs = 0; goto f1;
 		_ctr12: cs = 0; goto f2;
 		_ctr15: cs = 0; goto f4;
-		_ctr20: cs = 0; goto f8;
-		_ctr34: cs = 0; goto f10;
-		_ctr40: cs = 0; goto f12;
-		_ctr43: cs = 0; goto f14;
-		_ctr46: cs = 0; goto f16;
-		_ctr70: cs = 0; goto f20;
-		_ctr85: cs = 1; goto _again;
+		_ctr21: cs = 0; goto f8;
+		_ctr37: cs = 0; goto f10;
+		_ctr43: cs = 0; goto f12;
+		_ctr46: cs = 0; goto f14;
+		_ctr49: cs = 0; goto f16;
+		_ctr76: cs = 0; goto f20;
+		_ctr95: cs = 1; goto _again;
 		_ctr1: cs = 1; goto f0;
 		_ctr3: cs = 2; goto _again;
 		_ctr4: cs = 2; goto f0;
@@ -698,86 +762,96 @@ void parser_feed(struct actor *self, char *str, size_t len)
 		_ctr11: cs = 5; goto f2;
 		_ctr13: cs = 6; goto f3;
 		_ctr14: cs = 6; goto f4;
-		_ctr18: cs = 6; goto f7;
-		_ctr21: cs = 7; goto _again;
+		_ctr19: cs = 6; goto f7;
+		_ctr22: cs = 7; goto _again;
 		_ctr16: cs = 7; goto f5;
-		_ctr19: cs = 7; goto f8;
-		_ctr86: cs = 8; goto _again;
-		_ctr23: cs = 8; goto f0;
-		_ctr24: cs = 9; goto _again;
-		_ctr25: cs = 9; goto f0;
-		_ctr26: cs = 10; goto _again;
-		_ctr27: cs = 10; goto f0;
-		_ctr28: cs = 11; goto _again;
-		_ctr29: cs = 11; goto f1;
-		_ctr30: cs = 12; goto _again;
-		_ctr31: cs = 12; goto f2;
-		_ctr32: cs = 13; goto f3;
-		_ctr36: cs = 13; goto f7;
-		_ctr33: cs = 13; goto f10;
-		_ctr39: cs = 14; goto _again;
-		_ctr35: cs = 14; goto f11;
-		_ctr37: cs = 14; goto f12;
-		_ctr38: cs = 15; goto f13;
-		_ctr41: cs = 15; goto f14;
-		_ctr42: cs = 16; goto f15;
-		_ctr44: cs = 16; goto f16;
-		_ctr45: cs = 17; goto f13;
+		_ctr20: cs = 7; goto f8;
+		_ctr24: cs = 8; goto _again;
+		_ctr18: cs = 8; goto f5;
+		_ctr25: cs = 8; goto f8;
+		_ctr96: cs = 9; goto _again;
+		_ctr26: cs = 9; goto f0;
+		_ctr27: cs = 10; goto _again;
+		_ctr28: cs = 10; goto f0;
+		_ctr29: cs = 11; goto _again;
+		_ctr30: cs = 11; goto f0;
+		_ctr31: cs = 12; goto _again;
+		_ctr32: cs = 12; goto f1;
+		_ctr33: cs = 13; goto _again;
+		_ctr34: cs = 13; goto f2;
+		_ctr35: cs = 14; goto f3;
+		_ctr39: cs = 14; goto f7;
+		_ctr36: cs = 14; goto f10;
+		_ctr42: cs = 15; goto _again;
+		_ctr38: cs = 15; goto f11;
+		_ctr40: cs = 15; goto f12;
+		_ctr41: cs = 16; goto f13;
+		_ctr44: cs = 16; goto f14;
+		_ctr45: cs = 17; goto f15;
 		_ctr47: cs = 17; goto f16;
-		_ctr87: cs = 18; goto _again;
-		_ctr49: cs = 18; goto f0;
-		_ctr50: cs = 19; goto _again;
-		_ctr51: cs = 19; goto f0;
-		_ctr52: cs = 20; goto _again;
+		_ctr48: cs = 18; goto f13;
+		_ctr50: cs = 18; goto f16;
+		_ctr97: cs = 19; goto _again;
+		_ctr52: cs = 19; goto f0;
+		_ctr53: cs = 20; goto _again;
 		_ctr54: cs = 20; goto f0;
 		_ctr55: cs = 21; goto _again;
-		_ctr56: cs = 21; goto f0;
-		_ctr57: cs = 22; goto _again;
-		_ctr58: cs = 22; goto f2;
-		_ctr59: cs = 23; goto f3;
-		_ctr60: cs = 23; goto f4;
-		_ctr63: cs = 23; goto f7;
-		_ctr65: cs = 24; goto _again;
-		_ctr61: cs = 24; goto f5;
-		_ctr64: cs = 24; goto f8;
-		_ctr53: cs = 25; goto _again;
-		_ctr67: cs = 25; goto f0;
-		_ctr68: cs = 26; goto _again;
-		_ctr69: cs = 26; goto f20;
-		_ctr71: cs = 27; goto _again;
-		_ctr73: cs = 27; goto f8;
-		_ctr88: cs = 28; goto _again;
-		_ctr74: cs = 28; goto f0;
-		_ctr75: cs = 29; goto _again;
-		_ctr76: cs = 29; goto f0;
-		_ctr77: cs = 30; goto _again;
-		_ctr78: cs = 30; goto f0;
-		_ctr79: cs = 31; goto _again;
-		_ctr80: cs = 31; goto f20;
-		_ctr81: cs = 32; goto _again;
-		_ctr83: cs = 32; goto f8;
-		_ctr84: cs = 33; goto _again;
-		_ctr17: cs = 33; goto f6;
-		_ctr22: cs = 33; goto f9;
-		_ctr48: cs = 33; goto f17;
-		_ctr62: cs = 33; goto f18;
-		_ctr66: cs = 33; goto f19;
-		_ctr72: cs = 33; goto f21;
-		_ctr82: cs = 33; goto f22;
+		_ctr57: cs = 21; goto f0;
+		_ctr58: cs = 22; goto _again;
+		_ctr59: cs = 22; goto f0;
+		_ctr60: cs = 23; goto _again;
+		_ctr61: cs = 23; goto f2;
+		_ctr62: cs = 24; goto f3;
+		_ctr63: cs = 24; goto f4;
+		_ctr67: cs = 24; goto f7;
+		_ctr69: cs = 25; goto _again;
+		_ctr64: cs = 25; goto f5;
+		_ctr68: cs = 25; goto f8;
+		_ctr71: cs = 26; goto _again;
+		_ctr66: cs = 26; goto f5;
+		_ctr72: cs = 26; goto f8;
+		_ctr56: cs = 27; goto _again;
+		_ctr73: cs = 27; goto f0;
+		_ctr74: cs = 28; goto _again;
+		_ctr75: cs = 28; goto f20;
+		_ctr77: cs = 29; goto _again;
+		_ctr80: cs = 29; goto f8;
+		_ctr79: cs = 30; goto _again;
+		_ctr81: cs = 30; goto f8;
+		_ctr98: cs = 31; goto _again;
+		_ctr82: cs = 31; goto f0;
+		_ctr83: cs = 32; goto _again;
+		_ctr84: cs = 32; goto f0;
+		_ctr85: cs = 33; goto _again;
+		_ctr86: cs = 33; goto f0;
+		_ctr87: cs = 34; goto _again;
+		_ctr88: cs = 34; goto f20;
+		_ctr89: cs = 35; goto _again;
+		_ctr92: cs = 35; goto f8;
+		_ctr91: cs = 36; goto _again;
+		_ctr93: cs = 36; goto f8;
+		_ctr94: cs = 37; goto _again;
+		_ctr17: cs = 37; goto f6;
+		_ctr23: cs = 37; goto f9;
+		_ctr51: cs = 37; goto f17;
+		_ctr65: cs = 37; goto f18;
+		_ctr70: cs = 37; goto f19;
+		_ctr78: cs = 37; goto f21;
+		_ctr90: cs = 37; goto f22;
 		
 		f3:
 		{
 #line 4 "/home/rich/qa/ltp-executor/parser-common.rl"
 			n = (( (*( p)))) - '0'; }
 		
-#line 774 "/home/rich/qa/ltp-executor/parser.c"
+#line 848 "/home/rich/qa/ltp-executor/parser.c"
 		goto _again;
 		f7:
 		{
 #line 5 "/home/rich/qa/ltp-executor/parser-common.rl"
 			n = n * 10 + ((( (*( p)))) - '0'); }
 		
-#line 781 "/home/rich/qa/ltp-executor/parser.c"
+#line 855 "/home/rich/qa/ltp-executor/parser.c"
 		goto _again;
 		f13:
 		{
@@ -788,7 +862,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			*(buf++) = (( (*( p))));
 		}
 		
-#line 792 "/home/rich/qa/ltp-executor/parser.c"
+#line 866 "/home/rich/qa/ltp-executor/parser.c"
 		goto _again;
 		f5:
 		{
@@ -798,21 +872,22 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			id = id_to_addr(n);
 		}
 		
-#line 802 "/home/rich/qa/ltp-executor/parser.c"
+#line 876 "/home/rich/qa/ltp-executor/parser.c"
 		goto _again;
 		f15:
 		{
 #line 28 "/home/rich/qa/ltp-executor/parser-common.rl"
 			
 			*buf = '\0';
+			buf_len = sizeof(cmds->cmds);
 			buf = cmds->cmds;
 		}
 		
-#line 812 "/home/rich/qa/ltp-executor/parser.c"
+#line 887 "/home/rich/qa/ltp-executor/parser.c"
 		goto _again;
 		f17:
 		{
-#line 33 "/home/rich/qa/ltp-executor/parser-common.rl"
+#line 34 "/home/rich/qa/ltp-executor/parser-common.rl"
 			
 			*buf = '\0';
 			buf = NULL;
@@ -824,11 +899,11 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			actor_say(self, id, msg);
 		}
 		
-#line 828 "/home/rich/qa/ltp-executor/parser.c"
+#line 903 "/home/rich/qa/ltp-executor/parser.c"
 		goto _again;
 		f19:
 		{
-#line 44 "/home/rich/qa/ltp-executor/parser-common.rl"
+#line 45 "/home/rich/qa/ltp-executor/parser-common.rl"
 			
 			msg = msg_alloc();
 			msg->type = MSG_EXEC;
@@ -836,34 +911,34 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			actor_say(self, id, msg);
 		}
 		
-#line 840 "/home/rich/qa/ltp-executor/parser.c"
+#line 915 "/home/rich/qa/ltp-executor/parser.c"
 		goto _again;
 		f8:
 		{
-#line 51 "/home/rich/qa/ltp-executor/parser-common.rl"
+#line 52 "/home/rich/qa/ltp-executor/parser-common.rl"
 			
 			error_msg(self, "Expected new line");
-			{cs = 33; goto _again;}}
+			{cs = 37; goto _again;}}
 		
-#line 849 "/home/rich/qa/ltp-executor/parser.c"
+#line 924 "/home/rich/qa/ltp-executor/parser.c"
 		goto _again;
 		f2:
 		{
-#line 61 "/home/rich/qa/ltp-executor/parser-common.rl"
+#line 62 "/home/rich/qa/ltp-executor/parser-common.rl"
 			
 			error_msg(self, "Expected digit");
-			{cs = 33; goto _again;}}
+			{cs = 37; goto _again;}}
 		
-#line 858 "/home/rich/qa/ltp-executor/parser.c"
+#line 933 "/home/rich/qa/ltp-executor/parser.c"
 		goto _again;
 		f12:
 		{
-#line 66 "/home/rich/qa/ltp-executor/parser-common.rl"
+#line 67 "/home/rich/qa/ltp-executor/parser-common.rl"
 			
 			error_msg(self, "Expected symbol character");
-			{cs = 33; goto _again;}}
+			{cs = 37; goto _again;}}
 		
-#line 867 "/home/rich/qa/ltp-executor/parser.c"
+#line 942 "/home/rich/qa/ltp-executor/parser.c"
 		goto _again;
 		f22:
 		{
@@ -874,21 +949,21 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			actor_say(self, ADDR_WRITER, msg);
 		}
 		
-#line 878 "/home/rich/qa/ltp-executor/parser.c"
+#line 953 "/home/rich/qa/ltp-executor/parser.c"
 		goto _again;
 		f9:
 		{
 #line 43 "/home/rich/qa/ltp-executor/parser.rl"
 			tester_start(self, id); }
 		
-#line 885 "/home/rich/qa/ltp-executor/parser.c"
+#line 960 "/home/rich/qa/ltp-executor/parser.c"
 		goto _again;
 		f21:
 		{
 #line 45 "/home/rich/qa/ltp-executor/parser.rl"
 			shutdown(self); }
 		
-#line 892 "/home/rich/qa/ltp-executor/parser.c"
+#line 967 "/home/rich/qa/ltp-executor/parser.c"
 		goto _again;
 		f0:
 		{
@@ -898,9 +973,9 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			/* TODO: Errors are probably most common when a user is typing
 			* stuff in manually. So we can reduce some noise by clearing
 			* the read buffer up to the first newline char (if any) */
-			{cs = 33; goto _again;}}
+			{cs = 37; goto _again;}}
 		
-#line 904 "/home/rich/qa/ltp-executor/parser.c"
+#line 979 "/home/rich/qa/ltp-executor/parser.c"
 		goto _again;
 		f11:
 		{
@@ -910,7 +985,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			id = id_to_addr(n);
 		}
 		
-#line 914 "/home/rich/qa/ltp-executor/parser.c"
+#line 989 "/home/rich/qa/ltp-executor/parser.c"
 		{
 #line 18 "/home/rich/qa/ltp-executor/parser-common.rl"
 			
@@ -923,7 +998,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			buf = cmds->tid;
 		}
 		
-#line 927 "/home/rich/qa/ltp-executor/parser.c"
+#line 1002 "/home/rich/qa/ltp-executor/parser.c"
 		goto _again;
 		f18:
 		{
@@ -933,9 +1008,9 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			id = id_to_addr(n);
 		}
 		
-#line 937 "/home/rich/qa/ltp-executor/parser.c"
+#line 1012 "/home/rich/qa/ltp-executor/parser.c"
 		{
-#line 44 "/home/rich/qa/ltp-executor/parser-common.rl"
+#line 45 "/home/rich/qa/ltp-executor/parser-common.rl"
 			
 			msg = msg_alloc();
 			msg->type = MSG_EXEC;
@@ -943,7 +1018,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			actor_say(self, id, msg);
 		}
 		
-#line 947 "/home/rich/qa/ltp-executor/parser.c"
+#line 1022 "/home/rich/qa/ltp-executor/parser.c"
 		goto _again;
 		f6:
 		{
@@ -953,76 +1028,76 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			id = id_to_addr(n);
 		}
 		
-#line 957 "/home/rich/qa/ltp-executor/parser.c"
+#line 1032 "/home/rich/qa/ltp-executor/parser.c"
 		{
 #line 43 "/home/rich/qa/ltp-executor/parser.rl"
 			tester_start(self, id); }
 		
-#line 962 "/home/rich/qa/ltp-executor/parser.c"
+#line 1037 "/home/rich/qa/ltp-executor/parser.c"
 		goto _again;
 		f16:
 		{
-#line 51 "/home/rich/qa/ltp-executor/parser-common.rl"
+#line 52 "/home/rich/qa/ltp-executor/parser-common.rl"
 			
 			error_msg(self, "Expected new line");
-			{cs = 33; goto _again;}}
+			{cs = 37; goto _again;}}
 		
-#line 971 "/home/rich/qa/ltp-executor/parser.c"
+#line 1046 "/home/rich/qa/ltp-executor/parser.c"
 		{
-#line 71 "/home/rich/qa/ltp-executor/parser-common.rl"
+#line 72 "/home/rich/qa/ltp-executor/parser-common.rl"
 			
 			error_msg(self, "Expected string character");
-			{cs = 33; goto _again;}}
+			{cs = 37; goto _again;}}
 		
-#line 978 "/home/rich/qa/ltp-executor/parser.c"
+#line 1053 "/home/rich/qa/ltp-executor/parser.c"
 		goto _again;
 		f4:
 		{
-#line 61 "/home/rich/qa/ltp-executor/parser-common.rl"
+#line 62 "/home/rich/qa/ltp-executor/parser-common.rl"
 			
 			error_msg(self, "Expected digit");
-			{cs = 33; goto _again;}}
+			{cs = 37; goto _again;}}
 		
-#line 987 "/home/rich/qa/ltp-executor/parser.c"
+#line 1062 "/home/rich/qa/ltp-executor/parser.c"
 		{
-#line 51 "/home/rich/qa/ltp-executor/parser-common.rl"
+#line 52 "/home/rich/qa/ltp-executor/parser-common.rl"
 			
 			error_msg(self, "Expected new line");
-			{cs = 33; goto _again;}}
+			{cs = 37; goto _again;}}
 		
-#line 994 "/home/rich/qa/ltp-executor/parser.c"
+#line 1069 "/home/rich/qa/ltp-executor/parser.c"
 		goto _again;
 		f10:
 		{
-#line 61 "/home/rich/qa/ltp-executor/parser-common.rl"
+#line 62 "/home/rich/qa/ltp-executor/parser-common.rl"
 			
 			error_msg(self, "Expected digit");
-			{cs = 33; goto _again;}}
+			{cs = 37; goto _again;}}
 		
-#line 1003 "/home/rich/qa/ltp-executor/parser.c"
+#line 1078 "/home/rich/qa/ltp-executor/parser.c"
 		{
-#line 56 "/home/rich/qa/ltp-executor/parser-common.rl"
+#line 57 "/home/rich/qa/ltp-executor/parser-common.rl"
 			
 			error_msg(self, "Expected white space");
-			{cs = 33; goto _again;}}
+			{cs = 37; goto _again;}}
 		
-#line 1010 "/home/rich/qa/ltp-executor/parser.c"
+#line 1085 "/home/rich/qa/ltp-executor/parser.c"
 		goto _again;
 		f14:
 		{
-#line 66 "/home/rich/qa/ltp-executor/parser-common.rl"
+#line 67 "/home/rich/qa/ltp-executor/parser-common.rl"
 			
 			error_msg(self, "Expected symbol character");
-			{cs = 33; goto _again;}}
+			{cs = 37; goto _again;}}
 		
-#line 1019 "/home/rich/qa/ltp-executor/parser.c"
+#line 1094 "/home/rich/qa/ltp-executor/parser.c"
 		{
-#line 56 "/home/rich/qa/ltp-executor/parser-common.rl"
+#line 57 "/home/rich/qa/ltp-executor/parser-common.rl"
 			
 			error_msg(self, "Expected white space");
-			{cs = 33; goto _again;}}
+			{cs = 37; goto _again;}}
 		
-#line 1026 "/home/rich/qa/ltp-executor/parser.c"
+#line 1101 "/home/rich/qa/ltp-executor/parser.c"
 		goto _again;
 		f20:
 		{
@@ -1032,16 +1107,16 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			/* TODO: Errors are probably most common when a user is typing
 			* stuff in manually. So we can reduce some noise by clearing
 			* the read buffer up to the first newline char (if any) */
-			{cs = 33; goto _again;}}
+			{cs = 37; goto _again;}}
 		
-#line 1038 "/home/rich/qa/ltp-executor/parser.c"
+#line 1113 "/home/rich/qa/ltp-executor/parser.c"
 		{
-#line 51 "/home/rich/qa/ltp-executor/parser-common.rl"
+#line 52 "/home/rich/qa/ltp-executor/parser-common.rl"
 			
 			error_msg(self, "Expected new line");
-			{cs = 33; goto _again;}}
+			{cs = 37; goto _again;}}
 		
-#line 1045 "/home/rich/qa/ltp-executor/parser.c"
+#line 1120 "/home/rich/qa/ltp-executor/parser.c"
 		goto _again;
 		f1:
 		{
@@ -1051,21 +1126,21 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			/* TODO: Errors are probably most common when a user is typing
 			* stuff in manually. So we can reduce some noise by clearing
 			* the read buffer up to the first newline char (if any) */
-			{cs = 33; goto _again;}}
+			{cs = 37; goto _again;}}
 		
-#line 1057 "/home/rich/qa/ltp-executor/parser.c"
+#line 1132 "/home/rich/qa/ltp-executor/parser.c"
 		{
-#line 56 "/home/rich/qa/ltp-executor/parser-common.rl"
+#line 57 "/home/rich/qa/ltp-executor/parser-common.rl"
 			
 			error_msg(self, "Expected white space");
-			{cs = 33; goto _again;}}
+			{cs = 37; goto _again;}}
 		
-#line 1064 "/home/rich/qa/ltp-executor/parser.c"
+#line 1139 "/home/rich/qa/ltp-executor/parser.c"
 		goto _again;
 		
 		_again: {}
 		if ( p == eof ) {
-			if ( cs >= 33 )
+			if ( cs >= 37 )
 				goto _out;
 		}
 		else {
