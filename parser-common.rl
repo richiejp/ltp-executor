@@ -27,6 +27,7 @@
 
 	action set_cmds_tid {
 		*buf = '\0';
+		buf_len = sizeof(cmds->cmds);
 		buf = cmds->cmds;
 	}
 

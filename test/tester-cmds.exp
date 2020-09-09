@@ -9,7 +9,7 @@ send "allc 2\n"
 send "allc 3\n"
 send "cmds 3 ltptest03 ltptest03\n"
 expect "+CMDS 3 ltptest03 ltptest03\r"
-send "cmds 2 02 ltptest02\n"
-expect "+CMDS 2 02 ltptest02\r"
+send "cmds 2 fa551e80818a9ef8f55c0c90cdacad1fcf141496 syzwrap  -d /opt/ltp/testcases/bin -n fa551e80818a9ef8f55c0c90cdacad1fcf141496\n"
+expect "+CMDS 2 fa551e80818a9ef8f55c0c90cdacad1fcf141496 syzwrap  -d /opt/ltp/testcases/bin -n fa551e80818a9ef8f55c0c90cdacad1fcf141496\r"
 
 close
