@@ -475,6 +475,14 @@ static void write_plan(void)
 	assert_perror(errno);
 	assert(r0 > 0);
 
+	r0 = fprintf(f, "TEST_TIMEOUT %ld\n", test_timeout);
+	assert_perror(errno);
+	assert(r0 > 0);
+
+	r0 = fprintf(f, "OP_TIMEOUT %ld\n", op_timeout);
+	assert_perror(errno);
+	assert(r0 > 0);
+
 	for (test = todos; test; test = test->next)
 		fprintf(f, "TODO %s %s\n", test->cmds.tid, test->cmds.cmds);
 
