@@ -37,6 +37,8 @@ struct tres {
 	int result;
 };
 
+static int kmsg;
+
 void shutdown(struct actor *self)
 {
 	struct msg *msg = msg_alloc();
@@ -311,6 +313,20 @@ static void tester_listen(struct actor *self)
 	}
 }
 
+static void kmsg_log(char *msg)
+{
+	size_t len;
+	int r0;
+
+	if (!kmsg)
+		return;
+
+	len = strlen(msg);
+	r0 = write(kmsg, msg, len);
+
+	assert_perror(errno);
+	actor_assert(r0 == (int)len, "%u < %zu", r0, len);
+}
 /* TODO: many/all runtest entries don't require sh. Some runtest entries set
  * an environment var beforehand which can be done with a seperate command. */
 static void tester_exec(struct actor *self)
@@ -359,6 +375,8 @@ static void tester_exec(struct actor *self)
 	close(cin[0]);
 	close(cout[1]);
 	close(eout[1]);
+
+	kmsg_log(my->test->tid);
 
 	r0 = strlen(my->test->cmds);
 	do {
@@ -450,9 +468,20 @@ int main(void)
 	int r0, r1;
 	struct actor *reader, *writer;
 	pthread_t reader_t, writer_t;
+	char *intro;
 
-	fprintf(stderr, "Executor v%d.%d\n",
-		executor_VERSION_MAJOR, executor_VERSION_MINOR);
+	assert(asprintf(&intro, "Executor v%d.%d\n",
+			executor_VERSION_MAJOR, executor_VERSION_MINOR));
+	fputs(intro, stderr);
+
+	kmsg = open("/dev/kmsg", O_WRONLY);
+	if (kmsg < 0) {
+		kmsg = 0;
+		perror("Not logging to /dev/kmsg");
+		errno = 0;
+	}
+	kmsg_log(intro);
+	free(intro);
 
 	actors_init();
 
