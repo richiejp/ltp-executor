@@ -32,12 +32,13 @@ static void error_msg(struct actor *self, char *text)
 */
 
 #line 35 "/home/rich/qa/ltp-executor/parser.c"
-static const int parse_start = 37;
+static const int parse_start = 39;
 
-static const int parse_en_main = 37;
+static const int parse_en_clear = 37;
+static const int parse_en_main = 39;
 
 
-#line 64 "/home/rich/qa/ltp-executor/parser.rl"
+#line 61 "/home/rich/qa/ltp-executor/parser.rl"
 
 
 /* Holds the current state of the finite state machine
@@ -50,12 +51,12 @@ struct cmds *cmds;
 void parser_init(void)
 {
 	
-#line 54 "/home/rich/qa/ltp-executor/parser.c"
+#line 55 "/home/rich/qa/ltp-executor/parser.c"
 	{
 		cs = (int)parse_start;
 	}
 	
-#line 77 "/home/rich/qa/ltp-executor/parser.rl"
+#line 74 "/home/rich/qa/ltp-executor/parser.rl"
 	
 }
 
@@ -69,42 +70,42 @@ void parser_feed(struct actor *self, char *str, size_t len)
 	struct msg *msg;
 	
 	
-#line 73 "/home/rich/qa/ltp-executor/parser.c"
+#line 74 "/home/rich/qa/ltp-executor/parser.c"
 	{
 		
 		_resume: {}
 		if ( p == pe && p != eof )
 			goto _out;
 		switch ( cs ) {
-			case 37:
+			case 39:
 			if ( p == eof ) {
-				goto _ctr94;	goto _again;
+				goto _ctr97;	goto _again;
 			}
 			else {
 				switch( ( (*( p))) ) {
 					case 65: {
-						goto _ctr95;
+						goto _ctr98;
 					}
 					case 67: {
-						goto _ctr96;
+						goto _ctr99;
 					}
 					case 69: {
-						goto _ctr97;
+						goto _ctr100;
 					}
 					case 80: {
-						goto _ctr98;
+						goto _ctr101;
 					}
 					case 97: {
-						goto _ctr95;
+						goto _ctr98;
 					}
 					case 99: {
-						goto _ctr96;
+						goto _ctr99;
 					}
 					case 101: {
-						goto _ctr97;
+						goto _ctr100;
 					}
 					case 112: {
-						goto _ctr98;
+						goto _ctr101;
 					}
 				}
 				goto _ctr2;
@@ -737,6 +738,38 @@ void parser_feed(struct actor *self, char *str, size_t len)
 				}
 				goto _ctr21;
 			}
+			case 37:
+			if ( p == eof ) {
+				goto _ctr94;	goto _again;
+			}
+			else {
+				switch( ( (*( p))) ) {
+					case 10: {
+						goto _ctr95;
+					}
+					case 13: {
+						goto _ctr96;
+					}
+				}
+				goto _ctr94;
+			}
+			case 40:
+			if ( p == eof ) {
+				goto _ctr102;	goto _again;
+			}
+			else {
+				goto _ctr0;
+			}
+			case 38:
+			if ( p == eof ) {
+				goto _ctr96;	goto _again;
+			}
+			else {
+				if ( ( (*( p))) == 10 ) {
+					goto _ctr95;
+				}
+				goto _ctr0;
+			}
 		}
 		
 		_ctr0: cs = 0; goto _again;
@@ -750,7 +783,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 		_ctr46: cs = 0; goto f14;
 		_ctr49: cs = 0; goto f16;
 		_ctr76: cs = 0; goto f20;
-		_ctr95: cs = 1; goto _again;
+		_ctr98: cs = 1; goto _again;
 		_ctr1: cs = 1; goto f0;
 		_ctr3: cs = 2; goto _again;
 		_ctr4: cs = 2; goto f0;
@@ -769,7 +802,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 		_ctr24: cs = 8; goto _again;
 		_ctr18: cs = 8; goto f5;
 		_ctr25: cs = 8; goto f8;
-		_ctr96: cs = 9; goto _again;
+		_ctr99: cs = 9; goto _again;
 		_ctr26: cs = 9; goto f0;
 		_ctr27: cs = 10; goto _again;
 		_ctr28: cs = 10; goto f0;
@@ -791,7 +824,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 		_ctr47: cs = 17; goto f16;
 		_ctr48: cs = 18; goto f13;
 		_ctr50: cs = 18; goto f16;
-		_ctr97: cs = 19; goto _again;
+		_ctr100: cs = 19; goto _again;
 		_ctr52: cs = 19; goto f0;
 		_ctr53: cs = 20; goto _again;
 		_ctr54: cs = 20; goto f0;
@@ -818,7 +851,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 		_ctr80: cs = 29; goto f8;
 		_ctr79: cs = 30; goto _again;
 		_ctr81: cs = 30; goto f8;
-		_ctr98: cs = 31; goto _again;
+		_ctr101: cs = 31; goto _again;
 		_ctr82: cs = 31; goto f0;
 		_ctr83: cs = 32; goto _again;
 		_ctr84: cs = 32; goto f0;
@@ -831,27 +864,31 @@ void parser_feed(struct actor *self, char *str, size_t len)
 		_ctr91: cs = 36; goto _again;
 		_ctr93: cs = 36; goto f8;
 		_ctr94: cs = 37; goto _again;
-		_ctr17: cs = 37; goto f6;
-		_ctr23: cs = 37; goto f9;
-		_ctr51: cs = 37; goto f17;
-		_ctr65: cs = 37; goto f18;
-		_ctr70: cs = 37; goto f19;
-		_ctr78: cs = 37; goto f21;
-		_ctr90: cs = 37; goto f22;
+		_ctr96: cs = 38; goto _again;
+		_ctr97: cs = 39; goto _again;
+		_ctr17: cs = 39; goto f6;
+		_ctr23: cs = 39; goto f9;
+		_ctr51: cs = 39; goto f17;
+		_ctr65: cs = 39; goto f18;
+		_ctr70: cs = 39; goto f19;
+		_ctr78: cs = 39; goto f21;
+		_ctr90: cs = 39; goto f22;
+		_ctr102: cs = 40; goto _again;
+		_ctr95: cs = 40; goto f23;
 		
 		f3:
 		{
 #line 4 "/home/rich/qa/ltp-executor/parser-common.rl"
 			n = (( (*( p)))) - '0'; }
 		
-#line 848 "/home/rich/qa/ltp-executor/parser.c"
+#line 885 "/home/rich/qa/ltp-executor/parser.c"
 		goto _again;
 		f7:
 		{
 #line 5 "/home/rich/qa/ltp-executor/parser-common.rl"
 			n = n * 10 + ((( (*( p)))) - '0'); }
 		
-#line 855 "/home/rich/qa/ltp-executor/parser.c"
+#line 892 "/home/rich/qa/ltp-executor/parser.c"
 		goto _again;
 		f13:
 		{
@@ -862,7 +899,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			*(buf++) = (( (*( p))));
 		}
 		
-#line 866 "/home/rich/qa/ltp-executor/parser.c"
+#line 903 "/home/rich/qa/ltp-executor/parser.c"
 		goto _again;
 		f5:
 		{
@@ -872,7 +909,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			id = id_to_addr(n);
 		}
 		
-#line 876 "/home/rich/qa/ltp-executor/parser.c"
+#line 913 "/home/rich/qa/ltp-executor/parser.c"
 		goto _again;
 		f15:
 		{
@@ -883,7 +920,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			buf = cmds->cmds;
 		}
 		
-#line 887 "/home/rich/qa/ltp-executor/parser.c"
+#line 924 "/home/rich/qa/ltp-executor/parser.c"
 		goto _again;
 		f17:
 		{
@@ -899,7 +936,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			actor_say(self, id, msg);
 		}
 		
-#line 903 "/home/rich/qa/ltp-executor/parser.c"
+#line 940 "/home/rich/qa/ltp-executor/parser.c"
 		goto _again;
 		f19:
 		{
@@ -911,7 +948,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			actor_say(self, id, msg);
 		}
 		
-#line 915 "/home/rich/qa/ltp-executor/parser.c"
+#line 952 "/home/rich/qa/ltp-executor/parser.c"
 		goto _again;
 		f8:
 		{
@@ -920,7 +957,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			error_msg(self, "Expected new line");
 			{cs = 37; goto _again;}}
 		
-#line 924 "/home/rich/qa/ltp-executor/parser.c"
+#line 961 "/home/rich/qa/ltp-executor/parser.c"
 		goto _again;
 		f2:
 		{
@@ -929,7 +966,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			error_msg(self, "Expected digit");
 			{cs = 37; goto _again;}}
 		
-#line 933 "/home/rich/qa/ltp-executor/parser.c"
+#line 970 "/home/rich/qa/ltp-executor/parser.c"
 		goto _again;
 		f12:
 		{
@@ -938,7 +975,14 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			error_msg(self, "Expected symbol character");
 			{cs = 37; goto _again;}}
 		
-#line 942 "/home/rich/qa/ltp-executor/parser.c"
+#line 979 "/home/rich/qa/ltp-executor/parser.c"
+		goto _again;
+		f23:
+		{
+#line 77 "/home/rich/qa/ltp-executor/parser-common.rl"
+			{cs = 39; goto _again;}}
+		
+#line 986 "/home/rich/qa/ltp-executor/parser.c"
 		goto _again;
 		f22:
 		{
@@ -949,33 +993,30 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			actor_say(self, ADDR_WRITER, msg);
 		}
 		
-#line 953 "/home/rich/qa/ltp-executor/parser.c"
+#line 997 "/home/rich/qa/ltp-executor/parser.c"
 		goto _again;
 		f9:
 		{
 #line 43 "/home/rich/qa/ltp-executor/parser.rl"
 			tester_start(self, id); }
 		
-#line 960 "/home/rich/qa/ltp-executor/parser.c"
+#line 1004 "/home/rich/qa/ltp-executor/parser.c"
 		goto _again;
 		f21:
 		{
 #line 45 "/home/rich/qa/ltp-executor/parser.rl"
 			shutdown(self); }
 		
-#line 967 "/home/rich/qa/ltp-executor/parser.c"
+#line 1011 "/home/rich/qa/ltp-executor/parser.c"
 		goto _again;
 		f0:
 		{
 #line 47 "/home/rich/qa/ltp-executor/parser.rl"
 			
 			error_msg(self, "Epected ping, allc, exit, cmds, or exec");
-			/* TODO: Errors are probably most common when a user is typing
-			* stuff in manually. So we can reduce some noise by clearing
-			* the read buffer up to the first newline char (if any) */
 			{cs = 37; goto _again;}}
 		
-#line 979 "/home/rich/qa/ltp-executor/parser.c"
+#line 1020 "/home/rich/qa/ltp-executor/parser.c"
 		goto _again;
 		f11:
 		{
@@ -985,7 +1026,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			id = id_to_addr(n);
 		}
 		
-#line 989 "/home/rich/qa/ltp-executor/parser.c"
+#line 1030 "/home/rich/qa/ltp-executor/parser.c"
 		{
 #line 18 "/home/rich/qa/ltp-executor/parser-common.rl"
 			
@@ -998,7 +1039,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			buf = cmds->tid;
 		}
 		
-#line 1002 "/home/rich/qa/ltp-executor/parser.c"
+#line 1043 "/home/rich/qa/ltp-executor/parser.c"
 		goto _again;
 		f18:
 		{
@@ -1008,7 +1049,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			id = id_to_addr(n);
 		}
 		
-#line 1012 "/home/rich/qa/ltp-executor/parser.c"
+#line 1053 "/home/rich/qa/ltp-executor/parser.c"
 		{
 #line 45 "/home/rich/qa/ltp-executor/parser-common.rl"
 			
@@ -1018,7 +1059,7 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			actor_say(self, id, msg);
 		}
 		
-#line 1022 "/home/rich/qa/ltp-executor/parser.c"
+#line 1063 "/home/rich/qa/ltp-executor/parser.c"
 		goto _again;
 		f6:
 		{
@@ -1028,12 +1069,12 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			id = id_to_addr(n);
 		}
 		
-#line 1032 "/home/rich/qa/ltp-executor/parser.c"
+#line 1073 "/home/rich/qa/ltp-executor/parser.c"
 		{
 #line 43 "/home/rich/qa/ltp-executor/parser.rl"
 			tester_start(self, id); }
 		
-#line 1037 "/home/rich/qa/ltp-executor/parser.c"
+#line 1078 "/home/rich/qa/ltp-executor/parser.c"
 		goto _again;
 		f16:
 		{
@@ -1042,14 +1083,14 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			error_msg(self, "Expected new line");
 			{cs = 37; goto _again;}}
 		
-#line 1046 "/home/rich/qa/ltp-executor/parser.c"
+#line 1087 "/home/rich/qa/ltp-executor/parser.c"
 		{
 #line 72 "/home/rich/qa/ltp-executor/parser-common.rl"
 			
 			error_msg(self, "Expected string character");
 			{cs = 37; goto _again;}}
 		
-#line 1053 "/home/rich/qa/ltp-executor/parser.c"
+#line 1094 "/home/rich/qa/ltp-executor/parser.c"
 		goto _again;
 		f4:
 		{
@@ -1058,14 +1099,14 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			error_msg(self, "Expected digit");
 			{cs = 37; goto _again;}}
 		
-#line 1062 "/home/rich/qa/ltp-executor/parser.c"
+#line 1103 "/home/rich/qa/ltp-executor/parser.c"
 		{
 #line 52 "/home/rich/qa/ltp-executor/parser-common.rl"
 			
 			error_msg(self, "Expected new line");
 			{cs = 37; goto _again;}}
 		
-#line 1069 "/home/rich/qa/ltp-executor/parser.c"
+#line 1110 "/home/rich/qa/ltp-executor/parser.c"
 		goto _again;
 		f10:
 		{
@@ -1074,14 +1115,14 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			error_msg(self, "Expected digit");
 			{cs = 37; goto _again;}}
 		
-#line 1078 "/home/rich/qa/ltp-executor/parser.c"
+#line 1119 "/home/rich/qa/ltp-executor/parser.c"
 		{
 #line 57 "/home/rich/qa/ltp-executor/parser-common.rl"
 			
 			error_msg(self, "Expected white space");
 			{cs = 37; goto _again;}}
 		
-#line 1085 "/home/rich/qa/ltp-executor/parser.c"
+#line 1126 "/home/rich/qa/ltp-executor/parser.c"
 		goto _again;
 		f14:
 		{
@@ -1090,57 +1131,51 @@ void parser_feed(struct actor *self, char *str, size_t len)
 			error_msg(self, "Expected symbol character");
 			{cs = 37; goto _again;}}
 		
-#line 1094 "/home/rich/qa/ltp-executor/parser.c"
+#line 1135 "/home/rich/qa/ltp-executor/parser.c"
 		{
 #line 57 "/home/rich/qa/ltp-executor/parser-common.rl"
 			
 			error_msg(self, "Expected white space");
 			{cs = 37; goto _again;}}
 		
-#line 1101 "/home/rich/qa/ltp-executor/parser.c"
+#line 1142 "/home/rich/qa/ltp-executor/parser.c"
 		goto _again;
 		f20:
 		{
 #line 47 "/home/rich/qa/ltp-executor/parser.rl"
 			
 			error_msg(self, "Epected ping, allc, exit, cmds, or exec");
-			/* TODO: Errors are probably most common when a user is typing
-			* stuff in manually. So we can reduce some noise by clearing
-			* the read buffer up to the first newline char (if any) */
 			{cs = 37; goto _again;}}
 		
-#line 1113 "/home/rich/qa/ltp-executor/parser.c"
+#line 1151 "/home/rich/qa/ltp-executor/parser.c"
 		{
 #line 52 "/home/rich/qa/ltp-executor/parser-common.rl"
 			
 			error_msg(self, "Expected new line");
 			{cs = 37; goto _again;}}
 		
-#line 1120 "/home/rich/qa/ltp-executor/parser.c"
+#line 1158 "/home/rich/qa/ltp-executor/parser.c"
 		goto _again;
 		f1:
 		{
 #line 47 "/home/rich/qa/ltp-executor/parser.rl"
 			
 			error_msg(self, "Epected ping, allc, exit, cmds, or exec");
-			/* TODO: Errors are probably most common when a user is typing
-			* stuff in manually. So we can reduce some noise by clearing
-			* the read buffer up to the first newline char (if any) */
 			{cs = 37; goto _again;}}
 		
-#line 1132 "/home/rich/qa/ltp-executor/parser.c"
+#line 1167 "/home/rich/qa/ltp-executor/parser.c"
 		{
 #line 57 "/home/rich/qa/ltp-executor/parser-common.rl"
 			
 			error_msg(self, "Expected white space");
 			{cs = 37; goto _again;}}
 		
-#line 1139 "/home/rich/qa/ltp-executor/parser.c"
+#line 1174 "/home/rich/qa/ltp-executor/parser.c"
 		goto _again;
 		
 		_again: {}
 		if ( p == eof ) {
-			if ( cs >= 37 )
+			if ( cs >= 39 )
 				goto _out;
 		}
 		else {
@@ -1152,6 +1187,6 @@ void parser_feed(struct actor *self, char *str, size_t len)
 		_out: {}
 	}
 	
-#line 91 "/home/rich/qa/ltp-executor/parser.rl"
+#line 88 "/home/rich/qa/ltp-executor/parser.rl"
 	
 }
