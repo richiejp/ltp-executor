@@ -46,10 +46,7 @@ static void error_msg(struct actor *self, char *text)
 
 	action exp_cmd {
 		error_msg(self, "Epected ping, allc, exit, cmds, or exec");
-		/* TODO: Errors are probably most common when a user is typing
-		 * stuff in manually. So we can reduce some noise by clearing
-		 * the read buffer up to the first newline char (if any) */
-		fgoto main;
+		fgoto clear;
 	}
 
 	ping = "ping"i $err(exp_cmd) ws* nl @say_pong;

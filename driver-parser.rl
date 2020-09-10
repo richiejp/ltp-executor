@@ -31,7 +31,7 @@ static void error_msg(struct actor *self __attribute__((unused)),
 	action exp_cmd {
 		DBG("Expected pong, +allc, +cmds, +exec, logd or tres.\nBuffer Dump: ");
 		fwrite(str, 1, len, stderr);
-		fgoto main;
+		fgoto clear;
 	}
 
 	action say_pong {
