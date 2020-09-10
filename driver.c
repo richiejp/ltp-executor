@@ -78,7 +78,7 @@ static void writer_listen(struct actor *self)
 
 	while ((msg = actor_inbox_pop(self)) == NULL) {
 		dprintf(STDOUT_FILENO, "PING\n");
-		usleep(10000);
+		usleep(1000000);
 	}
 	assert(msg->type == MSG_PONG);
 	free(msg);
