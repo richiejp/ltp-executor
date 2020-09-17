@@ -5,7 +5,9 @@ Description=LTP Executor on %I
 ConditionPathExists=/dev/%I
 
 [Service]
-ExecStart=/usr/bin/sh -c "exec 3<>/dev/%I; /opt/ltp/bin/executor >&3 <&3"
+Environment="PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/ltp/testcases/bin"
+Environment="LTPROOT=/opt/ltp"
+ExecStart=/usr/bin/sh -c "stty -F /dev/%I -echo raw; exec 3<>/dev/%I; /opt/ltp/bin/executor >&3 <&3"
 
 [Install]
 WantedBy=default.target
