@@ -270,10 +270,12 @@ static void tester_check_output(struct actor *self)
 		if (!r0) {
 			close(fds[i].fd);
 
-			if (fds[i].fd == my->cout) {
+			if (fds[i].fd == my->cout)
 				my->cout = 0;
-			} else {
+			else
 				my->eout = 0;
+
+			if (my->cout || my->eout) {
 				free(msg);
 				continue;
 			}
